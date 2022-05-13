@@ -25,3 +25,8 @@ body {
     line-height: 61px;
     border: 2px solid red;
 }
+
+.disable-card {
+    background-color: gray;
+    cursor: default;
+}

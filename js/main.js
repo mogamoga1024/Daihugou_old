@@ -7,7 +7,8 @@
     const viewModel = {
         data() {
             return {
-                playerCards: []
+                playerCards: [],
+                canChooseCard: true,
             }
         },
         created() {
@@ -19,7 +20,14 @@
             gameManager.gameStart();
         },
         methods: {
-            chooseExchangeCards() {
+            chooseExchangeCards(card) {
+                if (this.canChooseCard === false && card.isSelected === false) {
+                    return;
+                }
+                card.isSelected = !card.isSelected;
+                this.canChooseCard = this.playerCards.filter(c => c.isSelected).length < 2; // TODO 2
+            },
+            exchangeCards() {
                 player.chooseExchangeCardsInScreen([player.cards[0]]);
             }
         }
