@@ -18,6 +18,12 @@ class PlayerFactory {
         currentPlayer.nextPlayer = firstPlayer;
         firstPlayer.prevPlayer = currentPlayer;
 
+        this.dealCards(firstPlayer);
+
         return firstPlayer;
+    }
+
+    static dealCards(playerChain) {
+
     }
 }
