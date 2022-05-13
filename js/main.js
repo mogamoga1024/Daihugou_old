@@ -2,11 +2,13 @@
 const viewModel = {
     data() {
         return {
-            gameManager: null
+            gameManager: null,
+            cpuNum: 3,
         }
     },
     created() {
-        this.gameManager = new GameManager();
+        const playerChain = PlayerFactory.createPlayerChain(this.cpuNum);
+        this.gameManager = new GameManager(playerChain);
     }
 };
 
