@@ -5,7 +5,7 @@ class PlayerFactory {
 
     static createPlayerChain(cpuNum) {
         if (cpuNum < this.#minCpuNum || cpuNum > this.#maxCpuNum) {
-            throw new Error("CPUの人数が範囲外");
+            throw new Error("CPUの人数が範囲外です。");
         }
 
         const firstPlayer = new Player();
