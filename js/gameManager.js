@@ -14,11 +14,10 @@ class GameManager {
         // 1位と最下位でカードの交換を行う。
         // TODO 最下位は最も強いカードを交換する。
         const players = this.#currentPlayer.chainToArray();
-        const firstPlacePlayer = players.reduce((a, b) => a.ranking < b.ranking ? b : a);
-        const lastPlacePlayer = players.reduce((a, b) => a.ranking > b.ranking ? b : a);
+        const firstPlacePlayer = players.reduce((a, b) => a.ranking < b.ranking ? a : b);
+        const lastPlacePlayer = players.reduce((a, b) => a.ranking > b.ranking ? a : b);
 
-        console.log(firstPlacePlayer);
-        console.log(lastPlacePlayer);
+        
     }
 
     /**
