@@ -3,6 +3,14 @@ class PlayerFactory {
     static #minCpuNum = 1;
     static #maxCpuNum = 3;
 
+    /**
+     * ・nextPlayer, prevPlayerがセットされた状態でPlayerオブジェクトを生成する。
+     * ・引数のcpuNumだけCpuオブジェクトが生成されnextPlayer,prevPlayerに紐づけられる。
+     * ・Playerオブジェクトは最下位で生成される。
+     * ・カードも配られた状態で生成される。
+     * @param {number} cpuNum 
+     * @returns {Player}
+     */
     static createPlayerChain(cpuNum) {
         if (cpuNum < this.#minCpuNum || cpuNum > this.#maxCpuNum) {
             throw new Error("CPUの人数が範囲外です。");
@@ -10,10 +18,12 @@ class PlayerFactory {
 
         const firstPlayer = new Player();
         let currentPlayer = firstPlayer;
+        currentPlayer.ranking = cpuNum + 1;
         for (let i = 0; i < cpuNum; i++) {
             let nextPlayer = new Cpu();
             currentPlayer.nextPlayer = nextPlayer;
             nextPlayer.prevPlayer = currentPlayer;
+            nextPlayer.ranking = currentPlayer.ranking - 1;
             currentPlayer = nextPlayer;
         }
         currentPlayer.nextPlayer = firstPlayer;

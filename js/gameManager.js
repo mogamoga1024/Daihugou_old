@@ -6,6 +6,10 @@ class GameManager {
         this.#currentPlayer = playerChain;
     }
 
+    gameStart() {
+        
+    }
+
     /**
      * @param {Player|Cpu} player1 
      * @param {Player|Cpu} player2 
