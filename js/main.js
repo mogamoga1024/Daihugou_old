@@ -8,7 +8,8 @@
         data() {
             return {
                 playerCards: [],
-                canChooseCard: true,
+                canChooseCards: true,
+                canExchangeCards: false,
             }
         },
         created() {
@@ -21,14 +22,16 @@
         },
         methods: {
             chooseExchangeCards(card) {
-                if (this.canChooseCard === false && card.isSelected === false) {
+                if (this.canChooseCards === false && card.isSelected === false) {
                     return;
                 }
                 card.isSelected = !card.isSelected;
-                this.canChooseCard = this.playerCards.filter(c => c.isSelected).length < 2; // TODO 2
+                const selectedCardsCount = this.playerCards.filter(c => c.isSelected).length;
+                this.canChooseCards = selectedCardsCount < 2; // TODO 2
+                this.canExchangeCards = selectedCardsCount === 2; // TODO 2
             },
             exchangeCards() {
-                player.chooseExchangeCardsInScreen([player.cards[0]]);
+                player.chooseExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.origin));
             }
         }
     };

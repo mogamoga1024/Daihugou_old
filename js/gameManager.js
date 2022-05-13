@@ -19,10 +19,22 @@ class GameManager {
 
         const firstPlacePlayerCard = await firstPlacePlayer.chooseExchangeCards();
         const lastPlacePlayerCard = await lastPlacePlayer.chooseExchangeCards();
+        
+        console.log("【カードの交換】");
+        
+        console.log("交換前");
+        console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
+        
+        console.log("交換するカード");
+        console.log("firstPlacePlayer: " + firstPlacePlayerCard.map(c => c.name).join(", "));
+        console.log("lastPlacePlayer: " + lastPlacePlayerCard.map(c => c.name).join(", "));
 
         this.#exchangeCards(firstPlacePlayer, lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
-        console.log("hoge");
+        console.log("交換後");
+        console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
     }
 
     /**
@@ -35,7 +47,7 @@ class GameManager {
         if (cards1.length !== cards2.length) {
             throw new Error("交換する枚数が異なっています。");
         }
-        player1.cards = player1.cards.filter(c => cards1.indexOf(c) === -1).concat(cards2);
-        player2.cards = player2.cards.filter(c => cards2.indexOf(c) === -1).concat(cards1);
+        player1.cards = player1.cards.filter(c => cards1.filter(d => c.name === d.name).length === 0).concat(cards2);
+        player2.cards = player2.cards.filter(c => cards2.filter(d => c.name === d.name).length === 0).concat(cards1);
     }
 }

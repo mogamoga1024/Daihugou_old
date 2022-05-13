@@ -1,8 +1,5 @@
 
 class Card {
-    _mark = Mark.NONE;
-    _numberName = "none";
-    #power = Number.MIN_SAFE_INTEGER;
     static #allCards = [];
 
     static get allCards() {
@@ -30,19 +27,32 @@ class Card {
         return this.#allCards;
     }
 
+    _mark = Mark.NONE;
+    get mark() {
+        return this._mark;
+    }
+    
+    _numberName = "none";
+
+    _name = "";
+    get name() {
+        if (this._name === "") {
+            switch (this._mark) {
+                case Mark.SPADE:   this._name = "♠" + this._numberName; break;
+                case Mark.HEART:   this._name = "♥" + this._numberName; break;
+                case Mark.DIAMOND: this._name = "♦" + this._numberName; break;
+                case Mark.CLUB:    this._name = "♣" + this._numberName; break;
+                case Mark.NONE:    this._name = this._numberName; break;
+            }
+        }
+        return this._name;
+    }
+
+    #power = Number.MIN_SAFE_INTEGER;
+
     constructor(mark, numberName, power) {
         this._mark = mark;
         this._numberName = numberName;
         this.#power = power;
-    }
-
-    toString() {
-        switch (this._mark) {
-            case Mark.SPADE:   return "♠" + this._numberName;
-            case Mark.HEART:   return "♥" + this._numberName;
-            case Mark.DIAMOND: return "♦" + this._numberName;
-            case Mark.CLUB:    return "♣" + this._numberName;
-            case Mark.NONE:    return this._numberName;
-        } 
     }
 }
