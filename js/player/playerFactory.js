@@ -60,7 +60,17 @@ class PlayerFactory {
 
         for (const index of cardsIndexs) {
             currentPlayer.cards.push(Card.allCards[index]);
+            this.#sortCards(currentPlayer.cards);
             currentPlayer = currentPlayer.nextPlayer;
         }
+    }
+
+    static #sortCards(cards) {
+        return cards.sort((a, b) => {
+            if (a.power !== b.power) {
+                return a.power - b.power;
+            }
+            return a.mark - b.mark;
+        })
     }
 }

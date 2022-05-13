@@ -31,7 +31,7 @@ class Card {
     get mark() {
         return this._mark;
     }
-    
+
     _numberName = "none";
 
     _name = "";
@@ -49,6 +49,9 @@ class Card {
     }
 
     #power = Number.MIN_SAFE_INTEGER;
+    get power() {
+        return this.#power;
+    }
 
     constructor(mark, numberName, power) {
         this._mark = mark;
