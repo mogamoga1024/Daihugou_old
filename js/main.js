@@ -2,8 +2,11 @@
 const viewModel = {
     data() {
         return {
-            
+            gameManager: null
         }
+    },
+    created() {
+        this.gameManager = new GameManager();
     }
 };
 
