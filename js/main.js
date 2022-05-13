@@ -1,8 +1,8 @@
 
 (function() {
     const cpuNum = 3;
-    const playerChain = PlayerFactory.createPlayerChain(cpuNum);
-    const gameManager = new GameManager(playerChain);
+    const player = PlayerFactory.createPlayerChain(cpuNum);
+    const gameManager = new GameManager(player);
 
     const viewModel = {
         data() {
@@ -15,6 +15,11 @@
         },
         mounted() {
             gameManager.gameStart();
+        },
+        methods: {
+            chooseExchangeCards() {
+                player.chooseExchangeCardsInScreen([player.cards[0]]);
+            }
         }
     };
 

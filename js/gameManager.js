@@ -10,15 +10,15 @@ class GameManager {
         this.#roundStart();
     }
 
-    #roundStart() {
+    async #roundStart() {
         // 1位と最下位でカードの交換を行う。
         // TODO 最下位は最も強いカードを交換する。
         const players = this.#currentPlayer.chainToArray();
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 
-        const firstPlacePlayerCard = firstPlacePlayer.chooseExchangeCards();
-        const lastPlacePlayerCard = lastPlacePlayer.chooseExchangeCards();
+        const firstPlacePlayerCard = await firstPlacePlayer.chooseExchangeCards();
+        const lastPlacePlayerCard = await lastPlacePlayer.chooseExchangeCards();
 
         this.#exchangeCards(firstPlacePlayer, lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
