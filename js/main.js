@@ -1,15 +1,22 @@
 
-const viewModel = {
-    data() {
-        return {
-            gameManager: null,
-            cpuNum: 3,
-        }
-    },
-    created() {
-        const playerChain = PlayerFactory.createPlayerChain(this.cpuNum);
-        this.gameManager = new GameManager(playerChain);
-    }
-};
+(function() {
+    const cpuNum = 3;
+    const playerChain = PlayerFactory.createPlayerChain(cpuNum);
+    const gameManager = new GameManager(playerChain);
 
-Vue.createApp(viewModel).mount("#app");
+    const viewModel = {
+        data() {
+            return {
+                text: "Hello, World!",
+            }
+        },
+        created() {
+            
+        },
+        mounted() {
+            gameManager.gameStart();
+        }
+    };
+
+    Vue.createApp(viewModel).mount("#app");
+})();
