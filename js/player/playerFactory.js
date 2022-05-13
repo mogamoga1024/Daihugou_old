@@ -34,6 +34,10 @@ class PlayerFactory {
         return firstPlayer;
     }
 
+    /**
+     * カードを配る。
+     * @param {Player|Cpu} playerChain 
+     */
     static dealCards(playerChain) {
         const firstPlayer = playerChain;
         let currentPlayer = firstPlayer;
