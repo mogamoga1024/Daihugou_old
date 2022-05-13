@@ -12,6 +12,9 @@
         <div>{{ text }}</div>
         <button @click="chooseExchangeCards">hoge</button>
         <button onClick="alert('fuga')">fuga</button>
+        <template v-for="card in playerCards">
+            <span>{{ card.toString() }}</span>
+        </template>
     </div>
 
     <script src="js/common.js"></script>

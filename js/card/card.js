@@ -36,4 +36,13 @@ class Card {
         this.#power = power;
     }
 
+    toString() {
+        switch (this.#mark) {
+            case Mark.SPADE:   return "♠" + this.#numberName;
+            case Mark.HEART:   return "♥" + this.#numberName;
+            case Mark.DIAMOND: return "♦" + this.#numberName;
+            case Mark.CLUB:    return "♣" + this.#numberName;
+            case Mark.NONE:    return this.#numberName;
+        } 
+    }
 }

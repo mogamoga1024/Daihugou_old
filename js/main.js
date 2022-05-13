@@ -8,10 +8,11 @@
         data() {
             return {
                 text: "Hello, World!",
+                playerCards: []
             }
         },
         created() {
-            
+            this.playerCards = player.cards;
         },
         mounted() {
             gameManager.gameStart();
