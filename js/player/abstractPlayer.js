@@ -1,6 +1,6 @@
 
 class AbstractPlayer {
-    #cards = [];
+    cards = [];
     nextPlayer = null;
     prevPlayer = null;
 }
