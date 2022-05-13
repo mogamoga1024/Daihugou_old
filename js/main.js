@@ -33,6 +33,7 @@
             exchangeCards() {
                 player.chooseExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.origin));
                 this.canChooseCards = true;
+                this.canExchangeCards = false;
                 this.playerCards.map(c => c.isSelected = false);
             }
         }
