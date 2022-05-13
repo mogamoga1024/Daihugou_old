@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>大富豪</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
     <div id="app">
-        <div>{{ text }}</div>
-        <button @click="chooseExchangeCards">hoge</button>
-        <button onClick="alert('fuga')">fuga</button>
-        <template v-for="card in playerCards">
-            <span>{{ card.toString() }}</span>
-        </template>
+        <button @click="chooseExchangeCards">交換</button>
+        <div id="player-card-container">
+            <div class="player-card" v-for="card in playerCards" @click="card.isSelected = !card.isSelected" :class="{'selected-card': card.isSelected}">
+                {{ card.origin.toString() }}
+            </div>
+        </div>
     </div>
 
     <script src="js/common.js"></script>

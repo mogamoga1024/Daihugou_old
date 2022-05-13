@@ -7,12 +7,13 @@
     const viewModel = {
         data() {
             return {
-                text: "Hello, World!",
                 playerCards: []
             }
         },
         created() {
-            this.playerCards = player.cards;
+            this.playerCards = player.cards.map(c => {
+                return {origin: c, isSelected: false}
+            });
         },
         mounted() {
             gameManager.gameStart();
