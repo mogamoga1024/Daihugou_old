@@ -23,6 +23,15 @@ class GameManager {
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 
+        if (Common.isPlayer(lastPlacePlayer)) {
+            const cardsCount = this.playerCardsVM.playerCards.length;
+            this.playerCardsVM.playerCards[cardsCount - 2].isSelected = true; // TODO 交換枚数
+            this.playerCardsVM.playerCards[cardsCount - 1].isSelected = true;
+            this.playerCardsVM.canSelectCards = false;
+            this.playerCardsVM.canOutputCards = true;
+            this.playerCardsVM.forceCardUnselectable = true;
+        }
+
         const firstPlacePlayerCard = await firstPlacePlayer.selectExchangeCards();
         const lastPlacePlayerCard = await lastPlacePlayer.selectExchangeCards();
         
@@ -40,6 +49,7 @@ class GameManager {
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
 
         this.playerCardsVM.isExchangeCardsScene = false;
+        this.playerCardsVM.forceCardUnselectable = false;
 
         if (Common.isPlayer(firstPlacePlayer)) {
             this.playerCardsVM.playerCards = firstPlacePlayer.cards.map(c => {

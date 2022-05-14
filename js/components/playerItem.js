@@ -17,6 +17,7 @@ const PlayerItem = {
             playerCards: [],
             canSelectCards: true,
             canOutputCards: false,
+            forceCardUnselectable: false,
         }
     },
     created() {
@@ -30,7 +31,7 @@ const PlayerItem = {
             this.selectExchangeCards(card);
         },
         selectExchangeCards(card) {
-            if (this.canSelectCards === false && card.isSelected === false) {
+            if (this.canSelectCards === false && card.isSelected === false || this.forceCardUnselectable) {
                 return;
             }
             card.isSelected = !card.isSelected;

@@ -3,12 +3,7 @@ class Player extends AbstractPlayer {
     #resolveSelectExchangeCards = null;
 
     async selectExchangeCards() {
-        if (this.ranking <= this.allPlayerCount / 2) {
-            return await this.#waitSelectExchangeCardsInScreen();
-        }
-        else {
-            return super.selectExchangeCards();
-        }
+        return await this.#waitSelectExchangeCardsInScreen();
     }
 
     #waitSelectExchangeCardsInScreen() {
