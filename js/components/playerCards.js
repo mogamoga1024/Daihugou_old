@@ -45,11 +45,6 @@ const PlayerCards = {
             this.canSelectCards = true;
             this.canOutputCards = false;
             this.playerCards.map(c => c.isSelected = false);
-        },
-        onUpdatePlayerCards(newCards) {
-            this.playerCards = newCards.map(c => {
-                return new CardModel(c)
-            });
         }
     }
 };

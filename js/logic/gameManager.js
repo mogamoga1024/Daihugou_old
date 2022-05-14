@@ -39,10 +39,14 @@ class GameManager {
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
 
         if (Common.isPlayer(firstPlacePlayer)) {
-            this.playerCardsVM.onUpdatePlayerCards(firstPlacePlayer.cards);
+            this.playerCardsVM.playerCards = firstPlacePlayer.cards.map(c => {
+                return new CardModel(c)
+            });
         }
         else if (Common.isPlayer(lastPlacePlayer)) {
-            this.playerCardsVM.onUpdatePlayerCards(lastPlacePlayer.cards);
+            this.playerCardsVM.playerCards = lastPlacePlayer.cards.map(c => {
+                return new CardModel(c)
+            });
         }
     }
 
