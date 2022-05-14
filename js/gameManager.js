@@ -47,7 +47,10 @@ class GameManager {
         if (cards1.length !== cards2.length) {
             throw new Error("交換する枚数が異なっています。");
         }
-        player1.cards = player1.cards.filter(c => cards1.filter(d => c.name === d.name).length === 0).concat(cards2);
-        player2.cards = player2.cards.filter(c => cards2.filter(d => c.name === d.name).length === 0).concat(cards1);
+        player1.cards = player1.cards.filter(c => cards1.filter(d => c.id === d.id).length === 0).concat(cards2);
+        player2.cards = player2.cards.filter(c => cards2.filter(d => c.id === d.id).length === 0).concat(cards1);
+
+        Common.sortCards(player1.cards);
+        Common.sortCards(player2.cards);
     }
 }

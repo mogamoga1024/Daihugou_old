@@ -1,7 +1,6 @@
 
-class Card {
+class Card extends AbstractCard {
     static #allCards = [];
-
     static get allCards() {
         if (this.#allCards.length > 0) {
             return this.#allCards;
@@ -48,14 +47,15 @@ class Card {
         return this._name;
     }
 
-    #power = Number.MIN_SAFE_INTEGER;
+    _power = Number.MIN_SAFE_INTEGER;
     get power() {
-        return this.#power;
+        return this._power;
     }
 
     constructor(mark, numberName, power) {
+        super();
         this._mark = mark;
         this._numberName = numberName;
-        this.#power = power;
+        this._power = power;
     }
 }
