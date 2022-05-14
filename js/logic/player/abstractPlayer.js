@@ -16,7 +16,7 @@ class AbstractPlayer {
         return count;
     }
 
-    chainToArray() {
+    get allPlayerList() {
         const ary = [];
         let currentPlayer = this;
         do {
