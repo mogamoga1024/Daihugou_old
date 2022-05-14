@@ -10,10 +10,11 @@
 </head>
 <body>
     <div id="app">
-        <button @click="exchangeCards" :disabled="canExchangeCards === false">交換</button>
+        <button @click="outputCards" :disabled="canOutputCards === false">交換</button>
+        <button>パス</button>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCards"
-                @click="selectExchangeCards(card)"
+                @click="onClickCard(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
                 {{ card.origin.name }}
             </div>

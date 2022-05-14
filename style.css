@@ -5,6 +5,11 @@ body {
     user-select: none;
 }
 
+button {
+    width: 60px;
+    margin: 10px;
+}
+
 #player-card-container {
     display: flex;
 }
