@@ -1,10 +1,11 @@
 
 const PlayerItem = {
     template: `
-        <div id="player-card-container">
+        <div id="player-button-container">
             <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
             <button :disabled="isExchangeCardsScene">パス</button>
-            <div class="spacer"></div>
+        </div>
+        <div id="player-card-container">
             <div class="player-card" v-for="card in playerCardModels"
                 @click="onClickCard(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">

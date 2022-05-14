@@ -10,12 +10,15 @@ button {
     margin: 10px;
 }
 
-.spacer {
-    width: 100%;
+#player-button-container {
+    margin: 0 auto;
+    max-width: 920px;
 }
 
 #player-card-container {
     display: flex;
+    margin: 0 auto;
+    max-width: 920px;
     flex-wrap: wrap;
     justify-content: center;
 }
