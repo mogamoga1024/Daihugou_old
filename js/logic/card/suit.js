@@ -1,5 +1,5 @@
 
-const Mark = {
+const Suit = {
     None: 0,
     Spade: 1,
     Heart: 2,
