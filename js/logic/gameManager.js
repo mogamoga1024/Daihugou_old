@@ -15,6 +15,9 @@ class GameManager {
     async #roundStart() {
         console.log("【ラウンド開始】");
 
+        console.log("【カードの交換】");
+        this.playerCardsVM.isExchangeCardsScene = true;
+
         // 1位と最下位でカードの交換を行う。
         const players = this.#currentPlayer.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
@@ -23,7 +26,6 @@ class GameManager {
         const firstPlacePlayerCard = await firstPlacePlayer.selectExchangeCards();
         const lastPlacePlayerCard = await lastPlacePlayer.selectExchangeCards();
         
-        console.log("【カードの交換】");
         console.log("交換前");
         console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
@@ -36,6 +38,8 @@ class GameManager {
         console.log("交換後");
         console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
+
+        this.playerCardsVM.isExchangeCardsScene = false;
 
         if (Common.isPlayer(firstPlacePlayer)) {
             this.playerCardsVM.playerCards = firstPlacePlayer.cards.map(c => {

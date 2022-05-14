@@ -2,7 +2,7 @@
 const PlayerCards = {
     template: `
         <button @click="outputCards" :disabled="canOutputCards === false">交換</button>
-        <button>パス</button>
+        <button :disabled="isExchangeCardsScene">パス</button>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCards"
                 @click="onClickCard(card)"
@@ -13,7 +13,7 @@ const PlayerCards = {
     `,
     data() {
         return {
-            gameStatus: GameStatus.None,
+            isExchangeCardsScene: true,
             playerCards: [],
             canSelectCards: true,
             canOutputCards: false,
