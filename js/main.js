@@ -2,7 +2,7 @@
 (function() {
     const cpuNum = 3;
     const player = PlayerFactory.createPlayerChain(cpuNum);
-    const gameManager = new GameManager(player);
+    let gameManager = null;
 
     const viewModel = {
         data() {
@@ -13,6 +13,8 @@
             }
         },
         created() {
+            gameManager = new GameManager(this, player);
+
             this.playerCards = player.cards.map(c => {
                 return {origin: c, isSelected: false}
             });
@@ -35,6 +37,11 @@
                 this.canChooseCards = true;
                 this.canExchangeCards = false;
                 this.playerCards.map(c => c.isSelected = false);
+            },
+            onUpdatePlayerCards(newCards) {
+                this.playerCards = newCards.map(c => {
+                    return {origin: c, isSelected: false}
+                });
             }
         }
     };

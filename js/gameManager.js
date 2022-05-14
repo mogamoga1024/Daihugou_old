@@ -1,8 +1,10 @@
 
 class GameManager {
     #currentPlayer = null;
+    #viewModel = null;
 
-    constructor(playerChain) {
+    constructor(viewModel, playerChain) {
+        this.#viewModel = viewModel;
         this.#currentPlayer = playerChain;
     }
 
@@ -21,11 +23,9 @@ class GameManager {
         const lastPlacePlayerCard = await lastPlacePlayer.chooseExchangeCards();
         
         console.log("【カードの交換】");
-        
         console.log("交換前");
         console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
-        
         console.log("交換するカード");
         console.log("firstPlacePlayer: " + firstPlacePlayerCard.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + lastPlacePlayerCard.map(c => c.name).join(", "));
@@ -35,6 +35,13 @@ class GameManager {
         console.log("交換後");
         console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
+
+        if (Common.isPlayer(firstPlacePlayer)) {
+            this.#viewModel.onUpdatePlayerCards(firstPlacePlayer.cards);
+        }
+        else if (Common.isPlayer(lastPlacePlayer)) {
+            this.#viewModel.onUpdatePlayerCards(lastPlacePlayer.cards);
+        }
     }
 
     /**

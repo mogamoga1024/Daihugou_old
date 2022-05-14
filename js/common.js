@@ -8,6 +8,10 @@ class Common {
         return crypto.getRandomValues(new Uint32Array(1))[0] % max;
     }
 
+    /**
+     * @param {Array<Card>} cards 
+     * @returns {Array<Card>} ソートされたカード
+     */
     static sortCards(cards) {
         return cards.sort((a, b) => {
             if (a.power !== b.power) {
@@ -15,5 +19,13 @@ class Common {
             }
             return a.mark - b.mark;
         })
+    }
+
+    /**
+     * @param {Player|Cpu} player
+     * @returns {boolean} Playerオブジェクトかどうか
+     */
+    static isPlayer(player) {
+        return player.constructor === Player;
     }
 }
