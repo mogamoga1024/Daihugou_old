@@ -1,8 +1,5 @@
 
 const PlayerCards = {
-    props: {
-        initialPlayerCards: Array
-    },
     template: `
         <button @click="outputCards" :disabled="canOutputCards === false">交換</button>
         <button>パス</button>
@@ -10,19 +7,22 @@ const PlayerCards = {
             <div class="player-card" v-for="card in playerCards"
                 @click="onClickCard(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
-                {{ card.origin.name }}
+                {{ card.card.name }}
             </div>
         </div>
     `,
     data() {
         return {
-            playerCards: this.initialPlayerCards,
+            playerCards: [],
             canSelectCards: true,
             canOutputCards: false,
         }
     },
     created() {
         gameManager.playerCardsVM = this;
+        this.playerCards = player.cards.map(c => {
+            return new CardModel(c)
+        });
     },
     methods: {
         onClickCard(card) {
@@ -41,14 +41,14 @@ const PlayerCards = {
             this.exchangeCards();
         },
         exchangeCards() {
-            player.selectExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.origin));
+            player.selectExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.card));
             this.canSelectCards = true;
             this.canOutputCards = false;
             this.playerCards.map(c => c.isSelected = false);
         },
         onUpdatePlayerCards(newCards) {
             this.playerCards = newCards.map(c => {
-                return {origin: c, isSelected: false}
+                return new CardModel(c)
             });
         }
     }

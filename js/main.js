@@ -9,13 +9,11 @@ const viewModel = {
     },
     data() {
         return {
-            playerCards: []
+            
         }
     },
     created() {
-        this.playerCards = player.cards.map(c => {
-            return {origin: c, isSelected: false}
-        });
+        
     },
     mounted() {
         gameManager.gameStart();
