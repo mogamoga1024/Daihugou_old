@@ -17,14 +17,20 @@ class GameManager {
     async #gameStart() {
         console.log("【ゲーム開始】");
 
-        console.log("【カードの交換】");
-        this.playerCardsVM.isExchangeCardsScene = true;
-
         // 1位と最下位でカードの交換を行う。
         const players = this.#currentPlayer.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
+        await this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
 
+        // 最下位からスタート
+        this.#pullOutCardsScene(lastPlacePlayer);
+    }
+
+    async #exchangeCardsScene(firstPlacePlayer, lastPlacePlayer) {
+        console.log("【カードの交換】");
+        this.playerCardsVM.isExchangeCardsScene = true;
+        
         if (Common.isPlayer(lastPlacePlayer)) {
             const cardsCount = this.playerCardsVM.playerCardModels.length;
             this.playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
@@ -81,4 +87,11 @@ class GameManager {
         Common.sortCards(player1.cards);
         Common.sortCards(player2.cards);
     }
+
+    #pullOutCardsScene(player) {
+        console.log("【カードを出す】");
+
+        // TODO
+    }
+
 }
