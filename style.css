@@ -10,15 +10,20 @@ button {
     margin: 10px;
 }
 
+.spacer {
+    width: 100%;
+}
+
 #player-card-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .player-card {
     width: 45px;
     height: 65px;
-    margin: 0 10px;
+    margin: 0 10px 10px;
     font-size: 16px;
     text-align: center;
     line-height: 65px;
