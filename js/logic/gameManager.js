@@ -54,12 +54,12 @@ class GameManager {
 
         if (Common.isPlayer(firstPlacePlayer)) {
             this.playerCardsVM.playerCardModels = firstPlacePlayer.cards.map(c => {
-                return new CardModel(c)
+                return new PlayerCardModel(c)
             });
         }
         else if (Common.isPlayer(lastPlacePlayer)) {
             this.playerCardsVM.playerCardModels = lastPlacePlayer.cards.map(c => {
-                return new CardModel(c)
+                return new PlayerCardModel(c)
             });
         }
     }

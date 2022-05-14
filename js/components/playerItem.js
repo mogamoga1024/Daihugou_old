@@ -25,7 +25,7 @@ const PlayerItem = {
     created() {
         gameManager.playerCardsVM = this;
         this.playerCardModels = player.cards.map(c => {
-            return new CardModel(c)
+            return new PlayerCardModel(c)
         });
     },
     computed: {

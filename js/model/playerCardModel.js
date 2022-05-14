@@ -1,5 +1,5 @@
 
-class CardModel {
+class PlayerCardModel {
     card = null;
     isSelected = false;
     constructor(card) {
