@@ -13,6 +13,7 @@ const PlayerCards = {
     `,
     data() {
         return {
+            gameStatus: GameStatus.None,
             playerCards: [],
             canSelectCards: true,
             canOutputCards: false,

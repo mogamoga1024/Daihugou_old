@@ -1,8 +1,8 @@
 
 const Mark = {
-    NONE: 0,
-    SPADE: 1,
-    HEART: 2,
-    DIAMOND: 3,
-    CLUB: 4
+    None: 0,
+    Spade: 1,
+    Heart: 2,
+    Diamond: 3,
+    Club: 4
 };

@@ -5,7 +5,7 @@ class Card extends AbstractCard {
         if (this.#allCards.length > 0) {
             return this.#allCards;
         }
-        const marks = [Mark.SPADE, Mark.HEART, Mark.DIAMOND, Mark.CLUB];
+        const marks = [Mark.Spade, Mark.Heart, Mark.Diamond, Mark.Club];
         for (const mark of marks) {
             this.#allCards.push(new Card(mark, "3",  1));
             this.#allCards.push(new Card(mark, "4",  2));
@@ -21,12 +21,12 @@ class Card extends AbstractCard {
             this.#allCards.push(new Card(mark, "1",  12));
             this.#allCards.push(new Card(mark, "2",  13));
         }
-        this.#allCards.push(new Card(Mark.NONE, "Joker",  14));
-        this.#allCards.push(new Card(Mark.NONE, "Joker",  14));
+        this.#allCards.push(new Card(Mark.None, "Joker",  14));
+        this.#allCards.push(new Card(Mark.None, "Joker",  14));
         return this.#allCards;
     }
 
-    _mark = Mark.NONE;
+    _mark = Mark.None;
     get mark() {
         return this._mark;
     }
@@ -37,11 +37,11 @@ class Card extends AbstractCard {
     get name() {
         if (this._name === "") {
             switch (this._mark) {
-                case Mark.SPADE:   this._name = "♠" + this._numberName; break;
-                case Mark.HEART:   this._name = "♥" + this._numberName; break;
-                case Mark.DIAMOND: this._name = "♦" + this._numberName; break;
-                case Mark.CLUB:    this._name = "♣" + this._numberName; break;
-                case Mark.NONE:    this._name = this._numberName; break;
+                case Mark.Spade:   this._name = "♠" + this._numberName; break;
+                case Mark.Heart:   this._name = "♥" + this._numberName; break;
+                case Mark.Diamond: this._name = "♦" + this._numberName; break;
+                case Mark.Club:    this._name = "♣" + this._numberName; break;
+                case Mark.None:    this._name = this._numberName; break;
             }
         }
         return this._name;
