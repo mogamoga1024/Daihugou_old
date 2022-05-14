@@ -16,7 +16,6 @@ class GameManager {
         console.log("【ラウンド開始】");
 
         // 1位と最下位でカードの交換を行う。
-        // TODO 最下位は最も強いカードを交換する。
         const players = this.#currentPlayer.chainToArray();
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];

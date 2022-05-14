@@ -3,6 +3,7 @@ class Player extends AbstractPlayer {
     #resolveSelectExchangeCards = null;
 
     async selectExchangeCards() {
+        // TODO 最下位の場合は最も強いカードを交換する。
         return await this.#waitSelectExchangeCardsInScreen();
     }
 
