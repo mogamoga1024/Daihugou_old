@@ -2,16 +2,19 @@
 class GameManager {
     #currentPlayer = null;
     playerCardsVM = null;
-
+    
     constructor(playerChain) {
         this.#currentPlayer = playerChain;
     }
 
     gameStart() {
+        console.log("【ゲーム開始】");
         this.#roundStart();
     }
 
     async #roundStart() {
+        console.log("【ラウンド開始】");
+
         // 1位と最下位でカードの交換を行う。
         // TODO 最下位は最も強いカードを交換する。
         const players = this.#currentPlayer.chainToArray();

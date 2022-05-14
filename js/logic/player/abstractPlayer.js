@@ -5,6 +5,17 @@ class AbstractPlayer {
     prevPlayer = null;
     ranking = 0; // 1位なら1、2位なら2、…
 
+    get allPlayerCount() {
+        let currentPlayer = this;
+        let count = 0;
+        do {
+            count++;
+            currentPlayer = currentPlayer.nextPlayer;
+        }
+        while (currentPlayer !== this);
+        return count;
+    }
+
     chainToArray() {
         const ary = [];
         let currentPlayer = this;
