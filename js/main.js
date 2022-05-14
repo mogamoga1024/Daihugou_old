@@ -14,7 +14,7 @@ const viewModel = {
         }
     },
     created() {
-        
+        gameManager.battleFieldVM = this;
     },
     mounted() {
         gameManager.setStart();

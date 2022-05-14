@@ -3,6 +3,7 @@ class GameManager {
     #currentPlayer = null;
     playerCardsVM = null;
     cpuListVM = null;
+    battleFieldVM = null;
     
     constructor(playerChain) {
         this.#currentPlayer = playerChain;
