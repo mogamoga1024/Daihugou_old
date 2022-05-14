@@ -17,7 +17,7 @@ const viewModel = {
         
     },
     mounted() {
-        gameManager.gameStart();
+        gameManager.setStart();
     },
     methods: {
         

@@ -8,13 +8,13 @@ class GameManager {
         this.#currentPlayer = playerChain;
     }
 
-    gameStart() {
-        console.log("【ゲーム開始】");
-        this.#roundStart();
+    setStart() {
+        console.log("【セット開始】");
+        this.#gameStart();
     }
 
-    async #roundStart() {
-        console.log("【ラウンド開始】");
+    async #gameStart() {
+        console.log("【ゲーム開始】");
 
         console.log("【カードの交換】");
         this.playerCardsVM.isExchangeCardsScene = true;
