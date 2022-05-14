@@ -27,11 +27,11 @@ class GameManager {
         this.#pullOutCardsScene(lastPlacePlayer);
     }
 
-    async #exchangeCardsScene(firstPlacePlayer, lastPlacePlayer) {
+    async #exchangeCardsScene(player1, player2) {
         console.log("【カードの交換】");
         this.playerCardsVM.isExchangeCardsScene = true;
         
-        if (Common.isPlayer(lastPlacePlayer)) {
+        if (Common.isPlayer(player2)) {
             const cardsCount = this.playerCardsVM.playerCardModels.length;
             this.playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
             this.playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
@@ -40,32 +40,32 @@ class GameManager {
             this.playerCardsVM.forceCardUnselectable = true;
         }
 
-        const firstPlacePlayerCard = await firstPlacePlayer.selectExchangeCards();
-        const lastPlacePlayerCard = await lastPlacePlayer.selectExchangeCards();
+        const firstPlacePlayerCard = await player1.selectExchangeCards();
+        const lastPlacePlayerCard = await player2.selectExchangeCards();
         
         console.log("交換前");
-        console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
-        console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("player1: " + player1.cards.map(c => c.name).join(", "));
+        console.log("player2: " + player2.cards.map(c => c.name).join(", "));
         console.log("交換するカード");
-        console.log("firstPlacePlayer: " + firstPlacePlayerCard.map(c => c.name).join(", "));
-        console.log("lastPlacePlayer: " + lastPlacePlayerCard.map(c => c.name).join(", "));
+        console.log("player1: " + firstPlacePlayerCard.map(c => c.name).join(", "));
+        console.log("player2: " + lastPlacePlayerCard.map(c => c.name).join(", "));
 
-        this.#exchangeCards(firstPlacePlayer, lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
+        this.#exchangeCards(player1, player2, firstPlacePlayerCard, lastPlacePlayerCard);
         
         console.log("交換後");
-        console.log("firstPlacePlayer: " + firstPlacePlayer.cards.map(c => c.name).join(", "));
-        console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("player1: " + player1.cards.map(c => c.name).join(", "));
+        console.log("player2: " + player2.cards.map(c => c.name).join(", "));
 
         this.playerCardsVM.isExchangeCardsScene = false;
         this.playerCardsVM.forceCardUnselectable = false;
 
-        if (Common.isPlayer(firstPlacePlayer)) {
-            this.playerCardsVM.playerCardModels = firstPlacePlayer.cards.map(c => {
+        if (Common.isPlayer(player1)) {
+            this.playerCardsVM.playerCardModels = player1.cards.map(c => {
                 return new PlayerCardModel(c)
             });
         }
-        else if (Common.isPlayer(lastPlacePlayer)) {
-            this.playerCardsVM.playerCardModels = lastPlacePlayer.cards.map(c => {
+        else if (Common.isPlayer(player2)) {
+            this.playerCardsVM.playerCardModels = player2.cards.map(c => {
                 return new PlayerCardModel(c)
             });
         }
