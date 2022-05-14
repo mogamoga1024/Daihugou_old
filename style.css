@@ -61,3 +61,20 @@ button {
     background-color: aliceblue;
     box-sizing: border-box;
 }
+
+#battle-field {
+    display: flex;
+    min-height: 65px;
+    margin: 30px 0 0;
+    justify-content: center;
+}
+
+#battle-field .card {
+    width: 45px;
+    height: 65px;
+    margin: 0 10px 10px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 65px;
+    background-color: aliceblue;
+}
