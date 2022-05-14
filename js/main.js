@@ -5,7 +5,8 @@ const gameManager = new GameManager(player);
 
 const viewModel = {
     components: {
-        PlayerItem
+        PlayerItem,
+        CpuList
     },
     data() {
         return {

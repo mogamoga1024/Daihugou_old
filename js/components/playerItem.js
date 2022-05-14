@@ -4,7 +4,7 @@ const PlayerItem = {
         <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
         <button :disabled="isExchangeCardsScene">パス</button>
         <div id="player-card-container">
-            <div class="player-card" v-for="card in playerCards"
+            <div class="player-card" v-for="card in playerCardModels"
                 @click="onClickCard(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
                 {{ card.card.name }}
@@ -14,7 +14,7 @@ const PlayerItem = {
     data() {
         return {
             isExchangeCardsScene: true,
-            playerCards: [],
+            playerCardModels: [],
             canSelectCards: true,
             canOutputCards: false,
             forceCardUnselectable: false,
@@ -22,7 +22,7 @@ const PlayerItem = {
     },
     created() {
         gameManager.playerCardsVM = this;
-        this.playerCards = player.cards.map(c => {
+        this.playerCardModels = player.cards.map(c => {
             return new CardModel(c)
         });
     },
@@ -45,7 +45,7 @@ const PlayerItem = {
                 return;
             }
             card.isSelected = !card.isSelected;
-            const selectedCardsCount = this.playerCards.filter(c => c.isSelected).length;
+            const selectedCardsCount = this.playerCardModels.filter(c => c.isSelected).length;
             this.canSelectCards = selectedCardsCount < 2; // TODO 2
             this.canOutputCards = selectedCardsCount === 2; // TODO 2
         },
@@ -53,10 +53,10 @@ const PlayerItem = {
             this.exchangeCards();
         },
         exchangeCards() {
-            player.selectExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.card));
+            player.selectExchangeCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
             this.canSelectCards = true;
             this.canOutputCards = false;
-            this.playerCards.map(c => c.isSelected = false);
+            this.playerCardModels.map(c => c.isSelected = false);
         }
     }
 };

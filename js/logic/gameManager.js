@@ -2,6 +2,7 @@
 class GameManager {
     #currentPlayer = null;
     playerCardsVM = null;
+    cpuListVM = null;
     
     constructor(playerChain) {
         this.#currentPlayer = playerChain;
@@ -24,9 +25,9 @@ class GameManager {
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 
         if (Common.isPlayer(lastPlacePlayer)) {
-            const cardsCount = this.playerCardsVM.playerCards.length;
-            this.playerCardsVM.playerCards[cardsCount - 2].isSelected = true; // TODO 交換枚数
-            this.playerCardsVM.playerCards[cardsCount - 1].isSelected = true;
+            const cardsCount = this.playerCardsVM.playerCardModels.length;
+            this.playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
+            this.playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
             this.playerCardsVM.canSelectCards = false;
             this.playerCardsVM.canOutputCards = true;
             this.playerCardsVM.forceCardUnselectable = true;
@@ -52,12 +53,12 @@ class GameManager {
         this.playerCardsVM.forceCardUnselectable = false;
 
         if (Common.isPlayer(firstPlacePlayer)) {
-            this.playerCardsVM.playerCards = firstPlacePlayer.cards.map(c => {
+            this.playerCardsVM.playerCardModels = firstPlacePlayer.cards.map(c => {
                 return new CardModel(c)
             });
         }
         else if (Common.isPlayer(lastPlacePlayer)) {
-            this.playerCardsVM.playerCards = lastPlacePlayer.cards.map(c => {
+            this.playerCardsVM.playerCardModels = lastPlacePlayer.cards.map(c => {
                 return new CardModel(c)
             });
         }
