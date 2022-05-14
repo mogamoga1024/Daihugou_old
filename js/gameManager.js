@@ -1,10 +1,9 @@
 
 class GameManager {
     #currentPlayer = null;
-    #viewModel = null;
+    playerCardsVM = null;
 
-    constructor(viewModel, playerChain) {
-        this.#viewModel = viewModel;
+    constructor(playerChain) {
         this.#currentPlayer = playerChain;
     }
 
@@ -37,10 +36,10 @@ class GameManager {
         console.log("lastPlacePlayer: " + lastPlacePlayer.cards.map(c => c.name).join(", "));
 
         if (Common.isPlayer(firstPlacePlayer)) {
-            this.#viewModel.onUpdatePlayerCards(firstPlacePlayer.cards);
+            this.playerCardsVM.onUpdatePlayerCards(firstPlacePlayer.cards);
         }
         else if (Common.isPlayer(lastPlacePlayer)) {
-            this.#viewModel.onUpdatePlayerCards(lastPlacePlayer.cards);
+            this.playerCardsVM.onUpdatePlayerCards(lastPlacePlayer.cards);
         }
     }
 
