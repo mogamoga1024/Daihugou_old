@@ -5,6 +5,9 @@
     let gameManager = null;
 
     const viewModel = {
+        components: {
+            PlayerCards
+        },
         data() {
             return {
                 playerCards: [],
