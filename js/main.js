@@ -10,7 +10,7 @@ const viewModel = {
     },
     data() {
         return {
-            
+            cards: []
         }
     },
     created() {
