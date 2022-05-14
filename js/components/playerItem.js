@@ -1,7 +1,7 @@
 
 const PlayerItem = {
     template: `
-        <button @click="outputCards" :disabled="canOutputCards === false">交換</button>
+        <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
         <button :disabled="isExchangeCardsScene">パス</button>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCards"
@@ -26,9 +26,19 @@ const PlayerItem = {
             return new CardModel(c)
         });
     },
+    computed: {
+        outputCardsButtonText() {
+            return this.isExchangeCardsScene ? "交換" : "出す"
+        }
+    },
     methods: {
         onClickCard(card) {
-            this.selectExchangeCards(card);
+            if (this.isExchangeCardsScene) {
+                this.selectExchangeCards(card);
+            }
+            else {
+                // TODO
+            }
         },
         selectExchangeCards(card) {
             if (this.canSelectCards === false && card.isSelected === false || this.forceCardUnselectable) {
