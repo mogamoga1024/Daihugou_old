@@ -5,7 +5,7 @@ const gameManager = new GameManager(player);
 
 const viewModel = {
     components: {
-        PlayerCards
+        PlayerItem
     },
     data() {
         return {

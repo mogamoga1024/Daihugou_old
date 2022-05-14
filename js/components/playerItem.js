@@ -1,5 +1,5 @@
 
-const PlayerCards = {
+const PlayerItem = {
     template: `
         <button @click="outputCards" :disabled="canOutputCards === false">交換</button>
         <button :disabled="isExchangeCardsScene">パス</button>
