@@ -12,6 +12,7 @@ button {
 
 #player-card-container {
     display: flex;
+    justify-content: center;
 }
 
 .player-card {
@@ -34,4 +35,21 @@ button {
 .disable-card {
     background-color: rgba(128, 128, 128, 0.5);
     cursor: default;
+}
+
+#cpu-container {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.cpu {
+    width: 45px;
+    height: 65px;
+    margin: 0 10px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 65px;
+    background-color: aliceblue;
+    box-sizing: border-box;
 }

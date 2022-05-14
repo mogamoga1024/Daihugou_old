@@ -2,7 +2,9 @@
 const CpuList = {
     cpuList: [],
     template: `
-        <div v-for="cpu in cpuModelList">{{ cpu.cardsCount }}</div>
+        <div id="cpu-container">
+            <div class="cpu" v-for="cpu in cpuModelList">{{ cpu.cardsCount }}</div>
+        </div>
     `,
     data() {
         return {
