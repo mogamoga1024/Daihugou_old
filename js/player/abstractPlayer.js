@@ -21,7 +21,7 @@ class AbstractPlayer {
      * 交換するカードを選択する。
      * @returns {Array<Card>}
      */
-    chooseExchangeCards() {
+    selectExchangeCards() {
         return [];
     }
 }

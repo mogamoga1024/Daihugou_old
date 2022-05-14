@@ -19,8 +19,8 @@ class GameManager {
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 
-        const firstPlacePlayerCard = await firstPlacePlayer.chooseExchangeCards();
-        const lastPlacePlayerCard = await lastPlacePlayer.chooseExchangeCards();
+        const firstPlacePlayerCard = await firstPlacePlayer.selectExchangeCards();
+        const lastPlacePlayerCard = await lastPlacePlayer.selectExchangeCards();
         
         console.log("【カードの交換】");
         console.log("交換前");

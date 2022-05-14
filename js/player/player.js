@@ -1,21 +1,21 @@
 
 class Player extends AbstractPlayer {
-    #resolveChooseExchangeCards = null;
+    #resolveSelectExchangeCards = null;
 
-    async chooseExchangeCards() {
-        return await this.#waitChooseExchangeCardsInScreen();
+    async selectExchangeCards() {
+        return await this.#waitSelectExchangeCardsInScreen();
     }
 
-    #waitChooseExchangeCardsInScreen() {
+    #waitSelectExchangeCardsInScreen() {
         return new Promise(resolve => {
-            this.#resolveChooseExchangeCards = resolve;
+            this.#resolveSelectExchangeCards = resolve;
         });
     }
 
-    chooseExchangeCardsInScreen(cards) {
-        if (this.#resolveChooseExchangeCards !== null) {
-            this.#resolveChooseExchangeCards(cards);
-            this.#resolveChooseExchangeCards = null;
+    selectExchangeCardsInScreen(cards) {
+        if (this.#resolveSelectExchangeCards !== null) {
+            this.#resolveSelectExchangeCards(cards);
+            this.#resolveSelectExchangeCards = null;
         }
     }
 }

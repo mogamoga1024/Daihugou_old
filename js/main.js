@@ -8,7 +8,7 @@
         data() {
             return {
                 playerCards: [],
-                canChooseCards: true,
+                canSelectCards: true,
                 canExchangeCards: false,
             }
         },
@@ -23,18 +23,18 @@
             gameManager.gameStart();
         },
         methods: {
-            chooseExchangeCards(card) {
-                if (this.canChooseCards === false && card.isSelected === false) {
+            selectExchangeCards(card) {
+                if (this.canSelectCards === false && card.isSelected === false) {
                     return;
                 }
                 card.isSelected = !card.isSelected;
                 const selectedCardsCount = this.playerCards.filter(c => c.isSelected).length;
-                this.canChooseCards = selectedCardsCount < 2; // TODO 2
+                this.canSelectCards = selectedCardsCount < 2; // TODO 2
                 this.canExchangeCards = selectedCardsCount === 2; // TODO 2
             },
             exchangeCards() {
-                player.chooseExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.origin));
-                this.canChooseCards = true;
+                player.selectExchangeCardsInScreen(this.playerCards.filter(c => c.isSelected).map(c => c.origin));
+                this.canSelectCards = true;
                 this.canExchangeCards = false;
                 this.playerCards.map(c => c.isSelected = false);
             },
