@@ -4,7 +4,7 @@ class AbstractPlayer extends IDAble {
     nextPlayer = null;
     prevPlayer = null;
     ranking = 0; // 1位なら1、2位なら2、…
-
+    
     get allPlayerCount() {
         let currentPlayer = this;
         let count = 0;
@@ -59,6 +59,10 @@ class AbstractPlayer extends IDAble {
         while (player !== this);
 
         return player;
+    }
+
+    get isHuman() {
+        return true;
     }
 
     /**

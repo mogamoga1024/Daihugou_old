@@ -14,9 +14,9 @@ class PullOutCardsScene extends Scene {
     }
 
     #setUp() {
-        this.#playerCardsVM.isPlayerTurn = Common.isPlayer(this.#player);
+        this.#playerCardsVM.isPlayerTurn = this.#player.isHuman;
 
-        if (Common.isPlayer(this.#player)) {
+        if (this.#player.isHuman) {
             this.#playerCardsVM.canPass = true;
             // TODO 出せるカードの制限（Vue）
         }
@@ -38,7 +38,7 @@ class PullOutCardsScene extends Scene {
 
             this.#battleFieldVM.cards = selectedCards;
 
-            if (Common.isPlayer(this.#player)) {
+            if (this.#player.isHuman) {
                 this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#player.cards);
             }
             else {
@@ -50,7 +50,7 @@ class PullOutCardsScene extends Scene {
         
         const nextActivePlayer = this.#player.nextActivePlayer;
 
-        if (Common.isPlayer(nextActivePlayer) === false) {
+        if (nextActivePlayer.isHuman === false) {
             await Common.sleep(1200);
         }
 

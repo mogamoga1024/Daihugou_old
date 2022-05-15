@@ -29,14 +29,6 @@ class Common {
         })
     }
 
-    /**
-     * @param {Player|Cpu} player
-     * @returns {boolean} Playerオブジェクトかどうか
-     */
-    static isPlayer(player) {
-        return player.constructor === Player;
-    }
-
     static cardListToString(cardList) {
         return cardList.map(c => c.name).join(", ");
     }

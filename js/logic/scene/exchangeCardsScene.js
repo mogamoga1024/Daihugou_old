@@ -12,9 +12,9 @@ class ExchangeCardsScene extends Scene {
     }
 
     #setUp() {
-        this.#playerCardsVM.isPlayerTurn = Common.isPlayer(this.#firstPlacePlayer) || Common.isPlayer(this.#lastPlacePlayer);
+        this.#playerCardsVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
         
-        if (Common.isPlayer(this.#lastPlacePlayer)) {
+        if (this.#lastPlacePlayer.isHuman) {
             this.#playerCardsVM.isExchangeCardsScene = true;
             const cardsCount = this.#playerCardsVM.playerCardModels.length;
             this.#playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
@@ -56,10 +56,10 @@ class ExchangeCardsScene extends Scene {
         this.#playerCardsVM.isExchangeCardsScene = false;
         this.#playerCardsVM.forceCardUnselectable = false;
 
-        if (Common.isPlayer(this.#firstPlacePlayer)) {
+        if (this.#firstPlacePlayer.isHuman) {
             this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#firstPlacePlayer.cards);
         }
-        else if (Common.isPlayer(this.#lastPlacePlayer)) {
+        else if (this.#lastPlacePlayer.isHuman) {
             this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#lastPlacePlayer.cards);
         }
 

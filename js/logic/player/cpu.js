@@ -1,5 +1,9 @@
 
 class Cpu extends AbstractPlayer {
+    get isHuman() {
+        return false;
+    }
+
     selectExchangeCards() {
         // 前提知識：this.cardsはカードの強さの昇順でソートされている。
 
