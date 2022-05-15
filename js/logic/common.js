@@ -9,6 +9,18 @@ class Common {
     }
 
     /**
+     * @param {*} time スリープする時間（ミリ秒）
+     * @returns {Promise}
+     */
+    static sleep(time) {
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, time);
+        });
+    }
+
+    /**
      * @param {Array<Card>} cards 
      * @returns {Array<Card>} ソートされたカード
      */
@@ -38,5 +50,9 @@ class Common {
         return cardList.map(c => {
             return new PlayerCardModel(c)
         });
+    }
+
+    static cardListToString(cardList) {
+        return cardList.map(c => c.name).join(", ");
     }
 }

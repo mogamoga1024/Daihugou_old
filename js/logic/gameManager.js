@@ -44,11 +44,11 @@ class GameManager {
         const lastPlacePlayerCard = await player2.selectExchangeCards();
         
         console.log("交換前");
-        console.log("player1: " + player1.cards.map(c => c.name).join(", "));
-        console.log("player2: " + player2.cards.map(c => c.name).join(", "));
+        console.log("player1: " + Common.cardListToString(player1.cards));
+        console.log("player2: " + Common.cardListToString(player2.cards));
         console.log("交換するカード");
-        console.log("player1: " + firstPlacePlayerCard.map(c => c.name).join(", "));
-        console.log("player2: " + lastPlacePlayerCard.map(c => c.name).join(", "));
+        console.log("player1: " + Common.cardListToString(firstPlacePlayerCard));
+        console.log("player2: " + Common.cardListToString(lastPlacePlayerCard));
 
         this.#exchangeCards(player1, player2, firstPlacePlayerCard, lastPlacePlayerCard);
         
@@ -94,16 +94,23 @@ class GameManager {
 
         const selectedCards = await player.pullOutCards();
 
+        console.log("出したカード");
+        console.log(Common.cardListToString(selectedCards));
+
         this.battleFieldVM.cards = selectedCards;
 
         if (Common.isPlayer(player)) {
             this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
         }
+        else {
+            console.log("a");
+            await Common.sleep(1000);
+            console.log("b");
+        }
 
         // TODO 後の処理
 
-
-
+        await this.#pullOutCardsScene(player.nextPlayer);
     }
 
 }
