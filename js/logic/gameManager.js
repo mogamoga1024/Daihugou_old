@@ -14,17 +14,17 @@ class GameManager {
         this.#gameStart();
     }
 
-    async #gameStart() {
+    #gameStart() {
         console.log("【ゲーム開始】");
 
         // 1位と最下位でカードの交換を行う。
         const players = this.#currentPlayer.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
-        await this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
+        this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
 
         // 最下位からスタート
-        await this.#pullOutCardsScene(lastPlacePlayer);
+        this.#pullOutCardsScene(lastPlacePlayer);
     }
 
     async #exchangeCardsScene(player1, player2) {
