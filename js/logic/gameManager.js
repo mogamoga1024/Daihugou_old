@@ -29,6 +29,8 @@ class GameManager {
 
     async #exchangeCardsScene(player1, player2) {
         console.log("【カードの交換】");
+
+        this.playerCardsVM.isPlayerTurn = Common.isPlayer(player1) || Common.isPlayer(player2);
         this.playerCardsVM.isExchangeCardsScene = true;
         
         if (Common.isPlayer(player2)) {
@@ -87,6 +89,8 @@ class GameManager {
     async #pullOutCardsScene(player) {
         console.log("【カードを出す】");
 
+        this.playerCardsVM.isPlayerTurn = Common.isPlayer(player);
+
         if (Common.isPlayer(player)) {
             // TODO 出せるカードの制限（Vue）
 
@@ -111,6 +115,8 @@ class GameManager {
             }
         }
         
+        this.playerCardsVM.isPlayerTurn = false;
+
         const nextActivePlayer = player.nextActivePlayer;
 
         if (Common.isPlayer(nextActivePlayer) === false) {

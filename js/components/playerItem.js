@@ -15,6 +15,7 @@ const PlayerItem = {
     `,
     data() {
         return {
+            isPlayerTurn: false,
             isExchangeCardsScene: true,
             playerCardModels: [],
             canSelectCards: true,
@@ -35,6 +36,8 @@ const PlayerItem = {
         // ↓ 画面に紐づいているメソッド
 
         onCardClick(card) {
+            if (this.isPlayerTurn === false) return;
+
             if (this.isExchangeCardsScene) {
                 this.selectExchangeCards(card);
             }
@@ -43,6 +46,8 @@ const PlayerItem = {
             }
         },
         outputCards() {
+            if (this.isPlayerTurn === false) return;
+
             if (this.isExchangeCardsScene) { // TODO SceneStatus
                 this.exchangeCards();
             }
@@ -51,6 +56,8 @@ const PlayerItem = {
             }
         },
         pass() {
+            if (this.isPlayerTurn === false) return;
+
             player.passInScreen();
             this.resetCardsStatus();
         },
