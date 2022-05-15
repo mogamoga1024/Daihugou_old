@@ -7,7 +7,7 @@ class Suit extends IDAble {
     static Club = new Suit(4);
 
     power = 0;
-    isRed = 0;
+    isRed = false;
     constructor(power, isRed = false) {
         super();
         this.power = power;
