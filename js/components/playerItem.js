@@ -35,7 +35,7 @@ const PlayerItem = {
         // ↓ 画面に紐づいているメソッド
 
         onCardClick(card) {
-            if (this.isPlayerTurn === false) return;
+            if (this.isPlayerTurn === false || card.canSelect === false) return;
 
             if (this.isExchangeCardsScene) {
                 this.selectExchangeCards(card);
@@ -71,9 +71,6 @@ const PlayerItem = {
             });
         },
         selectExchangeCards(card) {
-            if (card.canSelect === false) {
-                return;
-            }
             if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
                 return;
             }

@@ -20,8 +20,8 @@ class PullOutCardsScene extends Scene {
             const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
 
             this.#playerCardsVM.playerCardModels.forEach(c => {
-                if (selectableCards.filter(d => c.id === d.id).length > 0) {
-                    c.isSelected = true;
+                if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
+                    c.canSelect = false;
                 }
             });
         }
