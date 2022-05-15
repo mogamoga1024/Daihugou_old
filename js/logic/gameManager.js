@@ -14,17 +14,17 @@ class GameManager {
         this.#gameStart();
     }
 
-    #gameStart() {
+    async #gameStart() {
         console.log("【ゲーム開始】");
 
         // 1位と最下位でカードの交換を行う。
         const players = this.#currentPlayer.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
-        this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
+        await this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
 
         // 最下位からスタート
-        this.#pullOutCardsScene(lastPlacePlayer);
+        await this.#pullOutCardsScene(lastPlacePlayer);
     }
 
     async #exchangeCardsScene(player1, player2) {
@@ -92,6 +92,7 @@ class GameManager {
         this.playerCardsVM.isPlayerTurn = Common.isPlayer(player);
 
         if (Common.isPlayer(player)) {
+            this.playerCardsVM.canPass = true;
             // TODO 出せるカードの制限（Vue）
 
         }
@@ -115,6 +116,7 @@ class GameManager {
             }
         }
         
+        this.playerCardsVM.canPass = false;
         this.playerCardsVM.isPlayerTurn = false;
 
         const nextActivePlayer = player.nextActivePlayer;
