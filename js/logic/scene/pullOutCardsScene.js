@@ -17,8 +17,13 @@ class PullOutCardsScene extends Scene {
         if (this.#player.isHuman) {
             this.#playerCardsVM.canPass = true;
             // TODO 出せるカードの制限（Vue）
-            
+            const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
 
+            this.#playerCardsVM.playerCardModels.forEach(c => {
+                if (selectableCards.filter(d => c.id === d.id).length > 0) {
+                    c.isSelected = true;
+                }
+            });
         }
     }
 

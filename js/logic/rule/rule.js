@@ -18,40 +18,44 @@ class Rule {
     /**
      * ・手札から場に出せるカードを探す。
      * ・手札は昇順でソートされていることが前提
-     * @param {*} battleFieldCards 場のカード 
-     * @param {*} cards 手札
-     * @requires {Array<Card>} 場に出せるカード
+     * @param {Array<Card>} battleFieldCards 場のカード 
+     * @param {Array<Card>} cards 手札
+     * @returns {Array<Card>} 場に出せるカード
      */
-    static findCanPullOutCards(battleFieldCards, cards) {
+    static findSelectableCards(battleFieldCards, cards) {
         // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
 
         if (battleFieldCards.length === 0) {
             return [...cards];
         }
 
-        const strongCards = cards.filter(c => c.power > battleFieldCards[0]);
+        const strongCards = cards.filter(c => c.power > battleFieldCards[0].power);
         if (strongCards.length === 0) {
             return [];
         }
         
         let tmpCards = [];
-        let rtnCards = [];
-        let currentPower = strongCards[0];
+        let selectableCards = [];
+        let currentPower = strongCards[0].power;
         for (let i = 0; i < strongCards.length; i++) {
             const card = strongCards[i];
             const isSamePower = card.power === currentPower;
-            if (isSamePower) {
+            const isLastCard = i === strongCards.length - 1;
+            if (isSamePower || tmpCards.length === 0) {
                 tmpCards.push(card);
             }
-            if (isSamePower === false || i === strongCards.length - 1) {
-                if (tmpCards.length === battleFieldCards.length) {
-                    rtnCards = rtnCards.concat(tmpCards);
+            if (isSamePower === false || isLastCard) {
+                if (tmpCards.length >= battleFieldCards.length) {
+                    selectableCards = selectableCards.concat(tmpCards);
                 }
                 currentPower = card.power;
                 tmpCards = [];
             }
+            if (isSamePower === false && isLastCard == false) {
+                tmpCards.push(card);
+            }
         }
 
-        return rtnCards;
+        return selectableCards;
     }
 }
