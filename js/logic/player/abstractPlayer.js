@@ -44,6 +44,23 @@ class AbstractPlayer extends IDAble {
         }
     }
 
+    get isActive() {
+        return this.cards.length !== 0;
+    }
+
+    get nextActivePlayer() {
+        let player = this;
+        do {
+            player = player.nextPlayer;
+            if (player.isActive) {
+                break;
+            }
+        }
+        while (player !== this);
+
+        return player;
+    }
+
     /**
      * 交換するカードを選択する。
      * @returns {Array<Card>} 交換するカード
