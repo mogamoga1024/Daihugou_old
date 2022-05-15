@@ -28,6 +28,22 @@ class AbstractPlayer {
         return ary;
     }
 
+    get rank() {
+        const lastRanking = this.allPlayerCount;
+        switch (this.ranking) {
+            case 1:
+                return Rank.Daihugou;
+            case 2:
+                return Rank.Hugou;
+            case lastRanking - 1:
+                return Rank.Hinmin;
+            case lastRanking:
+                return Rank.Daihinmin;
+            default:
+                return Rank.Heimin;
+        }
+    }
+
     /**
      * 交換するカードを選択する。
      * @returns {Array<Card>} 交換するカード

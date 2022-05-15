@@ -19,7 +19,6 @@ const PlayerItem = {
             playerCardModels: [],
             canSelectCards: true,
             canOutputCards: false,
-            forceCardUnselectable: false,
         }
     },
     created() {
@@ -54,7 +53,7 @@ const PlayerItem = {
         // ↓ 画面に紐づいていないメソッド
 
         selectExchangeCards(card) {
-            if (this.canSelectCards === false && card.isSelected === false || this.forceCardUnselectable) {
+            if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
                 return;
             }
             card.isSelected = !card.isSelected;

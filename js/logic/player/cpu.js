@@ -5,11 +5,11 @@ class Cpu extends AbstractPlayer {
 
         // TODO 交換枚数
 
-        if (this.ranking <= this.allPlayerCount / 2) {
+        if (this.rank === Rank.Daihugou) {
             // TODO とりあえず単純に弱いカードを交換する。
             return [this.cards[0], this.cards[1]]
         }
-        else {
+        else if (this.rank === Rank.Daihinmin) {
             const cardsCount = this.cards.length;
             return [this.cards[cardsCount - 2], this.cards[cardsCount - 1]];
         }
