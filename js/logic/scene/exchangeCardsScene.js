@@ -16,11 +16,13 @@ class ExchangeCardsScene extends Scene {
         
         if (this.#lastPlacePlayer.isHuman) {
             this.#playerCardsVM.isExchangeCardsScene = true;
-            const cardsCount = this.#playerCardsVM.playerCardModels.length;
-            this.#playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
-            this.#playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
-            this.#playerCardsVM.canSelectCards = false;
-            this.#playerCardsVM.canOutputCards = true;
+            if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
+                const cardsCount = this.#playerCardsVM.playerCardModels.length;
+                this.#playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
+                this.#playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
+                this.#playerCardsVM.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
+                this.#playerCardsVM.canOutputCards = true;
+            }
         }
     }
 

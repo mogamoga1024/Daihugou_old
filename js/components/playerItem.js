@@ -8,7 +8,7 @@ const PlayerItem = {
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCardModels"
                 @click="onCardClick(card)"
-                :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
+                :class="{'selected-card': card.isSelected, 'disable-card': card.canSelect === false}">
                 <span :class="{'red-card': card.card.suit.isRed}">{{ card.card.name }}</span>
             </div>
         </div>
@@ -18,7 +18,6 @@ const PlayerItem = {
             isPlayerTurn: false,
             isExchangeCardsScene: true,
             playerCardModels: [],
-            canSelectCards: true,
             canOutputCards: false,
             canPass: false,
         }
@@ -65,18 +64,28 @@ const PlayerItem = {
         // ↓ 画面に紐づいていないメソッド
 
         resetCardsStatus() {
-            this.canSelectCards = true;
             this.canOutputCards = false;
-            this.playerCardModels.map(c => c.isSelected = false);
+            this.playerCardModels.map(c => {
+                c.canSelect = true;
+                c.isSelected = false;
+            });
         },
         selectExchangeCards(card) {
+            if (card.canSelect === false) {
+                return;
+            }
             if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
                 return;
             }
             card.isSelected = !card.isSelected;
             const selectedCardsCount = this.selectedPlayerCardModels().length;
-            this.canSelectCards = selectedCardsCount < 2; // TODO 2
-            this.canOutputCards = selectedCardsCount === 2; // TODO 2
+            this.canOutputCards = selectedCardsCount === 2; // TODO 2 Magic Number
+            if (this.canOutputCards) {
+                this.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
+            }
+            else {
+                this.playerCardModels.map(c => c.canSelect = true);
+            }
         },
         exchangeCards() {
             player.selectExchangeCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
