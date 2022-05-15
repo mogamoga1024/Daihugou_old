@@ -102,11 +102,8 @@ class GameManager {
         if (Common.isPlayer(player)) {
             this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
         }
-        else {
-            console.log("a");
-            await Common.sleep(1000);
-            console.log("b");
-        }
+        
+        await Common.sleep(1200);
 
         // TODO 後の処理
 
