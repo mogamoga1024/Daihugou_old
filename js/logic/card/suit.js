@@ -1,12 +1,4 @@
 
-// const Suit = {
-//     None:    {power: 0, isRed: false},
-//     Spade:   {power: 1, isRed: false},
-//     Heart:   {power: 2, isRed: true},
-//     Diamond: {power: 3, isRed: true},
-//     Club:    {power: 4, isRed: false},
-// };
-
 class Suit extends IDAble {
     static None = new Suit(0);
     static Spade = new Suit(1);
@@ -17,8 +9,8 @@ class Suit extends IDAble {
     power = 0;
     isRed = 0;
     constructor(power, isRed = false) {
+        super();
         this.power = power;
         this.isRed = isRed;
     }
 }
-

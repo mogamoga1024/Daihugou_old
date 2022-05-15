@@ -36,12 +36,12 @@ class Card extends IDAble {
     _name = "";
     get name() {
         if (this._name === "") {
-            switch (this._suit) {
-                case Suit.Spade:   this._name = "♠" + this._numberName; break;
-                case Suit.Heart:   this._name = "♥" + this._numberName; break;
-                case Suit.Diamond: this._name = "♦" + this._numberName; break;
-                case Suit.Club:    this._name = "♣" + this._numberName; break;
-                case Suit.None:    this._name = this._numberName; break;
+            switch (this._suit.id) {
+                case Suit.Spade.id:   this._name = "♠" + this._numberName; break;
+                case Suit.Heart.id:   this._name = "♥" + this._numberName; break;
+                case Suit.Diamond.id: this._name = "♦" + this._numberName; break;
+                case Suit.Club.id:    this._name = "♣" + this._numberName; break;
+                case Suit.None.id:    this._name = this._numberName; break;
             }
         }
         return this._name;
