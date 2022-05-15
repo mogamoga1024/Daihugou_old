@@ -17,6 +17,8 @@ class PullOutCardsScene extends Scene {
         if (this.#player.isHuman) {
             this.#playerCardsVM.canPass = true;
             // TODO 出せるカードの制限（Vue）
+            
+
         }
     }
 
