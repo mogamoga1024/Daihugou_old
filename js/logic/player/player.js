@@ -1,6 +1,7 @@
 
 class Player extends AbstractPlayer {
     #resolveSelectExchangeCards = null;
+    #resolvePullOutCards = null;
 
     async selectExchangeCards() {
         return await this.#waitSelectExchangeCardsInScreen();
@@ -20,6 +21,21 @@ class Player extends AbstractPlayer {
     }
 
     pullOutCards() {
-        return [];
+        return this.#waitPullOutCardsInScreen();
+    }
+
+    #waitPullOutCardsInScreen() {
+        return new Promise(resolve => {
+            this.#resolvePullOutCards = resolve;
+        });
+    }
+
+    pullOutCardsInScreen(cards) {
+        if (this.#resolvePullOutCards !== null) {
+            this.cards = this.cards.filter(c => cards.filter(d => c.id === d.id).length === 0);
+            
+            this.#resolvePullOutCards(cards);
+            this.#resolvePullOutCards = null;
+        }
     }
 }

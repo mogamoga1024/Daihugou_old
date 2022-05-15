@@ -89,14 +89,15 @@ class GameManager {
 
         if (Common.isPlayer(player)) {
             // TODO 出せるカードの制限（Vue）
-
+            
         }
 
         const selectedCards = player.pullOutCards();
 
-        if (Common.isPlayer(player)) {
-            // TODO 画面の手札更新
+        this.battleFieldVM.cards = selectedCards;
 
+        if (Common.isPlayer(player)) {
+            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
         }
 
         // TODO 後の処理

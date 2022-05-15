@@ -7,7 +7,7 @@ const PlayerItem = {
         </div>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCardModels"
-                @click="onClickCard(card)"
+                @click="onCardClick(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
                 {{ card.card.name }}
             </div>
@@ -32,7 +32,9 @@ const PlayerItem = {
         }
     },
     methods: {
-        onClickCard(card) {
+        // ↓ 画面に紐づいているメソッド
+
+        onCardClick(card) {
             if (this.isExchangeCardsScene) {
                 this.selectExchangeCards(card);
             }
@@ -40,6 +42,17 @@ const PlayerItem = {
                 // TODO
             }
         },
+        outputCards() {
+            if (this.isExchangeCardsScene) {
+                this.exchangeCards();
+            }
+            else {
+                this.pullOutCards();
+            }
+        },
+
+        // ↓ 画面に紐づいていないメソッド
+
         selectExchangeCards(card) {
             if (this.canSelectCards === false && card.isSelected === false || this.forceCardUnselectable) {
                 return;
@@ -49,14 +62,16 @@ const PlayerItem = {
             this.canSelectCards = selectedCardsCount < 2; // TODO 2
             this.canOutputCards = selectedCardsCount === 2; // TODO 2
         },
-        outputCards() {
-            this.exchangeCards();
-        },
         exchangeCards() {
             player.selectExchangeCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
             this.canSelectCards = true;
             this.canOutputCards = false;
             this.playerCardModels.map(c => c.isSelected = false);
+        },
+        pullOutCards() {
+            player.pullOutCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
+
+            // todo
         }
     }
 };
