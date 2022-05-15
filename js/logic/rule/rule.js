@@ -37,6 +37,8 @@ class Rule {
         let tmpCards = [];
         let selectableCards = [];
         let currentPower = strongCards[0].power;
+        // ↓ 最後のカードの枚数が1枚の時に選択されない問題を解決するための暫定対応
+        strongCards.push(new Card(Suit.None, "Dummy", Number.MAX_SAFE_INTEGER));
         for (let i = 0; i < strongCards.length; i++) {
             const card = strongCards[i];
             const isSamePower = card.power === currentPower;
