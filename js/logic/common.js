@@ -30,6 +30,7 @@ class Common {
     }
 
     static cardListToString(cardList) {
-        return cardList.map(c => c.name).join(", ");
+        const str = cardList.map(c => c.name).join(", ");
+        return str === "" ? "ない" : str;
     }
 }
