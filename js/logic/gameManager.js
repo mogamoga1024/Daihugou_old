@@ -111,11 +111,12 @@ class GameManager {
             }
         }
         
-        await Common.sleep(1200);
-
-        // TODO 後の処理
-
         const nextActivePlayer = player.nextActivePlayer;
+
+        if (Common.isPlayer(nextActivePlayer) === false) {
+            await Common.sleep(1200);
+        }
+
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // TODO ゲーム終了
             console.log("【ゲーム終了】");
