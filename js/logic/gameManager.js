@@ -110,7 +110,13 @@ class GameManager {
 
         // TODO 後の処理
 
-        await this.#pullOutCardsScene(player.nextPlayer);
+        const nextActivePlayer = player.nextActivePlayer;
+        if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
+            // TODO ゲーム終了
+            console.log("【ゲーム終了】");
+            return;
+        }
+        
+        this.#pullOutCardsScene(nextActivePlayer);
     }
-
 }
