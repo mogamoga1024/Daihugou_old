@@ -18,4 +18,8 @@ class Player extends AbstractPlayer {
             this.#resolveSelectExchangeCards = null;
         }
     }
+
+    pullOutCards() {
+        return [];
+    }
 }

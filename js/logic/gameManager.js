@@ -60,14 +60,10 @@ class GameManager {
         this.playerCardsVM.forceCardUnselectable = false;
 
         if (Common.isPlayer(player1)) {
-            this.playerCardsVM.playerCardModels = player1.cards.map(c => {
-                return new PlayerCardModel(c)
-            });
+            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player1.cards);
         }
         else if (Common.isPlayer(player2)) {
-            this.playerCardsVM.playerCardModels = player2.cards.map(c => {
-                return new PlayerCardModel(c)
-            });
+            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player2.cards);
         }
     }
 
@@ -91,7 +87,22 @@ class GameManager {
     #pullOutCardsScene(player) {
         console.log("【カードを出す】");
 
-        // TODO
+        if (Common.isPlayer(player)) {
+            // TODO 出せるカードの制限（Vue）
+
+        }
+
+        const selectedCards = player.pullOutCards();
+
+        if (Common.isPlayer(player)) {
+            // TODO 画面の手札更新
+
+        }
+
+        // TODO 後の処理
+
+
+
     }
 
 }

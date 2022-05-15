@@ -28,4 +28,15 @@ class Common {
     static isPlayer(player) {
         return player.constructor === Player;
     }
+
+    /**
+     * Array<Card>をArray<PlayerCardModel>に変換する。
+     * @param {Array<Card>} cardList
+     * @returns {Array<PlayerCardModel>}
+     */
+    static cardListToPlayerCardModelList(cardList) {
+        return cardList.map(c => {
+            return new PlayerCardModel(c)
+        });
+    }
 }

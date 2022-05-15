@@ -14,4 +14,14 @@ class Cpu extends AbstractPlayer {
             return [this.cards[cardsCount - 2], this.cards[cardsCount - 1]];
         }
     }
+
+    pullOutCards() {
+        // TODO 選択するカードの判定
+
+        const selectedCards = [this.cards[0]];
+
+        this.cards = this.cards.filter(c => selectedCards.indexOf(c) === -1);
+
+        return selectedCards;
+    }
 }

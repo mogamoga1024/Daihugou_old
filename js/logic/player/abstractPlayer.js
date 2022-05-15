@@ -30,9 +30,18 @@ class AbstractPlayer {
 
     /**
      * 交換するカードを選択する。
-     * @returns {Array<Card>}
+     * @returns {Array<Card>} 交換するカード
      */
     selectExchangeCards() {
+        return [];
+    }
+
+    /**
+     * 場にカードを出す。
+     * 副作用で出したカードは手札からなくなる。
+     * @returns {Array<Card>} 場に出すカード
+     */
+    pullOutCards() {
         return [];
     }
 }

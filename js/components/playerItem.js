@@ -24,9 +24,7 @@ const PlayerItem = {
     },
     created() {
         gameManager.playerCardsVM = this;
-        this.playerCardModels = player.cards.map(c => {
-            return new PlayerCardModel(c)
-        });
+        this.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
     },
     computed: {
         outputCardsButtonText() {
