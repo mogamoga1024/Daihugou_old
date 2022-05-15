@@ -9,7 +9,7 @@ const PlayerItem = {
             <div class="player-card" v-for="card in playerCardModels"
                 @click="onCardClick(card)"
                 :class="{'selected-card': card.isSelected, 'disable-card': card.isSelected === false && canSelectCards === false}">
-                {{ card.card.name }}
+                <span :class="{'red-card': card.card.suit.isRed}">{{ card.card.name }}</span>
             </div>
         </div>
     `,
