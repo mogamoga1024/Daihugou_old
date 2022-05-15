@@ -13,11 +13,7 @@ class Common {
      * @returns {Promise}
      */
     static sleep(time) {
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve();
-            }, time);
-        });
+        return new Promise(resolve => setTimeout(resolve, time));
     }
 
     /**
@@ -47,9 +43,7 @@ class Common {
      * @returns {Array<PlayerCardModel>}
      */
     static cardListToPlayerCardModelList(cardList) {
-        return cardList.map(c => {
-            return new PlayerCardModel(c)
-        });
+        return cardList.map(c => new PlayerCardModel(c));
     }
 
     static cardListToString(cardList) {
