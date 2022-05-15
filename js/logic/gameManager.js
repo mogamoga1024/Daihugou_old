@@ -27,5 +27,7 @@ class GameManager {
         while (scene !== null) {
             scene = await scene.start();
         }
+
+        console.log("【ゲーム終了】");
     }
 }

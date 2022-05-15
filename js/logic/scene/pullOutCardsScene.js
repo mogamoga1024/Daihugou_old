@@ -56,7 +56,6 @@ class PullOutCardsScene extends Scene {
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // TODO ゲーム終了
-            console.log("【ゲーム終了】");
             return null;
         }
         
