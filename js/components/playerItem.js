@@ -3,7 +3,7 @@ const PlayerItem = {
     template: `
         <div id="player-button-container">
             <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
-            <button @click="pass" :disabled="isExchangeCardsScene">パス</button>
+            <button @click="pass" :disabled="canPass === false">パス</button>
         </div>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCardModels"
@@ -19,6 +19,7 @@ const PlayerItem = {
             playerCardModels: [],
             canSelectCards: true,
             canOutputCards: false,
+            canPass: false,
         }
     },
     created() {
@@ -66,20 +67,20 @@ const PlayerItem = {
                 return;
             }
             card.isSelected = !card.isSelected;
-            const selectedCardsCount = this.playerCardModels.filter(c => c.isSelected).length;
+            const selectedCardsCount = this.selectedPlayerCardModels().length;
             this.canSelectCards = selectedCardsCount < 2; // TODO 2
             this.canOutputCards = selectedCardsCount === 2; // TODO 2
         },
         exchangeCards() {
-            player.selectExchangeCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
+            player.selectExchangeCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
             this.resetCardsStatus();
         },
         selectPullOutCards(card) {
             card.isSelected = !card.isSelected;
-            this.canOutputCards = true;
+            this.canOutputCards = this.selectedPlayerCardModels().length > 0;
         },
         pullOutCards() {
-            player.pullOutCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
+            player.pullOutCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
             this.resetCardsStatus();
         },
         /**
@@ -89,6 +90,9 @@ const PlayerItem = {
          */
         cardListToPlayerCardModelList(cardList) {
             return cardList.map(c => new PlayerCardModel(c));
+        },
+        selectedPlayerCardModels() {
+            return this.playerCardModels.filter(c => c.isSelected);
         }
     }
 };
