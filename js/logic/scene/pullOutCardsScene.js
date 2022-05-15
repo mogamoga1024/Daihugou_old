@@ -3,13 +3,11 @@ class PullOutCardsScene extends Scene {
     #player = null;
     #playerCardsVM = null;
     #cpuListVM = null;
-    #battleFieldVM = null;
 
     constructor(gameManager, player) {
         super(gameManager);
         this.#playerCardsVM = gameManager.playerCardsVM;
         this.#cpuListVM = gameManager.cpuListVM;
-        this.#battleFieldVM = gameManager.battleFieldVM;
         this.#player = player;
     }
 
@@ -36,7 +34,7 @@ class PullOutCardsScene extends Scene {
             console.log("出したカード");
             console.log(Common.cardListToString(selectedCards));
 
-            this.#battleFieldVM.cards = selectedCards;
+            this.gameManager.battleFieldCards = selectedCards;
 
             if (this.#player.isHuman) {
                 this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#player.cards);

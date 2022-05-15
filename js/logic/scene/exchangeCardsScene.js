@@ -21,7 +21,6 @@ class ExchangeCardsScene extends Scene {
             this.#playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
             this.#playerCardsVM.canSelectCards = false;
             this.#playerCardsVM.canOutputCards = true;
-            this.#playerCardsVM.forceCardUnselectable = true;
         }
     }
 
@@ -54,7 +53,6 @@ class ExchangeCardsScene extends Scene {
 
     #tearDown() {
         this.#playerCardsVM.isExchangeCardsScene = false;
-        this.#playerCardsVM.forceCardUnselectable = false;
 
         if (this.#firstPlacePlayer.isHuman) {
             this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#firstPlacePlayer.cards);

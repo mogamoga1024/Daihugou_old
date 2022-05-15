@@ -3,7 +3,19 @@ class GameManager {
     #currentPlayer = null;
     playerCardsVM = null;
     cpuListVM = null;
-    battleFieldVM = null;
+    #battleFieldVM = null;
+    set battleFieldVM(vm) {
+        this.#battleFieldVM = vm;
+    }
+
+    #battleFieldCards = [];
+    get battleFieldCards() {
+        return this.#battleFieldCards;
+    }
+    set battleFieldCards(cards) {
+        this.#battleFieldCards = cards;
+        this.#battleFieldVM.cards = cards;
+    }
     
     constructor(playerChain) {
         this.#currentPlayer = playerChain;
