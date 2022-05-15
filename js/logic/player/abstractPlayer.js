@@ -77,9 +77,10 @@ class AbstractPlayer extends IDAble {
      * ・場にカードを出す。
      * ・副作用で出したカードは手札からなくなる。
      * ・パスする場合は空の配列を返す。（= 出すカードがないから）
+     * @param {Array<Card>} battleFieldCards 今の場のカード 
      * @returns {Array<Card>} 場に出すカード
      */
-    pullOutCards() {
+    pullOutCards(battleFieldCards) {
         return [];
     }
 }

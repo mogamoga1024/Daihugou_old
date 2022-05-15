@@ -60,4 +60,31 @@ class Rule {
 
         return selectableCards;
     }
+
+    static findSelectableHands(battleFieldCards, cards) {
+        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+
+        if (battleFieldCards.length === 0) {
+            // TODO 仮
+            return cards.map(c => [c]);
+        }
+
+        const strongCards = cards.filter(c => c.power > battleFieldCards[0].power);
+        if (strongCards.length === 0) {
+            return [];
+        }
+
+        const minPower = strongCards[0].power;
+        const maxPower = strongCards[strongCards.length - 1].power;
+        const selectableHands = [];
+        for (let power = minPower; power <= maxPower; power++) {
+            const cards = strongCards.filter(c => c.power === power);
+            if (cards.length >= battleFieldCards.length) {
+                // TODO テキトー
+                selectableHands.push(cards.slice(0, battleFieldCards.length));
+            }
+        }
+
+        return selectableHands;
+    }
 }

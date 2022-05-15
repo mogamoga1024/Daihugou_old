@@ -5,8 +5,6 @@ class Cpu extends AbstractPlayer {
     }
 
     selectExchangeCards() {
-        // 前提知識：this.cardsはカードの強さの昇順でソートされている。
-
         // TODO 交換枚数
 
         if (this.rank === Rank.Daihugou) {
@@ -19,10 +17,15 @@ class Cpu extends AbstractPlayer {
         }
     }
 
-    pullOutCards() {
-        // TODO 選択するカードの判定
+    pullOutCards(battleFieldCards) {
+        const selectableHands = Rule.findSelectableHands(battleFieldCards, this.cards);
 
-        const selectedCards = [this.cards[0]];
+        if (selectableHands.length === 0) {
+            return [];
+        }
+
+        // TODO 適当
+        const selectedCards = selectableHands[0];
 
         this.cards = this.cards.filter(c => selectedCards.indexOf(c) === -1);
 

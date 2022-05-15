@@ -35,7 +35,7 @@ class PullOutCardsScene extends Scene {
 
         this.#setUp();
 
-        const selectedCards = await this.#player.pullOutCards();
+        const selectedCards = await this.#player.pullOutCards(this.gameManager.battleFieldCards);
 
         if (selectedCards.length === 0) {
             console.log("パス");
