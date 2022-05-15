@@ -1,5 +1,5 @@
 
-class Card extends AbstractCard {
+class Card extends IDAble {
     static #allCards = [];
     static get allCards() {
         if (this.#allCards.length > 0) {

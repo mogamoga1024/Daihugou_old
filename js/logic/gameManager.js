@@ -102,6 +102,9 @@ class GameManager {
         if (Common.isPlayer(player)) {
             this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
         }
+        else {
+            //this.cpuListVM.
+        }
         
         await Common.sleep(1200);
 

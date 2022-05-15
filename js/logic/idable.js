@@ -1,5 +1,5 @@
 
-class AbstractCard {
+class IDAble {
     static _newId = 1;
     _id;
     get id() {
@@ -7,6 +7,6 @@ class AbstractCard {
     }
 
     constructor() {
-        this._id = AbstractCard._newId++;
+        this._id = IDAble._newId++;
     }
 }
