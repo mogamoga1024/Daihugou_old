@@ -27,13 +27,11 @@ class GameManager {
         await this.#pullOutCardsScene(lastPlacePlayer);
     }
 
-    async #exchangeCardsScene(player1, player2) {
-        console.log("【カードの交換】");
-
-        this.playerCardsVM.isPlayerTurn = Common.isPlayer(player1) || Common.isPlayer(player2);
-        this.playerCardsVM.isExchangeCardsScene = true;
+    #exchangeCardsSceneStart(highRankPlayer, lowRankPlayer) {
+        this.playerCardsVM.isPlayerTurn = Common.isPlayer(highRankPlayer) || Common.isPlayer(lowRankPlayer);
         
-        if (Common.isPlayer(player2)) {
+        if (Common.isPlayer(lowRankPlayer)) {
+            this.playerCardsVM.isExchangeCardsScene = true;
             const cardsCount = this.playerCardsVM.playerCardModels.length;
             this.playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
             this.playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
@@ -41,32 +39,44 @@ class GameManager {
             this.playerCardsVM.canOutputCards = true;
             this.playerCardsVM.forceCardUnselectable = true;
         }
+    }
 
-        const firstPlacePlayerCard = await player1.selectExchangeCards();
-        const lastPlacePlayerCard = await player2.selectExchangeCards();
+    async #exchangeCardsScene(highRankPlayer, lowRankPlayer) {
+        console.log("【カードの交換】");
+
+        this.#exchangeCardsSceneStart(highRankPlayer, lowRankPlayer);
+
+        const firstPlacePlayerCard = await highRankPlayer.selectExchangeCards();
+        const lastPlacePlayerCard = await lowRankPlayer.selectExchangeCards();
         
         console.log("交換前");
-        console.log("player1: " + Common.cardListToString(player1.cards));
-        console.log("player2: " + Common.cardListToString(player2.cards));
+        console.log("highRankPlayer: " + Common.cardListToString(highRankPlayer.cards));
+        console.log("lowRankPlayer: " + Common.cardListToString(lowRankPlayer.cards));
         console.log("交換するカード");
-        console.log("player1: " + Common.cardListToString(firstPlacePlayerCard));
-        console.log("player2: " + Common.cardListToString(lastPlacePlayerCard));
+        console.log("highRankPlayer: " + Common.cardListToString(firstPlacePlayerCard));
+        console.log("lowRankPlayer: " + Common.cardListToString(lastPlacePlayerCard));
 
-        this.#exchangeCards(player1, player2, firstPlacePlayerCard, lastPlacePlayerCard);
+        this.#exchangeCards(highRankPlayer, lowRankPlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
         console.log("交換後");
-        console.log("player1: " + player1.cards.map(c => c.name).join(", "));
-        console.log("player2: " + player2.cards.map(c => c.name).join(", "));
+        console.log("highRankPlayer: " + highRankPlayer.cards.map(c => c.name).join(", "));
+        console.log("lowRankPlayer: " + lowRankPlayer.cards.map(c => c.name).join(", "));
 
+        this.#exchangeCardsSceneEnd(highRankPlayer, lowRankPlayer);
+    }
+
+    #exchangeCardsSceneEnd(highRankPlayer, lowRankPlayer) {
         this.playerCardsVM.isExchangeCardsScene = false;
         this.playerCardsVM.forceCardUnselectable = false;
 
-        if (Common.isPlayer(player1)) {
-            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player1.cards);
+        if (Common.isPlayer(highRankPlayer)) {
+            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(highRankPlayer.cards);
         }
-        else if (Common.isPlayer(player2)) {
-            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player2.cards);
+        else if (Common.isPlayer(lowRankPlayer)) {
+            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(lowRankPlayer.cards);
         }
+
+        this.playerCardsVM.isPlayerTurn = false;
     }
 
     /**
@@ -86,16 +96,19 @@ class GameManager {
         Common.sortCards(player2.cards);
     }
 
-    async #pullOutCardsScene(player) {
-        console.log("【カードを出す】");
-
+    #pullOutCardsSceneStart(player) {
         this.playerCardsVM.isPlayerTurn = Common.isPlayer(player);
 
         if (Common.isPlayer(player)) {
             this.playerCardsVM.canPass = true;
             // TODO 出せるカードの制限（Vue）
-
         }
+    }
+
+    async #pullOutCardsScene(player) {
+        console.log("【カードを出す】");
+
+        this.#pullOutCardsSceneStart(player);
 
         const selectedCards = await player.pullOutCards();
 
@@ -115,10 +128,9 @@ class GameManager {
                 this.cpuListVM.getCpuModel(player.id).cardsCount -= 1;
             }
         }
-        
-        this.playerCardsVM.canPass = false;
-        this.playerCardsVM.isPlayerTurn = false;
 
+        this.#pullOutCardsSceneEnd(player);
+        
         const nextActivePlayer = player.nextActivePlayer;
 
         if (Common.isPlayer(nextActivePlayer) === false) {
@@ -132,5 +144,10 @@ class GameManager {
         }
         
         this.#pullOutCardsScene(nextActivePlayer);
+    }
+
+    #pullOutCardsSceneEnd(player) {
+        this.playerCardsVM.canPass = false;
+        this.playerCardsVM.isPlayerTurn = false;
     }
 }
