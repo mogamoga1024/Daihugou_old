@@ -15,5 +15,10 @@ const CpuList = {
         gameManager.cpuListVM = this;
         [, ...this.cpuList] = player.allPlayerList;
         this.cpuModelList = this.cpuList.map(c => new CpuModel(c));
+    },
+    methods: {
+        getCpuModel(id) {
+            return this.cpuModelList.filter(c => c.id === id)[0];
+        }
     }
 };

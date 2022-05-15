@@ -23,7 +23,7 @@ const PlayerItem = {
     },
     created() {
         gameManager.playerCardsVM = this;
-        this.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
+        this.playerCardModels = this.cardListToPlayerCardModelList(player.cards);
     },
     computed: {
         outputCardsButtonText() {
@@ -78,6 +78,14 @@ const PlayerItem = {
             player.pullOutCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
             this.resetCardsStatus();
             // todo
+        },
+        /**
+         * Array<Card>をArray<PlayerCardModel>に変換する。
+         * @param {Array<Card>} cardList
+         * @returns {Array<PlayerCardModel>}
+         */
+        cardListToPlayerCardModelList(cardList) {
+            return cardList.map(c => new PlayerCardModel(c));
         }
     }
 };

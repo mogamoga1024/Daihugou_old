@@ -60,10 +60,10 @@ class GameManager {
         this.playerCardsVM.forceCardUnselectable = false;
 
         if (Common.isPlayer(player1)) {
-            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player1.cards);
+            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player1.cards);
         }
         else if (Common.isPlayer(player2)) {
-            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player2.cards);
+            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player2.cards);
         }
     }
 
@@ -100,10 +100,10 @@ class GameManager {
         this.battleFieldVM.cards = selectedCards;
 
         if (Common.isPlayer(player)) {
-            this.playerCardsVM.playerCardModels = Common.cardListToPlayerCardModelList(player.cards);
+            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player.cards);
         }
         else {
-            //this.cpuListVM.
+            this.cpuListVM.getCpuModel(player.id).cardsCount -= 1;
         }
         
         await Common.sleep(1200);

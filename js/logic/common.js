@@ -37,15 +37,6 @@ class Common {
         return player.constructor === Player;
     }
 
-    /**
-     * Array<Card>をArray<PlayerCardModel>に変換する。
-     * @param {Array<Card>} cardList
-     * @returns {Array<PlayerCardModel>}
-     */
-    static cardListToPlayerCardModelList(cardList) {
-        return cardList.map(c => new PlayerCardModel(c));
-    }
-
     static cardListToString(cardList) {
         return cardList.map(c => c.name).join(", ");
     }
