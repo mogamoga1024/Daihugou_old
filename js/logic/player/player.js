@@ -38,4 +38,8 @@ class Player extends AbstractPlayer {
             this.#resolvePullOutCards = null;
         }
     }
+
+    passInScreen() {
+        this.#resolvePullOutCards([])
+    }
 }

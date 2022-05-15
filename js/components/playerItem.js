@@ -3,7 +3,7 @@ const PlayerItem = {
     template: `
         <div id="player-button-container">
             <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
-            <button :disabled="isExchangeCardsScene">パス</button>
+            <button @click="pass" :disabled="isExchangeCardsScene">パス</button>
         </div>
         <div id="player-card-container">
             <div class="player-card" v-for="card in playerCardModels"
@@ -49,6 +49,10 @@ const PlayerItem = {
                 this.pullOutCards();
             }
         },
+        pass() {
+            player.passInScreen();
+            this.resetCardsStatus();
+        },
 
         // ↓ 画面に紐づいていないメソッド
 
@@ -77,7 +81,6 @@ const PlayerItem = {
         pullOutCards() {
             player.pullOutCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
             this.resetCardsStatus();
-            // todo
         },
         /**
          * Array<Card>をArray<PlayerCardModel>に変換する。

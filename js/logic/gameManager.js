@@ -94,16 +94,21 @@ class GameManager {
 
         const selectedCards = await player.pullOutCards();
 
-        console.log("出したカード");
-        console.log(Common.cardListToString(selectedCards));
-
-        this.battleFieldVM.cards = selectedCards;
-
-        if (Common.isPlayer(player)) {
-            this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player.cards);
+        if (selectedCards.length === 0) {
+            console.log("パス");
         }
         else {
-            this.cpuListVM.getCpuModel(player.id).cardsCount -= 1;
+            console.log("出したカード");
+            console.log(Common.cardListToString(selectedCards));
+
+            this.battleFieldVM.cards = selectedCards;
+
+            if (Common.isPlayer(player)) {
+                this.playerCardsVM.playerCardModels = this.playerCardsVM.cardListToPlayerCardModelList(player.cards);
+            }
+            else {
+                this.cpuListVM.getCpuModel(player.id).cardsCount -= 1;
+            }
         }
         
         await Common.sleep(1200);
