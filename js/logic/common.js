@@ -25,7 +25,7 @@ class Common {
             if (a.power !== b.power) {
                 return a.power - b.power;
             }
-            return a.suit - b.suit;
+            return a.suit.power - b.suit.power;
         })
     }
 

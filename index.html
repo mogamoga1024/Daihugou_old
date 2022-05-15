@@ -12,7 +12,9 @@
     <div id="app">
         <Cpu-List></Cpu-List>
         <div id="battle-field">
-            <div class="card" v-for="card in cards">{{ card.name }}</div>
+            <div class="card" v-for="card in cards">
+                <span :class="{'red-card': card.suit.isRed}">{{ card.name }}</span>
+            </div>
         </div>
         <Player-Item></Player-Item>
     </div>
