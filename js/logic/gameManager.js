@@ -24,7 +24,7 @@ class GameManager {
         await this.#exchangeCardsScene(firstPlacePlayer, lastPlacePlayer);
 
         // 最下位からスタート
-        this.#pullOutCardsScene(lastPlacePlayer);
+        await this.#pullOutCardsScene(lastPlacePlayer);
     }
 
     async #exchangeCardsScene(player1, player2) {
@@ -84,15 +84,15 @@ class GameManager {
         Common.sortCards(player2.cards);
     }
 
-    #pullOutCardsScene(player) {
+    async #pullOutCardsScene(player) {
         console.log("【カードを出す】");
 
         if (Common.isPlayer(player)) {
             // TODO 出せるカードの制限（Vue）
-            
+
         }
 
-        const selectedCards = player.pullOutCards();
+        const selectedCards = await player.pullOutCards();
 
         this.battleFieldVM.cards = selectedCards;
 

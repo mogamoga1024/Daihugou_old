@@ -38,11 +38,11 @@ const PlayerItem = {
                 this.selectExchangeCards(card);
             }
             else {
-                // TODO
+                this.selectPullOutCards(card);
             }
         },
         outputCards() {
-            if (this.isExchangeCardsScene) {
+            if (this.isExchangeCardsScene) { // TODO SceneStatus
                 this.exchangeCards();
             }
             else {
@@ -52,6 +52,11 @@ const PlayerItem = {
 
         // ↓ 画面に紐づいていないメソッド
 
+        resetCardsStatus() {
+            this.canSelectCards = true;
+            this.canOutputCards = false;
+            this.playerCardModels.map(c => c.isSelected = false);
+        },
         selectExchangeCards(card) {
             if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
                 return;
@@ -63,13 +68,15 @@ const PlayerItem = {
         },
         exchangeCards() {
             player.selectExchangeCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
-            this.canSelectCards = true;
-            this.canOutputCards = false;
-            this.playerCardModels.map(c => c.isSelected = false);
+            this.resetCardsStatus();
+        },
+        selectPullOutCards(card) {
+            card.isSelected = !card.isSelected;
+            this.canOutputCards = true;
         },
         pullOutCards() {
             player.pullOutCardsInScreen(this.playerCardModels.filter(c => c.isSelected).map(c => c.card));
-
+            this.resetCardsStatus();
             // todo
         }
     }
