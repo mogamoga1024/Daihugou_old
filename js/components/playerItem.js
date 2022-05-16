@@ -89,6 +89,8 @@ const PlayerItem = {
             this.resetCardsStatus();
         },
         selectPullOutCards(card) {
+            // TODO 選択可能なもののみ選択可能にする。
+
             card.isSelected = !card.isSelected;
             this.canOutputCards = this.selectedPlayerCardModels().length > 0;
         },
