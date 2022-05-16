@@ -33,7 +33,7 @@ class Player extends AbstractPlayer {
     pullOutCardsInScreen(cards) {
         if (this.#resolvePullOutCards !== null) {
             this.cards = this.cards.filter(c => cards.filter(d => c.id === d.id).length === 0);
-            this.latestPullOutCardId = cards.length === 0 ? 0 : cards[0].id;
+            this.latestPullOutCard = cards.length === 0 ? null : cards[0];
             
             this.#resolvePullOutCards(cards);
             this.#resolvePullOutCards = null;

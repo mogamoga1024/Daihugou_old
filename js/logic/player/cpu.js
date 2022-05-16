@@ -21,13 +21,13 @@ class Cpu extends AbstractPlayer {
         const selectableHands = this.forcePass ? [] : Rule.findSelectableHands(battleFieldCards, this.cards);
 
         if (selectableHands.length === 0) {
-            this.latestPullOutCardId = 0;
+            this.latestPullOutCard = null;
             return [];
         }
 
         // TODO 適当
         const selectedCards = selectableHands[0];
-        this.latestPullOutCardId = selectedCards[0].id;
+        this.latestPullOutCard = selectedCards[0];
 
         this.cards = this.cards.filter(c => selectedCards.indexOf(c) === -1);
 

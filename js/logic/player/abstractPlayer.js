@@ -7,10 +7,10 @@ class AbstractPlayer extends IDAble {
     forcePass = false;
 
     /**
-     * 最後に出したカードの1枚目のID
+     * 最後に出した1枚目のカード
      * 場を流すかどうかの判定に利用する。
      */
-    latestPullOutCardId = 0;
+    latestPullOutCard = null;
     
     get allPlayerCount() {
         let currentPlayer = this;

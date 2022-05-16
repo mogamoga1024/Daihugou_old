@@ -74,6 +74,8 @@ class PullOutCardsScene extends Scene {
             await Common.sleep(1200);
         }
 
+        
+
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // TODO ゲーム終了
             this.#player.allPlayerList.map(p => p.forcePass = false);
@@ -81,7 +83,7 @@ class PullOutCardsScene extends Scene {
         }
         else if (
             this.gameManager.battleFieldCards.length > 0 && 
-            nextActivePlayer.latestPullOutCardId === this.gameManager.battleFieldCards[0].id
+            nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
         ) {
             this.gameManager.battleFieldCards = [];
             this.#player.allPlayerList.map(p => p.forcePass = false);
