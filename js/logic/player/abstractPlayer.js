@@ -4,6 +4,12 @@ class AbstractPlayer extends IDAble {
     nextPlayer = null;
     prevPlayer = null;
     ranking = 0; // 1位なら1、2位なら2、…
+
+    /**
+     * 最後に出したカードの1枚目のID
+     * 場を流すかどうかの判定に利用する。
+     */
+    latestPullOutCardId = 0;
     
     get allPlayerCount() {
         let currentPlayer = this;

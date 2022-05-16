@@ -66,6 +66,9 @@ class PullOutCardsScene extends Scene {
             // TODO ゲーム終了
             return null;
         }
+        else if (this.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCardId === this.battleFieldCards[0]) {
+            // TODO
+        }
         
         return new PullOutCardsScene(this.gameManager, nextActivePlayer);
     }
