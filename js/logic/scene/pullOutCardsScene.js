@@ -68,10 +68,6 @@ class PullOutCardsScene extends Scene {
             await Common.sleep(1200);
         }
 
-        console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
-        console.log("nextActivePlayer.latestPullOutCardId: " + nextActivePlayer.latestPullOutCardId);
-        console.log("this.gameManager.battleFieldCards[0].id: " + this.gameManager.battleFieldCards[0].id);
-
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // TODO ゲーム終了
             return null;
