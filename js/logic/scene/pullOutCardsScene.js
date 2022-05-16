@@ -113,7 +113,7 @@ class PullOutCardsScene extends Scene {
         this.#playerCardsVM.isPlayerTurn = false;
     }
 
-    #flowEndCleanUp(nextActivePlayer) {
+    #flowEndCleanUp() {
         this.gameManager.battleFieldCards = [];
         this.#player.allPlayerList.map(p => p.forcePass = false);
     }
