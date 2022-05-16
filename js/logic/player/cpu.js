@@ -18,7 +18,7 @@ class Cpu extends AbstractPlayer {
     }
 
     pullOutCards(battleFieldCards) {
-        const selectableHands = Rule.findSelectableHands(battleFieldCards, this.cards);
+        const selectableHands = this.forcePass ? [] : Rule.findSelectableHands(battleFieldCards, this.cards);
 
         if (selectableHands.length === 0) {
             this.latestPullOutCardId = 0;

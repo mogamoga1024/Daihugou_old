@@ -4,6 +4,7 @@ class AbstractPlayer extends IDAble {
     nextPlayer = null;
     prevPlayer = null;
     ranking = 0; // 1位なら1、2位なら2、…
+    forcePass = false;
 
     /**
      * 最後に出したカードの1枚目のID

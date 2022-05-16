@@ -18,17 +18,22 @@ class PullOutCardsScene extends Scene {
 
         if (this.#player.isHuman) {
             this.#playerCardsVM.canPass = !this.#isFlowStart;
-            // TODO 出せるカードの制限（Vue）
-            const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
+            if (this.#player.forcePass) {
+                this.#playerCardsVM.playerCardModels.map(c => c.canSelect = false);
+            }
+            else {
+                // TODO 出せるカードの制限（Vue）
+                const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
 
-            console.log("選択可能なカード");
-            console.log(Common.cardListToString(selectableCards));
+                console.log("選択可能なカード");
+                console.log(Common.cardListToString(selectableCards));
 
-            this.#playerCardsVM.playerCardModels.forEach(c => {
-                if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
-                    c.canSelect = false;
-                }
-            });
+                this.#playerCardsVM.playerCardModels.forEach(c => {
+                    if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
+                        c.canSelect = false;
+                    }
+                });
+            }
         }
     }
 
@@ -44,6 +49,7 @@ class PullOutCardsScene extends Scene {
         const selectedCards = await this.#player.pullOutCards(this.gameManager.battleFieldCards);
 
         if (selectedCards.length === 0) {
+            this.#player.forcePass = true;
             console.log("パス");
         }
         else {
@@ -70,6 +76,7 @@ class PullOutCardsScene extends Scene {
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // TODO ゲーム終了
+            this.#player.allPlayerList.map(p => p.forcePass = false);
             return null;
         }
         else if (
@@ -77,6 +84,7 @@ class PullOutCardsScene extends Scene {
             nextActivePlayer.latestPullOutCardId === this.gameManager.battleFieldCards[0].id
         ) {
             this.gameManager.battleFieldCards = [];
+            this.#player.allPlayerList.map(p => p.forcePass = false);
             
             if (nextActivePlayer.isHuman === false) {
                 await Common.sleep(1200);
