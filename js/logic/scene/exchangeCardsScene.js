@@ -35,17 +35,17 @@ class ExchangeCardsScene extends Scene {
         const lastPlacePlayerCard = await this.#lastPlacePlayer.selectExchangeCards();
         
         console.log("交換前");
-        console.log("firstPlacePlayer: " + Common.cardListToString(this.#firstPlacePlayer.cards));
-        console.log("lastPlacePlayer: " + Common.cardListToString(this.#lastPlacePlayer.cards));
+        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
+        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
         console.log("交換するカード");
-        console.log("firstPlacePlayer: " + Common.cardListToString(firstPlacePlayerCard));
-        console.log("lastPlacePlayer: " + Common.cardListToString(lastPlacePlayerCard));
+        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(firstPlacePlayerCard));
+        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(lastPlacePlayerCard));
 
         this.#exchangeCards(this.#firstPlacePlayer, this.#lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
         console.log("交換後");
-        console.log("firstPlacePlayer: " + this.#firstPlacePlayer.cards.map(c => c.name).join(", "));
-        console.log("lastPlacePlayer: " + this.#lastPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + this.#firstPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + this.#lastPlacePlayer.cards.map(c => c.name).join(", "));
 
         this.#cleanUp(this.#firstPlacePlayer, this.#lastPlacePlayer);
 

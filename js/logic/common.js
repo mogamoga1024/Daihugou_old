@@ -9,10 +9,10 @@ class Common {
     }
 
     /**
-     * @param {*} time スリープする時間（ミリ秒）
+     * @param {number} time スリープする時間（ミリ秒）
      * @returns {Promise}
      */
-    static sleep(time) {
+    static sleep(time = 500) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 

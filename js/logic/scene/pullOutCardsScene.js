@@ -43,6 +43,7 @@ class PullOutCardsScene extends Scene {
         }
 
         console.log("【カードを出す】");
+        console.log("ranking: " + this.#player.ranking);
 
         this.#setUp();
 
@@ -71,7 +72,7 @@ class PullOutCardsScene extends Scene {
         const nextActivePlayer = this.#player.nextActivePlayer;
 
         if (nextActivePlayer.isHuman === false) {
-            await Common.sleep(1200);
+            await Common.sleep();
         }
 
         console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
@@ -92,7 +93,7 @@ class PullOutCardsScene extends Scene {
             }
             this.#flowEndCleanUp();
             if (nextActivePlayer.isHuman === false) {
-                await Common.sleep(1200);
+                await Common.sleep();
             }
             console.log("フロー終了");
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);

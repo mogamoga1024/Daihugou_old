@@ -34,6 +34,11 @@ class GameManager {
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 
+        console.log("各プレイヤーの手札");
+        players.forEach(p => {
+            console.log("ranking: " + p.ranking + ", cards: " + Common.cardListToString(p.cards));
+        });
+
         let scene = new ExchangeCardsScene(this, firstPlacePlayer, lastPlacePlayer);
 
         while (scene !== null) {
