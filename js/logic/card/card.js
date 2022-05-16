@@ -1,5 +1,7 @@
 
 class Card extends IDAble {
+    static Null = new Card(Suit.None, "Null", 0);
+
     static #allCards = [];
     static get allCards() {
         if (this.#allCards.length > 0) {

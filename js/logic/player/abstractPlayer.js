@@ -10,7 +10,7 @@ class AbstractPlayer extends IDAble {
      * 最後に出した1枚目のカード
      * 場を流すかどうかの判定に利用する。
      */
-    latestPullOutCard = null;
+    latestPullOutCard = Card.Null;
     
     get allPlayerCount() {
         let currentPlayer = this;
