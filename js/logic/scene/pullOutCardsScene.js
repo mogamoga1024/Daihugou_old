@@ -66,7 +66,7 @@ class PullOutCardsScene extends Scene {
             }
         }
 
-        this.#tearDown();
+        this.#cleanUp();
         
         const nextActivePlayer = this.#player.nextActivePlayer;
 
@@ -87,23 +87,34 @@ class PullOutCardsScene extends Scene {
             this.gameManager.battleFieldCards.length > 0 && 
             nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
         ) {
-            this.gameManager.battleFieldCards = [];
-            this.#player.allPlayerList.map(p => p.forcePass = false);
-            
+            this.#flowEndCleanUp(nextActivePlayer);
             if (nextActivePlayer.isHuman === false) {
                 await Common.sleep(1200);
             }
-
             console.log("フロー終了");
-
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }
-        
-        return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
+        else if (this.#player.isActive === false) {
+            console.log("あがり");
+            this.#flowEndCleanUp(nextActivePlayer);
+            if (nextActivePlayer.isHuman === false) {
+                await Common.sleep(1200);
+            }
+            console.log("フロー終了");
+            return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
+        }
+        else {
+            return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
+        }
     }
 
-    #tearDown() {
+    #cleanUp() {
         this.#playerCardsVM.canPass = false;
         this.#playerCardsVM.isPlayerTurn = false;
+    }
+
+    #flowEndCleanUp(nextActivePlayer) {
+        this.gameManager.battleFieldCards = [];
+        this.#player.allPlayerList.map(p => p.forcePass = false);
     }
 }

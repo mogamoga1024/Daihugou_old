@@ -47,13 +47,13 @@ class ExchangeCardsScene extends Scene {
         console.log("firstPlacePlayer: " + this.#firstPlacePlayer.cards.map(c => c.name).join(", "));
         console.log("lastPlacePlayer: " + this.#lastPlacePlayer.cards.map(c => c.name).join(", "));
 
-        this.#tearDown(this.#firstPlacePlayer, this.#lastPlacePlayer);
+        this.#cleanUp(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
         // 最下位からスタート
         return new PullOutCardsScene(this.gameManager, this.#lastPlacePlayer, true);
     }
 
-    #tearDown() {
+    #cleanUp() {
         this.#playerCardsVM.isExchangeCardsScene = false;
 
         if (this.#firstPlacePlayer.isHuman) {
