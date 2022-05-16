@@ -84,19 +84,13 @@ class PullOutCardsScene extends Scene {
             return null;
         }
         else if (
-            this.gameManager.battleFieldCards.length > 0 && 
-            nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
+            this.gameManager.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
+            || this.#player.isActive === false
         ) {
-            this.#flowEndCleanUp(nextActivePlayer);
-            if (nextActivePlayer.isHuman === false) {
-                await Common.sleep(1200);
+            if (this.#player.isActive === false) {
+                console.log("あがり");
             }
-            console.log("フロー終了");
-            return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
-        }
-        else if (this.#player.isActive === false) {
-            console.log("あがり");
-            this.#flowEndCleanUp(nextActivePlayer);
+            this.#flowEndCleanUp();
             if (nextActivePlayer.isHuman === false) {
                 await Common.sleep(1200);
             }
