@@ -17,7 +17,7 @@ class Cpu extends AbstractPlayer {
         }
     }
 
-    pullOutCards(battleFieldCards) {
+    async pullOutCards(battleFieldCards) {
         const selectableHands = this.forcePass ? [] : Rule.findSelectableHands(battleFieldCards, this.cards);
 
         if (selectableHands.length === 0) {
@@ -30,6 +30,8 @@ class Cpu extends AbstractPlayer {
         this.latestPullOutCard = selectedCards[0];
 
         this.cards = this.cards.filter(c => selectedCards.indexOf(c) === -1);
+
+        await Common.sleep();
 
         return selectedCards;
     }

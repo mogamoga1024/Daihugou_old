@@ -71,10 +71,6 @@ class PullOutCardsScene extends Scene {
         
         const nextActivePlayer = this.#player.nextActivePlayer;
 
-        if (nextActivePlayer.isHuman === false) {
-            await Common.sleep();
-        }
-
         console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
         console.log("nextActivePlayer.latestPullOutCard: " + nextActivePlayer.latestPullOutCard.name);
         console.log("this.gameManager.battleFieldCards[0].name: " + this.gameManager.battleFieldCards[0].name);
@@ -92,9 +88,6 @@ class PullOutCardsScene extends Scene {
                 console.log("あがり");
             }
             this.#flowEndCleanUp();
-            if (nextActivePlayer.isHuman === false) {
-                await Common.sleep();
-            }
             console.log("フロー終了");
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }
