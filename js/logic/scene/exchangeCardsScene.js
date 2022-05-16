@@ -50,7 +50,7 @@ class ExchangeCardsScene extends Scene {
         this.#tearDown(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
         // 最下位からスタート
-        return new PullOutCardsScene(this.gameManager, this.#lastPlacePlayer)
+        return new PullOutCardsScene(this.gameManager, this.#lastPlacePlayer, true);
     }
 
     #tearDown() {

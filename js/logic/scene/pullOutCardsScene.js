@@ -3,19 +3,21 @@ class PullOutCardsScene extends Scene {
     #player = null;
     #playerCardsVM = null;
     #cpuListVM = null;
+    #isFlowStart = false;
 
-    constructor(gameManager, player) {
+    constructor(gameManager, player, isFlowStart) {
         super(gameManager);
         this.#playerCardsVM = gameManager.playerCardsVM;
         this.#cpuListVM = gameManager.cpuListVM;
         this.#player = player;
+        this.#isFlowStart = isFlowStart;
     }
 
     #setUp() {
         this.#playerCardsVM.isPlayerTurn = this.#player.isHuman;
 
         if (this.#player.isHuman) {
-            this.#playerCardsVM.canPass = true;
+            this.#playerCardsVM.canPass = !this.#isFlowStart;
             // TODO 出せるカードの制限（Vue）
             const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
 
@@ -31,6 +33,10 @@ class PullOutCardsScene extends Scene {
     }
 
     async start() {
+        if (this.#isFlowStart) {
+            console.log("【フロー開始】");
+        }
+
         console.log("【カードを出す】");
 
         this.#setUp();
@@ -66,11 +72,11 @@ class PullOutCardsScene extends Scene {
             // TODO ゲーム終了
             return null;
         }
-        else if (this.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCardId === this.battleFieldCards[0]) {
+        else if (this.gameManager.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCardId === this.gameManager.battleFieldCards[0]) {
             // TODO
         }
         
-        return new PullOutCardsScene(this.gameManager, nextActivePlayer);
+        return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
     }
 
     #tearDown() {
