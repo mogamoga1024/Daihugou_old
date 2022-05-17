@@ -1,6 +1,7 @@
 
 class PullOutCardsScene extends Scene {
     #player = null;
+    #allPlayerList = [];
     #battleFieldVM = null;
     #playerItemVM = null;
     #cpuListVM = null;
@@ -12,6 +13,7 @@ class PullOutCardsScene extends Scene {
         this.#playerItemVM = gameManager.playerItemVM;
         this.#cpuListVM = gameManager.cpuListVM;
         this.#player = player;
+        this.#allPlayerList = player.allPlayerList;
         this.#isFlowStart = isFlowStart;
     }
 
@@ -42,6 +44,22 @@ class PullOutCardsScene extends Scene {
     async start() {
         if (this.#isFlowStart) {
             console.log("【フロー開始】");
+        }
+
+        if (this.#player.forcePass && this.#allPlayerList.filter(p => p.isActive && p.forcePass === false).length === 0) {
+            // 前のプレイヤーが上がった状態で全員がパスした場合
+            // フロー終了
+
+            this.#allPlayerList.map(p => p.forcePass = false);
+
+            // 場のカードがなくなる前に最後に出したカードを数秒見せる。
+            Common.sleep();
+
+            this.#flowEndCleanUp();
+
+            console.log("フロー終了");
+            
+            return new PullOutCardsScene(this.gameManager, this.#player, true);
         }
 
         console.log("【カードを出す】");
@@ -78,6 +96,7 @@ class PullOutCardsScene extends Scene {
         console.log("this.#battleFieldVM.cards[0].name: " + this.#battleFieldVM.cards[0].name);
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
+            // 次のプレイヤーが最後の一人の場合
             // ゲーム終了
 
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
@@ -88,6 +107,7 @@ class PullOutCardsScene extends Scene {
             return new GameEndScene(this.gameManager);
         }
         else if (this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id) {
+            // 次のプレイヤー以外が全員パスした場合
             // フロー終了
             
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
@@ -100,11 +120,12 @@ class PullOutCardsScene extends Scene {
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }
         else if (this.#player.isActive === false) {
+            // 手札がなくなった場合
             // あがり
 
             console.log("あがり");
 
-            this.#player.allPlayerList.map(p => p.forcePass = false);
+            this.#allPlayerList.map(p => p.forcePass = false);
 
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
@@ -121,6 +142,6 @@ class PullOutCardsScene extends Scene {
 
     #flowEndCleanUp() {
         this.#battleFieldVM.cards = [];
-        this.#player.allPlayerList.map(p => p.forcePass = false);
+        this.#allPlayerList.map(p => p.forcePass = false);
     }
 }
