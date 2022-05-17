@@ -1,33 +1,18 @@
 
 class GameManager {
-    #currentPlayer = null;
+    player = null;
     playerCardsVM = null;
     cpuListVM = null;
     battleFieldVM = null;
     
     constructor(playerChain) {
-        this.#currentPlayer = playerChain;
+        this.player = playerChain;
     }
 
-    setStart() {
+    async setStart() {
         console.log("【セット開始】");
-        this.#gameStart();
-    }
 
-    async #gameStart() {
-        console.log("【ゲーム開始】");
-
-        // 1位と最下位でカードの交換を行う。
-        const players = this.#currentPlayer.allPlayerList;
-        const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
-        const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
-
-        console.log("各プレイヤーの手札");
-        players.forEach(p => {
-            console.log("ranking: " + p.ranking + ", cards: " + Common.cardListToString(p.cards));
-        });
-
-        let scene = new ExchangeCardsScene(this, firstPlacePlayer, lastPlacePlayer);
+        let scene = new GameStartScene(this);
 
         while (scene !== null) {
             scene = await scene.start();

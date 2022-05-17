@@ -2,10 +2,9 @@
 class GameEndScene extends Scene {
     #battleFieldVM = null;
 
-    constructor(gameManager, isFirstGame = true) {
+    constructor(gameManager) {
         super(gameManager);
         this.#battleFieldVM = gameManager.battleFieldVM;
-        this.#battleFieldVM.isFirstGame = isFirstGame;
     }
 
     start() {

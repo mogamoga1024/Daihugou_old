@@ -23,7 +23,6 @@ const viewModel = {
     },
     methods: {
         setStart() {
-            this.inGame = true;
             gameManager.setStart();
         }
     }
