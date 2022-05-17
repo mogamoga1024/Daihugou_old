@@ -26,7 +26,7 @@ class Common {
                 return a.power - b.power;
             }
             return a.suit.power - b.suit.power;
-        })
+        });
     }
 
     static cardListToString(cardList, needId = false) {
