@@ -11,15 +11,7 @@
 <body>
     <div id="app">
         <Cpu-List></Cpu-List>
-        <div id="battle-field">
-            <template v-if="inGame">
-                <div class="card" v-for="card in cards">
-                    <span :class="{'red-card': card.suit.isRed}">{{ card.name }}</span>
-                </div>
-            </template>
-            <button v-else-if="isFirstGame" @click="setStart">ゲーム開始</button>
-            <button v-else @click="nextGameStart">次のゲームへ</button>
-        </div>
+        <Battle-Field></Battle-Field>
         <Player-Item></Player-Item>
     </div>
 
@@ -43,6 +35,7 @@
     <script src="js/logic/scene/gameEndScene.js"></script>
     <script src="js/model/playerCardModel.js"></script>
     <script src="js/model/cpuModel.js"></script>
+    <script src="js/components/battleField.js"></script>
     <script src="js/components/playerItem.js"></script>
     <script src="js/components/cpuList.js"></script>
     <script src="js/main.js"></script>

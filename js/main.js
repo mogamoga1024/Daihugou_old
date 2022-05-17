@@ -3,34 +3,15 @@
     const cpuNum = 3;
     const gameManager = new GameManager(cpuNum);
 
+    const BattleField = createBattleField(gameManager);
     const PlayerItem = createPlayerItem(gameManager);
     const CpuList = createCpuList(gameManager);
 
     const App = {
         components: {
+            BattleField,
             PlayerItem,
             CpuList
-        },
-        data() {
-            return {
-                cards: [],
-                inGame: false,
-                isFirstGame: true,
-            }
-        },
-        created() {
-            gameManager.battleFieldVM = this;
-        },
-        mounted() {
-            
-        },
-        methods: {
-            setStart() {
-                gameManager.setStart();
-            },
-            nextGameStart() {
-                gameManager.nextGameStart();
-            }
         }
     };
 
