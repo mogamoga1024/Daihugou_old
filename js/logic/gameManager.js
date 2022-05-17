@@ -5,8 +5,8 @@ class GameManager {
     cpuListVM = null;
     battleFieldVM = null;
     
-    constructor(playerChain) {
-        this.player = playerChain;
+    constructor(cpuNum) {
+        this.player = PlayerFactory.createPlayerChain(cpuNum);
     }
 
     async setStart() {

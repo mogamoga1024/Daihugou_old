@@ -13,6 +13,7 @@ const PlayerItem = {
             </div>
         </div>
     `,
+    player: null,
     data() {
         return {
             isPlayerTurn: false,
@@ -24,7 +25,8 @@ const PlayerItem = {
     },
     created() {
         gameManager.playerCardsVM = this;
-        this.playerCardModels = this.cardListToPlayerCardModelList(player.cards);
+        this.player = gameManager.player;
+        this.playerCardModels = this.cardListToPlayerCardModelList(this.player.cards);
     },
     computed: {
         outputCardsButtonText() {
@@ -57,7 +59,7 @@ const PlayerItem = {
         pass() {
             if (this.isPlayerTurn === false) return;
 
-            player.passInScreen();
+            this.player.passInScreen();
             this.resetCardsStatus();
         },
 
@@ -71,7 +73,7 @@ const PlayerItem = {
             });
         },
         selectExchangeCards(card) {
-            if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
+            if (this.player.rank === Rank.Hinmin || this.player.rank === Rank.Daihinmin) {
                 return;
             }
             card.isSelected = !card.isSelected;
@@ -85,7 +87,7 @@ const PlayerItem = {
             }
         },
         exchangeCards() {
-            player.selectExchangeCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
+            this.player.selectExchangeCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
             this.resetCardsStatus();
         },
         selectPullOutCards(card) {
@@ -95,7 +97,7 @@ const PlayerItem = {
             this.canOutputCards = this.selectedPlayerCardModels().length > 0;
         },
         pullOutCards() {
-            player.pullOutCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
+            this.player.pullOutCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
             this.resetCardsStatus();
         },
         /**

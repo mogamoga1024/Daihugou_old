@@ -1,7 +1,6 @@
 
 const cpuNum = 3;
-const player = PlayerFactory.createPlayerChain(cpuNum);
-const gameManager = new GameManager(player);
+const gameManager = new GameManager(cpuNum);
 
 const viewModel = {
     components: {

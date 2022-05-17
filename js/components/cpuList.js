@@ -13,7 +13,7 @@ const CpuList = {
     },
     created() {
         gameManager.cpuListVM = this;
-        [, ...this.cpuList] = player.allPlayerList;
+        [, ...this.cpuList] = gameManager.player.allPlayerList;
         this.cpuModelList = this.cpuList.map(c => new CpuModel(c));
     },
     methods: {

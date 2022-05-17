@@ -16,7 +16,7 @@ class ExchangeCardsScene extends Scene {
         
         if (this.#lastPlacePlayer.isHuman) {
             this.#playerCardsVM.isExchangeCardsScene = true;
-            if (player.rank === Rank.Hinmin || player.rank === Rank.Daihinmin) {
+            if (this.player.rank === Rank.Hinmin || this.player.rank === Rank.Daihinmin) {
                 const cardsCount = this.#playerCardsVM.playerCardModels.length;
                 this.#playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
                 this.#playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;

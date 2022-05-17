@@ -2,13 +2,11 @@
 class GameStartScene extends Scene {
     #battleFieldVM = null;
     #isFirstGame = false;
-    #player = null;
 
     constructor(gameManager, isFirstGame) {
         super(gameManager);
         this.#battleFieldVM = gameManager.battleFieldVM;
         this.isFirstGame = isFirstGame;
-        this.#player = gameManager.player;
     }
 
     start() {
@@ -18,7 +16,7 @@ class GameStartScene extends Scene {
         this.#battleFieldVM.isFirstGame = this.#isFirstGame;
 
         // 1位と最下位でカードの交換を行う。
-        const players = this.#player.allPlayerList;
+        const players = this.player.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 

@@ -4,8 +4,14 @@ class Scene {
     get gameManager() {
         return this.#gameManager;
     }
+    #player = null;
+    get player() {
+        return this.#player;
+    }
+
     constructor(gameManager) {
         this.#gameManager = gameManager;
+        this.#player = gameManager.player;
     }
 
     /**
