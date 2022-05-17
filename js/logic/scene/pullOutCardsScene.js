@@ -15,7 +15,7 @@ class PullOutCardsScene extends Scene {
         this.#isFlowStart = isFlowStart;
     }
 
-    #setUp() {
+    #setUpVM() {
         this.#playerItemVM.isPlayerTurn = this.#player.isHuman;
 
         if (this.#player.isHuman) {
@@ -47,7 +47,7 @@ class PullOutCardsScene extends Scene {
         console.log("【カードを出す】");
         console.log("ranking: " + this.#player.ranking);
 
-        this.#setUp();
+        this.#setUpVM();
 
         const selectedCards = await this.#player.pullOutCards(this.#battleFieldVM.cards);
 
@@ -69,7 +69,7 @@ class PullOutCardsScene extends Scene {
             }
         }
 
-        this.#cleanUp();
+        this.#cleanUpVM();
         
         const nextActivePlayer = this.#player.nextActivePlayer;
 
@@ -114,7 +114,7 @@ class PullOutCardsScene extends Scene {
         }
     }
 
-    #cleanUp() {
+    #cleanUpVM() {
         this.#playerItemVM.canPass = false;
         this.#playerItemVM.isPlayerTurn = false;
     }

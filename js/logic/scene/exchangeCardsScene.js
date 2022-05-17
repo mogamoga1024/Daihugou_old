@@ -13,7 +13,7 @@ class ExchangeCardsScene extends Scene {
         this.#player = gameManager.player;
     }
 
-    #setUp() {
+    #setUpVM() {
         this.#playerItemVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
         
         if (this.#lastPlacePlayer.isHuman) {
@@ -31,7 +31,7 @@ class ExchangeCardsScene extends Scene {
     async start() {
         console.log("【カードの交換】");
 
-        this.#setUp();
+        this.#setUpVM();
 
         const firstPlacePlayerCard = await this.#firstPlacePlayer.selectExchangeCards();
         const lastPlacePlayerCard = await this.#lastPlacePlayer.selectExchangeCards();
@@ -49,13 +49,13 @@ class ExchangeCardsScene extends Scene {
         console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
         console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
 
-        this.#cleanUp(this.#firstPlacePlayer, this.#lastPlacePlayer);
+        this.#cleanUpVM(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
         // 最下位からスタート
         return new PullOutCardsScene(this.gameManager, this.#lastPlacePlayer, true);
     }
 
-    #cleanUp() {
+    #cleanUpVM() {
         this.#playerItemVM.isExchangeCardsScene = false;
 
         if (this.#firstPlacePlayer.isHuman) {
