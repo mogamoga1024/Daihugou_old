@@ -23,6 +23,9 @@ const viewModel = {
     methods: {
         setStart() {
             gameManager.setStart();
+        },
+        nextGameStart() {
+            gameManager.nextGameStart();
         }
     }
 };

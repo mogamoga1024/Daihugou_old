@@ -18,7 +18,7 @@
                 </div>
             </template>
             <button v-else-if="isFirstGame" @click="setStart">ゲーム開始</button>
-            <button v-else @click="setStart">次のゲームへ</button>
+            <button v-else @click="nextGameStart">次のゲームへ</button>
         </div>
         <Player-Item></Player-Item>
     </div>

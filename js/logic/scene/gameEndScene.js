@@ -11,6 +11,7 @@ class GameEndScene extends Scene {
         console.log("【ゲーム終了】");
 
         this.#battleFieldVM.inGame = false;
+        this.#battleFieldVM.isFirstGame = false;
 
         return null;
     }
