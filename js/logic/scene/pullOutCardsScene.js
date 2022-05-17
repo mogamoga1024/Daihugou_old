@@ -106,7 +106,7 @@ class PullOutCardsScene extends Scene {
 
             this.#player.allPlayerList.map(p => p.forcePass = false);
 
-            return new PullOutCardsScene(nextActivePlayer, false);
+            return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
         else {
             // 次のプレイヤーのターンへ
