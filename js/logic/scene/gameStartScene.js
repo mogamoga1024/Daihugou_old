@@ -15,6 +15,11 @@ class GameStartScene extends Scene {
         this.#battleFieldVM.inGame = true;
         this.#battleFieldVM.isFirstGame = this.#isFirstGame;
 
+        // カードを配る。
+        if (this.#isFirstGame === false) {
+            PlayerFactory.dealCards(this.player);
+        }
+
         // 1位と最下位でカードの交換を行う。
         const players = this.player.allPlayerList;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
