@@ -15,8 +15,10 @@ button {
 }
 
 #player-button-container {
+    display: flex;
     margin: 0 auto;
     max-width: 920px;
+    justify-content: center;
 }
 
 #player-card-container {
@@ -81,4 +83,8 @@ button {
     text-align: center;
     line-height: 65px;
     background-color: aliceblue;
+}
+
+#battle-field button {
+    width: 100px;
 }

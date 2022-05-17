@@ -12,9 +12,13 @@
     <div id="app">
         <Cpu-List></Cpu-List>
         <div id="battle-field">
-            <div class="card" v-for="card in cards">
-                <span :class="{'red-card': card.suit.isRed}">{{ card.name }}</span>
-            </div>
+            <template v-if="inGame">
+                <div class="card" v-for="card in cards">
+                    <span :class="{'red-card': card.suit.isRed}">{{ card.name }}</span>
+                </div>
+            </template>
+            <button v-else-if="isFirstGame" @click="setStart">ゲーム開始</button>
+            <button v-else>次のゲームへ</button>
         </div>
         <Player-Item></Player-Item>
     </div>

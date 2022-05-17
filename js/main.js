@@ -10,17 +10,22 @@ const viewModel = {
     },
     data() {
         return {
-            cards: []
+            cards: [],
+            inGame: false,
+            isFirstGame: true,
         }
     },
     created() {
         gameManager.battleFieldVM = this;
     },
     mounted() {
-        gameManager.setStart();
+        
     },
     methods: {
-        
+        setStart() {
+            this.inGame = true;
+            gameManager.setStart();
+        }
     }
 };
 
