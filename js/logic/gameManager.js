@@ -1,12 +1,15 @@
 
 class GameManager {
-    player = null;
+    #player = null;
+    get player() {
+        return this.#player;
+    }
     playerItemVM = null;
     cpuListVM = null;
     battleFieldVM = null;
     
     constructor(cpuNum) {
-        this.player = PlayerFactory.createPlayerChain(cpuNum);
+        this.#player = PlayerFactory.createPlayerChain(cpuNum);
     }
 
     setStart() {

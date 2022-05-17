@@ -3,12 +3,14 @@ class ExchangeCardsScene extends Scene {
     #playerItemVM = null;
     #firstPlacePlayer = null;
     #lastPlacePlayer = null;
+    #player = null;
 
     constructor(gameManager, firstPlacePlayer, lastPlacePlayer) {
         super(gameManager);
         this.#playerItemVM = gameManager.playerItemVM;
         this.#firstPlacePlayer = firstPlacePlayer;
         this.#lastPlacePlayer = lastPlacePlayer;
+        this.#player = gameManager.player;
     }
 
     #setUp() {
@@ -16,7 +18,7 @@ class ExchangeCardsScene extends Scene {
         
         if (this.#lastPlacePlayer.isHuman) {
             this.#playerItemVM.isExchangeCardsScene = true;
-            if (this.player.rank === Rank.Hinmin || this.player.rank === Rank.Daihinmin) {
+            if (this.#player.rank === Rank.Hinmin || this.#player.rank === Rank.Daihinmin) {
                 const cardsCount = this.#playerItemVM.playerCardModels.length;
                 this.#playerItemVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
                 this.#playerItemVM.playerCardModels[cardsCount - 1].isSelected = true;
