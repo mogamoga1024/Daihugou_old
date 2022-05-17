@@ -53,7 +53,7 @@ class PullOutCardsScene extends Scene {
             this.#allPlayerList.map(p => p.forcePass = false);
 
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            Common.sleep();
+            await Common.sleep();
 
             this.#flowEndCleanUp();
 
@@ -100,7 +100,7 @@ class PullOutCardsScene extends Scene {
             // ゲーム終了
 
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            Common.sleep();
+            await Common.sleep();
 
             this.#flowEndCleanUp();
 
@@ -111,7 +111,7 @@ class PullOutCardsScene extends Scene {
             // フロー終了
             
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            Common.sleep();
+            await Common.sleep();
 
             this.#flowEndCleanUp();
 
