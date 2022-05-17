@@ -65,7 +65,7 @@ class PullOutCardsScene extends Scene {
                 this.#playerItemVM.playerCardModels = this.#playerItemVM.cardListToPlayerCardModelList(this.#player.cards);
             }
             else {
-                this.#cpuListVM.getCpuModel(this.#player.id).cardsCount -= 1;
+                this.#cpuListVM.getCpuModel(this.#player.id).cardsCount -= selectedCards.length;
             }
         }
 
@@ -80,28 +80,33 @@ class PullOutCardsScene extends Scene {
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // ゲーム終了
 
-            // ゲーム終了シーン前に最後に出したカードを数秒見せる。
+            // 場のカードがなくなる前に最後に出したカードを数秒見せる。
             Common.sleep();
 
             this.#flowEndCleanUp();
 
             return new GameEndScene(this.gameManager);
         }
-        else if (
-            this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id
-            || this.#player.isActive === false
-        ) {
+        else if (this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id) {
             // フロー終了
-
-            if (this.#player.isActive === false) {
-                console.log("あがり");
-            }
+            
+            // 場のカードがなくなる前に最後に出したカードを数秒見せる。
+            Common.sleep();
 
             this.#flowEndCleanUp();
 
             console.log("フロー終了");
             
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
+        }
+        else if (this.#player.isActive === false) {
+            // あがり
+
+            console.log("あがり");
+
+            this.#player.allPlayerList.map(p => p.forcePass = false);
+
+            return new PullOutCardsScene(nextActivePlayer, false);
         }
         else {
             // 次のプレイヤーのターンへ
