@@ -29,8 +29,14 @@ class Common {
         })
     }
 
-    static cardListToString(cardList) {
-        const str = cardList.map(c => c.name).join(", ");
+    static cardListToString(cardList, needId = false) {
+        let str = null;
+        if (needId) {
+            str = cardList.map(c => c.id + ":" + c.name).join(", ");
+        }
+        else {
+            str = cardList.map(c => c.name).join(", ");
+        }
         return str === "" ? "ない" : str;
     }
 }

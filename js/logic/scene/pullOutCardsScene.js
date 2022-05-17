@@ -2,26 +2,26 @@
 class PullOutCardsScene extends Scene {
     #player = null;
     #battleFieldVM = null;
-    #playerCardsVM = null;
+    #playerItemVM = null;
     #cpuListVM = null;
     #isFlowStart = false;
 
     constructor(gameManager, player, isFlowStart) {
         super(gameManager);
         this.#battleFieldVM = gameManager.battleFieldVM;
-        this.#playerCardsVM = gameManager.playerCardsVM;
+        this.#playerItemVM = gameManager.playerItemVM;
         this.#cpuListVM = gameManager.cpuListVM;
         this.#player = player;
         this.#isFlowStart = isFlowStart;
     }
 
     #setUp() {
-        this.#playerCardsVM.isPlayerTurn = this.#player.isHuman;
+        this.#playerItemVM.isPlayerTurn = this.#player.isHuman;
 
         if (this.#player.isHuman) {
-            this.#playerCardsVM.canPass = !this.#isFlowStart;
+            this.#playerItemVM.canPass = !this.#isFlowStart;
             if (this.#player.forcePass) {
-                this.#playerCardsVM.playerCardModels.map(c => c.canSelect = false);
+                this.#playerItemVM.playerCardModels.map(c => c.canSelect = false);
             }
             else {
                 // TODO 出せるカードの制限（Vue）
@@ -30,7 +30,7 @@ class PullOutCardsScene extends Scene {
                 console.log("選択可能なカード");
                 console.log(Common.cardListToString(selectableCards));
 
-                this.#playerCardsVM.playerCardModels.forEach(c => {
+                this.#playerItemVM.playerCardModels.forEach(c => {
                     if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
                         c.canSelect = false;
                     }
@@ -62,7 +62,7 @@ class PullOutCardsScene extends Scene {
             this.#battleFieldVM.cards = selectedCards;
 
             if (this.#player.isHuman) {
-                this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#player.cards);
+                this.#playerItemVM.playerCardModels = this.#playerItemVM.cardListToPlayerCardModelList(this.#player.cards);
             }
             else {
                 this.#cpuListVM.getCpuModel(this.#player.id).cardsCount -= 1;
@@ -110,8 +110,8 @@ class PullOutCardsScene extends Scene {
     }
 
     #cleanUp() {
-        this.#playerCardsVM.canPass = false;
-        this.#playerCardsVM.isPlayerTurn = false;
+        this.#playerItemVM.canPass = false;
+        this.#playerItemVM.isPlayerTurn = false;
     }
 
     #flowEndCleanUp() {

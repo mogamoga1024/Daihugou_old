@@ -1,27 +1,27 @@
 
 class ExchangeCardsScene extends Scene {
-    #playerCardsVM = null;
+    #playerItemVM = null;
     #firstPlacePlayer = null;
     #lastPlacePlayer = null;
 
     constructor(gameManager, firstPlacePlayer, lastPlacePlayer) {
         super(gameManager);
-        this.#playerCardsVM = gameManager.playerCardsVM;
+        this.#playerItemVM = gameManager.playerItemVM;
         this.#firstPlacePlayer = firstPlacePlayer;
         this.#lastPlacePlayer = lastPlacePlayer;
     }
 
     #setUp() {
-        this.#playerCardsVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
+        this.#playerItemVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
         
         if (this.#lastPlacePlayer.isHuman) {
-            this.#playerCardsVM.isExchangeCardsScene = true;
+            this.#playerItemVM.isExchangeCardsScene = true;
             if (this.player.rank === Rank.Hinmin || this.player.rank === Rank.Daihinmin) {
-                const cardsCount = this.#playerCardsVM.playerCardModels.length;
-                this.#playerCardsVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
-                this.#playerCardsVM.playerCardModels[cardsCount - 1].isSelected = true;
-                this.#playerCardsVM.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
-                this.#playerCardsVM.canOutputCards = true;
+                const cardsCount = this.#playerItemVM.playerCardModels.length;
+                this.#playerItemVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
+                this.#playerItemVM.playerCardModels[cardsCount - 1].isSelected = true;
+                this.#playerItemVM.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
+                this.#playerItemVM.canOutputCards = true;
             }
         }
     }
@@ -44,8 +44,8 @@ class ExchangeCardsScene extends Scene {
         this.#exchangeCards(this.#firstPlacePlayer, this.#lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
         console.log("交換後");
-        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + this.#firstPlacePlayer.cards.map(c => c.name).join(", "));
-        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + this.#lastPlacePlayer.cards.map(c => c.name).join(", "));
+        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
+        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
 
         this.#cleanUp(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
@@ -54,16 +54,16 @@ class ExchangeCardsScene extends Scene {
     }
 
     #cleanUp() {
-        this.#playerCardsVM.isExchangeCardsScene = false;
+        this.#playerItemVM.isExchangeCardsScene = false;
 
         if (this.#firstPlacePlayer.isHuman) {
-            this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#firstPlacePlayer.cards);
+            this.#playerItemVM.playerCardModels = this.#playerItemVM.cardListToPlayerCardModelList(this.#firstPlacePlayer.cards);
         }
         else if (this.#lastPlacePlayer.isHuman) {
-            this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#lastPlacePlayer.cards);
+            this.#playerItemVM.playerCardModels = this.#playerItemVM.cardListToPlayerCardModelList(this.#lastPlacePlayer.cards);
         }
 
-        this.#playerCardsVM.isPlayerTurn = false;
+        this.#playerItemVM.isPlayerTurn = false;
     }
 
     /**
