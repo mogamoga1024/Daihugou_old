@@ -76,22 +76,33 @@ class PullOutCardsScene extends Scene {
         console.log("this.gameManager.battleFieldCards[0].name: " + this.gameManager.battleFieldCards[0].name);
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
-            // TODO ゲーム終了
-            this.#player.allPlayerList.map(p => p.forcePass = false);
+            // ゲーム終了
+
+            // ゲーム終了シーン前に最後に出したカードを数秒見せる。
+            Common.sleep();
+
+            this.#flowEndCleanUp();
+
             return null;
         }
         else if (
             this.gameManager.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
             || this.#player.isActive === false
         ) {
+            // フロー終了
+
             if (this.#player.isActive === false) {
                 console.log("あがり");
             }
+
             this.#flowEndCleanUp();
+
             console.log("フロー終了");
+            
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }
         else {
+            // 次のプレイヤーのターンへ
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
     }
