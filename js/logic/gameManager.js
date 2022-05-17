@@ -3,19 +3,7 @@ class GameManager {
     #currentPlayer = null;
     playerCardsVM = null;
     cpuListVM = null;
-    #battleFieldVM = null;
-    set battleFieldVM(vm) {
-        this.#battleFieldVM = vm;
-    }
-
-    #battleFieldCards = [];
-    get battleFieldCards() {
-        return this.#battleFieldCards;
-    }
-    set battleFieldCards(cards) {
-        this.#battleFieldCards = cards;
-        this.#battleFieldVM.cards = cards;
-    }
+    battleFieldVM = null;
     
     constructor(playerChain) {
         this.#currentPlayer = playerChain;
@@ -44,7 +32,5 @@ class GameManager {
         while (scene !== null) {
             scene = await scene.start();
         }
-
-        console.log("【ゲーム終了】");
     }
 }

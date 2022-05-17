@@ -18,7 +18,7 @@
                 </div>
             </template>
             <button v-else-if="isFirstGame" @click="setStart">ゲーム開始</button>
-            <button v-else>次のゲームへ</button>
+            <button v-else @click="setStart">次のゲームへ</button>
         </div>
         <Player-Item></Player-Item>
     </div>
@@ -39,6 +39,7 @@
     <script src="js/logic/scene/scene.js"></script>
     <script src="js/logic/scene/exchangeCardsScene.js"></script>
     <script src="js/logic/scene/pullOutCardsScene.js"></script>
+    <script src="js/logic/scene/gameEndScene.js"></script>
     <script src="js/model/playerCardModel.js"></script>
     <script src="js/model/cpuModel.js"></script>
     <script src="js/components/playerItem.js"></script>

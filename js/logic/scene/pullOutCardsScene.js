@@ -1,12 +1,14 @@
 
 class PullOutCardsScene extends Scene {
     #player = null;
+    #battleFieldVM = null;
     #playerCardsVM = null;
     #cpuListVM = null;
     #isFlowStart = false;
 
     constructor(gameManager, player, isFlowStart) {
         super(gameManager);
+        this.#battleFieldVM = gameManager.battleFieldVM;
         this.#playerCardsVM = gameManager.playerCardsVM;
         this.#cpuListVM = gameManager.cpuListVM;
         this.#player = player;
@@ -23,7 +25,7 @@ class PullOutCardsScene extends Scene {
             }
             else {
                 // TODO 出せるカードの制限（Vue）
-                const selectableCards = Rule.findSelectableCards(this.gameManager.battleFieldCards, this.#player.cards);
+                const selectableCards = Rule.findSelectableCards(this.#battleFieldVM.cards, this.#player.cards);
 
                 console.log("選択可能なカード");
                 console.log(Common.cardListToString(selectableCards));
@@ -47,7 +49,7 @@ class PullOutCardsScene extends Scene {
 
         this.#setUp();
 
-        const selectedCards = await this.#player.pullOutCards(this.gameManager.battleFieldCards);
+        const selectedCards = await this.#player.pullOutCards(this.#battleFieldVM.cards);
 
         if (selectedCards.length === 0) {
             this.#player.forcePass = true;
@@ -57,7 +59,7 @@ class PullOutCardsScene extends Scene {
             console.log("出したカード");
             console.log(Common.cardListToString(selectedCards));
 
-            this.gameManager.battleFieldCards = selectedCards;
+            this.#battleFieldVM.cards = selectedCards;
 
             if (this.#player.isHuman) {
                 this.#playerCardsVM.playerCardModels = this.#playerCardsVM.cardListToPlayerCardModelList(this.#player.cards);
@@ -73,7 +75,7 @@ class PullOutCardsScene extends Scene {
 
         console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
         console.log("nextActivePlayer.latestPullOutCard: " + nextActivePlayer.latestPullOutCard.name);
-        console.log("this.gameManager.battleFieldCards[0].name: " + this.gameManager.battleFieldCards[0].name);
+        console.log("this.#battleFieldVM.cards[0].name: " + this.#battleFieldVM.cards[0].name);
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // ゲーム終了
@@ -83,10 +85,10 @@ class PullOutCardsScene extends Scene {
 
             this.#flowEndCleanUp();
 
-            return null;
+            return new GameEndScene(this.gameManager, false);
         }
         else if (
-            this.gameManager.battleFieldCards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.gameManager.battleFieldCards[0].id
+            this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id
             || this.#player.isActive === false
         ) {
             // フロー終了
@@ -113,7 +115,7 @@ class PullOutCardsScene extends Scene {
     }
 
     #flowEndCleanUp() {
-        this.gameManager.battleFieldCards = [];
+        this.#battleFieldVM.cards = [];
         this.#player.allPlayerList.map(p => p.forcePass = false);
     }
 }
