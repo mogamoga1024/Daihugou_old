@@ -14,11 +14,15 @@ button {
     color: red;
 }
 
-#status-container {
+#player-status-container {
     display: flex;
     margin: 0 auto;
     max-width: 920px;
     justify-content: center;
+}
+
+.status {
+    margin-left: 10px;
 }
 
 #player-button-container {

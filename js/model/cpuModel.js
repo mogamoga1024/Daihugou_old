@@ -6,10 +6,6 @@ class CpuModel {
     cardsCount = 0;
     ranking = 0;
 
-    get statusText() {
-        return this.name + " " + this.status;
-    }
-
     constructor(cpu) {
         this.id = cpu.id;
         this.name = cpu.name;

@@ -2,8 +2,8 @@
 const createPlayerItem = function(gameManager) {
     return {
         template: `
-            <div id="status-container">
-                <div>{{ statusText }}</div>
+            <div id="player-status-container">
+                <span>{{ name }}</span><span class="status">{{ status }}</span>
             </div>
             <div id="player-button-container">
                 <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
@@ -40,9 +40,6 @@ const createPlayerItem = function(gameManager) {
         computed: {
             outputCardsButtonText() {
                 return this.isExchangeCardsScene ? "交換" : "出す"
-            },
-            statusText() {
-                return this.name + " " + this.status;
             }
         },
         methods: {
