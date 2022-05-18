@@ -6,6 +6,7 @@ class PullOutCardsScene extends Scene {
     #playerItemVM = null;
     #cpuListVM = null;
     #isFlowStart = false;
+    #cpuModel = null;
 
     constructor(gameManager, player, isFlowStart) {
         super(gameManager);
@@ -15,29 +16,8 @@ class PullOutCardsScene extends Scene {
         this.#player = player;
         this.#allPlayerList = player.allPlayerList;
         this.#isFlowStart = isFlowStart;
-    }
-
-    #setUpVM() {
-        this.#playerItemVM.isPlayerTurn = this.#player.isHuman;
-
-        if (this.#player.isHuman) {
-            this.#playerItemVM.canPass = !this.#isFlowStart;
-            if (this.#player.forcePass) {
-                this.#playerItemVM.playerCardModels.map(c => c.canSelect = false);
-            }
-            else {
-                // TODO 出せるカードの制限（Vue）
-                const selectableCards = Rule.findSelectableCards(this.#battleFieldVM.cards, this.#player.cards);
-
-                console.log("選択可能なカード");
-                console.log(Common.cardListToString(selectableCards));
-
-                this.#playerItemVM.playerCardModels.forEach(c => {
-                    if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
-                        c.canSelect = false;
-                    }
-                });
-            }
+        if (player.isHuman === false) {
+            this.#cpuModel = this.#cpuListVM.getCpuModel(this.#player.id);
         }
     }
 
@@ -45,6 +25,8 @@ class PullOutCardsScene extends Scene {
         if (this.#isFlowStart) {
             console.log("【フロー開始】");
         }
+
+        this.#turnStart();
 
         if (this.#player.forcePass && this.#allPlayerList.filter(p => p.isActive && p.forcePass === false).length === 0) {
             // 前のプレイヤーが上がった状態で全員がパスした場合
@@ -56,6 +38,7 @@ class PullOutCardsScene extends Scene {
             await Common.sleep();
 
             this.#flowEndCleanUp();
+            this.#turnEnd();
 
             console.log("フロー終了");
             
@@ -83,9 +66,11 @@ class PullOutCardsScene extends Scene {
                 this.#playerItemVM.playerCardModels = this.#playerItemVM.cardListToPlayerCardModelList(this.#player.cards);
             }
             else {
-                this.#cpuListVM.getCpuModel(this.#player.id).cardsCount -= selectedCards.length;
+                this.#cpuModel.cardsCount -= selectedCards.length;
             }
         }
+
+        // TODO sleep?
 
         this.#cleanUpVM();
         
@@ -103,6 +88,7 @@ class PullOutCardsScene extends Scene {
             await Common.sleep();
 
             this.#flowEndCleanUp();
+            this.#turnEnd();
 
             return new GameEndScene(this.gameManager);
         }
@@ -114,6 +100,7 @@ class PullOutCardsScene extends Scene {
             await Common.sleep();
 
             this.#flowEndCleanUp();
+            this.#turnEnd();
 
             console.log("フロー終了");
             
@@ -125,19 +112,65 @@ class PullOutCardsScene extends Scene {
 
             console.log("あがり");
 
+            await Common.sleep();
+
             this.#allPlayerList.map(p => p.forcePass = false);
+            this.#turnEnd();
 
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
         else {
             // 次のプレイヤーのターンへ
+
+            await Common.sleep();
+
+            this.#turnEnd();
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
+        }
+    }
+
+    #setUpVM() {
+        if (this.#player.isHuman) {
+            this.#playerItemVM.canPass = !this.#isFlowStart;
+            if (this.#player.forcePass) {
+                this.#playerItemVM.playerCardModels.map(c => c.canSelect = false);
+            }
+            else {
+                // TODO 出せるカードの制限（Vue）
+                const selectableCards = Rule.findSelectableCards(this.#battleFieldVM.cards, this.#player.cards);
+
+                console.log("選択可能なカード");
+                console.log(Common.cardListToString(selectableCards));
+
+                this.#playerItemVM.playerCardModels.forEach(c => {
+                    if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
+                        c.canSelect = false;
+                    }
+                });
+            }
+        }
+    }
+
+    #turnStart() {
+        if (this.#player.isHuman) {
+            this.#playerItemVM.isPlayerTurn = true;
+        }
+        else {
+            this.#cpuModel.isTurn = true;
+        }
+    }
+
+    #turnEnd() {
+        if (this.#player.isHuman) {
+            this.#playerItemVM.isPlayerTurn = false;
+        }
+        else {
+            this.#cpuModel.isTurn = false;
         }
     }
 
     #cleanUpVM() {
         this.#playerItemVM.canPass = false;
-        this.#playerItemVM.isPlayerTurn = false;
     }
 
     #flowEndCleanUp() {

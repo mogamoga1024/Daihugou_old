@@ -5,6 +5,7 @@ class CpuModel {
     status = "";
     cardsCount = 0;
     ranking = 0;
+    isTurn = false;
 
     constructor(cpu) {
         this.id = cpu.id;

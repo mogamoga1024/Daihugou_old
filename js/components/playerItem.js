@@ -3,7 +3,8 @@ const createPlayerItem = function(gameManager) {
     return {
         template: `
             <div id="player-status-container">
-                <span>{{ name }}</span><span :class="{'status': status !== ''}">{{ status }}</span>
+                <span class="name" :class="{'current-turn': isPlayerTurn}">{{ name }}</span><!--
+                --><span :class="{'status': status !== ''}">{{ status }}</span>
             </div>
             <div id="player-button-container">
                 <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>

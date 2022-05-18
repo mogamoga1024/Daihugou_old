@@ -7,7 +7,8 @@ const createCpuList = function(gameManager) {
                 <template v-for="cpu in cpuModelList">
                     <div class="cpu">
                         <div>
-                            <span>{{ cpu.name }}</span><span :class="{'status': cpu.status !== ''}">{{ cpu.status }}</span>
+                            <span class="name" :class="{'current-turn': cpu.isTurn}">{{ cpu.name }}</span><!--
+                            --><span :class="{'status': cpu.status !== ''}">{{ cpu.status }}</span>
                         </div>
                         <div class="cpu-cards-count">{{ cpu.cardsCount }}</div>
                     </div>

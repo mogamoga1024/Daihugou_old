@@ -21,6 +21,15 @@ button {
     justify-content: center;
 }
 
+.name {
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.current-turn {
+    border: solid 2px red;
+}
+
 .status {
     margin-left: 10px;
 }
@@ -76,7 +85,7 @@ button {
 .cpu-cards-count {
     width: 45px;
     height: 65px;
-    margin: 0 auto;
+    margin: 10px auto 0;
     text-align: center;
     line-height: 65px;
     background-color: aliceblue;
