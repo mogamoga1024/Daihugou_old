@@ -4,7 +4,12 @@ const createCpuList = function(gameManager) {
         cpuList: [],
         template: `
             <div id="cpu-container">
-                <div class="cpu" v-for="cpu in cpuModelList">{{ cpu.cardsCount }}</div>
+                <template v-for="cpu in cpuModelList">
+                    <div class="cpu">
+                        <div>{{ cpu.statusText }}</div>
+                        <div class="cpu-cards-count">{{ cpu.cardsCount }}</div>
+                    </div>
+                </template>
             </div>
         `,
         data() {
