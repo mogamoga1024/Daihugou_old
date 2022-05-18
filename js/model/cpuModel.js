@@ -9,7 +9,7 @@ class CpuModel {
     constructor(cpu) {
         this.id = cpu.id;
         this.name = cpu.name;
-        this.status = "fugafuga";
+        this.status = "";
         this.cardsCount = cpu.cards.length;
         this.ranking = cpu.ranking;
     }

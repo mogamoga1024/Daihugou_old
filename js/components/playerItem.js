@@ -3,7 +3,7 @@ const createPlayerItem = function(gameManager) {
     return {
         template: `
             <div id="player-status-container">
-                <span>{{ name }}</span><span class="status">{{ status }}</span>
+                <span>{{ name }}</span><span :class="{'status': status !== ''}">{{ status }}</span>
             </div>
             <div id="player-button-container">
                 <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
@@ -34,7 +34,7 @@ const createPlayerItem = function(gameManager) {
             gameManager.playerItemVM = this;
             this.player = gameManager.player;
             this.name = this.player.name;
-            this.status = "hogehoge";
+            this.status = "";
             this.setPlayerCardModels(this.player.cards);
         },
         computed: {
