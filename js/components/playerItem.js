@@ -2,6 +2,9 @@
 const createPlayerItem = function(gameManager) {
     return {
         template: `
+            <div id="status-container">
+                <div>{{ statusText }}</div>
+            </div>
             <div id="player-button-container">
                 <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
                 <button @click="pass" :disabled="canPass === false">パス</button>
@@ -17,6 +20,9 @@ const createPlayerItem = function(gameManager) {
         player: null,
         data() {
             return {
+                name: "",
+                status: "",
+                rank: "",
                 isPlayerTurn: false,
                 isExchangeCardsScene: true,
                 playerCardModels: [],
@@ -27,11 +33,16 @@ const createPlayerItem = function(gameManager) {
         created() {
             gameManager.playerItemVM = this;
             this.player = gameManager.player;
+            this.name = this.player.name;
+            this.status = "hogehoge";
             this.setPlayerCardModels(this.player.cards);
         },
         computed: {
             outputCardsButtonText() {
                 return this.isExchangeCardsScene ? "交換" : "出す"
+            },
+            statusText() {
+                return this.name + " " + this.status;
             }
         },
         methods: {
