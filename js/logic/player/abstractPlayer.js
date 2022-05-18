@@ -1,5 +1,6 @@
 
 class AbstractPlayer extends IDAble {
+    name = "";
     cards = [];
     nextPlayer = null;
     prevPlayer = null;

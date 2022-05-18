@@ -21,6 +21,7 @@ class PlayerFactory {
         currentPlayer.ranking = cpuNum + 1;
         for (let i = 0; i < cpuNum; i++) {
             let nextPlayer = new Cpu();
+            nextPlayer.name = "CPU" + (i + 1);
             currentPlayer.nextPlayer = nextPlayer;
             nextPlayer.prevPlayer = currentPlayer;
             nextPlayer.ranking = currentPlayer.ranking - 1;

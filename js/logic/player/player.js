@@ -2,6 +2,7 @@
 class Player extends AbstractPlayer {
     #resolveSelectExchangeCards = null;
     #resolvePullOutCards = null;
+    name = "あなた";
 
     async selectExchangeCards() {
         return await this.#waitSelectExchangeCardsInScreen();
