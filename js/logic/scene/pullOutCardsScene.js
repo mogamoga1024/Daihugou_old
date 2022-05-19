@@ -70,7 +70,8 @@ class PullOutCardsScene extends Scene {
             }
         }
 
-        // TODO sleep?
+        // 次のターンに行く前に場のカードを数秒見せる。
+        await Common.sleep();
 
         this.#cleanUpVM();
         
@@ -84,9 +85,6 @@ class PullOutCardsScene extends Scene {
             // 次のプレイヤーが最後の一人の場合
             // ゲーム終了
 
-            // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            await Common.sleep();
-
             this.#flowEndCleanUp();
             this.#turnEnd();
 
@@ -95,9 +93,6 @@ class PullOutCardsScene extends Scene {
         else if (this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id) {
             // 次のプレイヤー以外が全員パスした場合
             // フロー終了
-            
-            // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            await Common.sleep();
 
             this.#flowEndCleanUp();
             this.#turnEnd();
@@ -112,8 +107,6 @@ class PullOutCardsScene extends Scene {
 
             console.log("あがり");
 
-            await Common.sleep();
-
             this.#allPlayerList.map(p => p.forcePass = false);
             this.#turnEnd();
 
@@ -121,8 +114,6 @@ class PullOutCardsScene extends Scene {
         }
         else {
             // 次のプレイヤーのターンへ
-
-            await Common.sleep();
 
             this.#turnEnd();
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
