@@ -44,7 +44,7 @@ class PullOutCardsScene extends Scene {
         }
 
         console.log("【カードを出す】");
-        console.log("ranking: " + this.#player.ranking);
+        console.log("name: " + this.#player.name);
 
         this.#setUpVM();
 
@@ -83,7 +83,7 @@ class PullOutCardsScene extends Scene {
 
         const nextActivePlayer = this.#player.nextActivePlayer;
 
-        console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
+        console.log("nextActivePlayer.name: " + nextActivePlayer.name);
         console.log("nextActivePlayer.latestPullOutCard: " + nextActivePlayer.latestPullOutCard.name);
         console.log("this.#battleFieldVM.cards[0].name: " + this.#battleFieldVM.cards[0].name);
 

@@ -40,7 +40,7 @@ class GameStartScene extends Scene {
 
         console.log("各プレイヤーの手札");
         players.forEach(p => {
-            console.log("ranking: " + p.ranking + ", cards: " + Common.cardListToString(p.cards));
+            console.log("name: " + p.name + ", cards: " + Common.cardListToString(p.cards));
         });
 
         return new ExchangeCardsScene(this.gameManager, firstPlacePlayer, lastPlacePlayer);

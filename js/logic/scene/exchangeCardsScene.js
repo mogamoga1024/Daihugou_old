@@ -37,17 +37,17 @@ class ExchangeCardsScene extends Scene {
         const lastPlacePlayerCard = await this.#lastPlacePlayer.selectExchangeCards();
         
         console.log("交換前");
-        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
-        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
+        console.log("name: " + this.#firstPlacePlayer.name + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
+        console.log("name: " + this.#lastPlacePlayer.name + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
         console.log("交換するカード");
-        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(firstPlacePlayerCard));
-        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(lastPlacePlayerCard));
+        console.log("name: " + this.#firstPlacePlayer.name + ", cards: " + Common.cardListToString(firstPlacePlayerCard));
+        console.log("name: " + this.#lastPlacePlayer.name + ", cards: " + Common.cardListToString(lastPlacePlayerCard));
 
         this.#exchangeCards(this.#firstPlacePlayer, this.#lastPlacePlayer, firstPlacePlayerCard, lastPlacePlayerCard);
         
         console.log("交換後");
-        console.log("ranking: " + this.#firstPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
-        console.log("ranking: " + this.#lastPlacePlayer.ranking + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
+        console.log("name: " + this.#firstPlacePlayer.name + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
+        console.log("name: " + this.#lastPlacePlayer.name + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
 
         this.#cleanUpVM(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
