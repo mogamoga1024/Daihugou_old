@@ -17,7 +17,7 @@ class Common {
     }
 
     static sleepRate(rate) {
-        return Common.sleep() * rate;
+        return Common.sleep(500 * rate);
     }
 
     /**

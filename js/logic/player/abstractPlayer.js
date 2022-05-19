@@ -5,6 +5,7 @@ class AbstractPlayer extends IDAble {
     nextPlayer = null;
     prevPlayer = null;
     ranking = 0; // 1位なら1、2位なら2、…
+    nextRanking = 0; // あがったときの順位
     forcePass = false;
 
     /**
