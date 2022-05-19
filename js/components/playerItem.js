@@ -151,9 +151,6 @@ const createPlayerItem = function(gameManager) {
             findSelectableCards() {
                 const selectableCards = Rule.findSelectableCards(gameManager.battleFieldVM.cards, this.playerCardModels.map(c => c.card));
 
-                console.log("選択可能なカード");
-                console.log(Common.cardListToString(selectableCards));
-
                 this.playerCardModels.forEach(c => {
                     if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
                         c.canSelect = false;

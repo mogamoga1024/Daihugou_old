@@ -67,11 +67,11 @@ class Rule {
         if (selectedCards.length === 0) {
             throw new Error(this.findSelectableCards.name + "を利用してください。");
         }
-        if (
-            selectableCards.length === battleFieldCards.length ||
-            selectedCards.length === battleFieldCards.length
-        ) {
-            return [];
+        if (selectableCards.length === battleFieldCards.length) {
+            return [...selectableCards];
+        }
+        if (selectedCards.length === battleFieldCards.length) {
+            return [...selectedCards];
         }
         
         const power = selectedCards[0].power;
