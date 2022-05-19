@@ -7,6 +7,7 @@ class GameManager {
     playerItemVM = null;
     cpuListVM = null;
     battleFieldVM = null;
+    #ranking = 1;
     
     constructor(cpuNum) {
         this.#player = PlayerFactory.createPlayerChain(cpuNum);
@@ -18,19 +19,21 @@ class GameManager {
         this.#gameStart();    
     }
 
-    async #gameStart() {
-        let scene = new GameStartScene(this, true);
+    async #gameStart(isFirstGame = true) {
+        let scene = new GameStartScene(this, isFirstGame);
 
         while (scene !== null) {
             scene = await scene.start();
         }
+
+        this.#ranking = 0;
     }
 
     async nextGameStart() {
-        let scene = new GameStartScene(this, false);
+        this.#gameStart(false);
+    }
 
-        while (scene !== null) {
-            scene = await scene.start();
-        }
+    ranking(player) {
+        player.ranking = this.#ranking++;
     }
 }

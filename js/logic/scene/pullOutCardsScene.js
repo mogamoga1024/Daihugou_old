@@ -93,6 +93,8 @@ class PullOutCardsScene extends Scene {
             // ゲーム終了
 
             console.log("あがり");
+            this.gameManager.ranking(this.#player);
+            this.gameManager.ranking(nextActivePlayer);
             this.#status(PlayerStatus.GameOver);
 
             this.#flowEndCleanUp();
@@ -114,6 +116,7 @@ class PullOutCardsScene extends Scene {
             // あがり
 
             console.log("あがり");
+            this.gameManager.ranking(this.#player);
             this.#status(PlayerStatus.GameOver);
 
             this.#allPlayerList.forEach(p => p.forcePass = false);
