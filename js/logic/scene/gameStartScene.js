@@ -3,7 +3,6 @@ class GameStartScene extends Scene {
     #battleFieldVM = null;
     #playerItemVM = null;
     #cpuListVM = null;
-    #player = null;
     #isFirstGame = false;
 
     constructor(gameManager, isFirstGame) {
@@ -11,7 +10,6 @@ class GameStartScene extends Scene {
         this.#battleFieldVM = gameManager.battleFieldVM;
         this.#playerItemVM = gameManager.playerItemVM;
         this.#cpuListVM = gameManager.cpuListVM;
-        this.#player = gameManager.players[0];
         this.#isFirstGame = isFirstGame;
     }
 
@@ -28,8 +26,8 @@ class GameStartScene extends Scene {
 
         if (this.#isFirstGame === false) {
             // カードを配る。
-            PlayerFactory.dealCards(this.#player);
-            this.#playerItemVM.setPlayerCardModels(this.#player.cards);
+            PlayerFactory.dealCards(this.gameManager.players);
+            this.#playerItemVM.setPlayerCardModels(this.gameManager.players[0].cards);
             this.#cpuListVM.updateCpuModelList();
         }
 

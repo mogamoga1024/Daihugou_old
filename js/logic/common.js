@@ -8,16 +8,18 @@ class Common {
         return crypto.getRandomValues(new Uint32Array(1))[0] % max;
     }
 
+    static #sleepTime = 400;
+
     /**
      * @param {number} time スリープする時間（ミリ秒）
      * @returns {Promise}
      */
-    static sleep(time = 500) {
+    static sleep(time = this.#sleepTime) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
     static sleepRate(rate) {
-        return Common.sleep(500 * rate);
+        return this.sleep(this.#sleepTime * rate);
     }
 
     /**

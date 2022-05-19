@@ -47,7 +47,7 @@ class PullOutCardsScene extends Scene {
         this.#turnStart();
 
         if (this.#player.isHuman === false) {
-            await Common.sleepRate(0.5);
+            await Common.sleep();
         }
 
         const selectedCards = await this.#player.pullOutCards(this.#battleFieldVM.cards);
