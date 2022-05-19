@@ -18,6 +18,11 @@ class GameStartScene extends Scene {
     start() {
         console.log("【ゲーム開始】");
 
+        this.#playerItemVM.status = PlayerStatus.NONE;
+        this.#cpuListVM.cpuModelList.forEach(c => {
+            c.status = PlayerStatus.NONE;
+        });
+
         this.#battleFieldVM.inGame = true;
         this.#battleFieldVM.isFirstGame = this.#isFirstGame;
 

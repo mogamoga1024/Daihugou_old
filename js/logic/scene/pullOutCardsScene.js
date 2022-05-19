@@ -86,6 +86,9 @@ class PullOutCardsScene extends Scene {
             // 次のプレイヤーが最後の一人の場合
             // ゲーム終了
 
+            console.log("あがり");
+            this.#status(PlayerStatus.GameOver);
+
             this.#flowEndCleanUp();
             this.#turnEnd();
 
