@@ -97,17 +97,37 @@ const createPlayerItem = function(gameManager) {
                 }
             },
             exchangeCards() {
-                this.player.selectExchangeCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
+                this.player.selectExchangeCardsInScreen(this.selectedPlayerCards());
                 this.resetCardsStatus();
             },
             selectPullOutCards(card) {
-                // TODO 選択可能なもののみ選択可能にする。
-    
+                const selectableCards = this.playerCardModels.filter(c => c.canSelect).map(c => c.card);
                 card.isSelected = !card.isSelected;
-                this.canOutputCards = this.selectedPlayerCardModels().length > 0;
+                
+                const selectedCards = this.selectedPlayerCards();
+                this.canOutputCards = selectedCards.length > 0;
+
+                if (selectedCards.length === 0) {
+                    this.playerCardModels.forEach(c => c.canSelect = true);
+                    return;
+                }
+
+                const selectableRemainingCards = Rule.findSelectableRemainingCards(
+                    gameManager.battleFieldVM.cards,
+                    selectableCards,
+                    selectedCards
+                );
+
+                if (selectableRemainingCards.length === 0) return;
+
+                this.playerCardModels.forEach(c => {
+                    if (selectableRemainingCards.filter(d => c.card.id === d.id).length === 0) {
+                        c.canSelect = false;
+                    }
+                });
             },
             pullOutCards() {
-                this.player.pullOutCardsInScreen(this.selectedPlayerCardModels().map(c => c.card));
+                this.player.pullOutCardsInScreen(this.selectedPlayerCards());
                 this.resetCardsStatus();
             },
             setPlayerCardModels(cards) {
@@ -123,6 +143,9 @@ const createPlayerItem = function(gameManager) {
             },
             selectedPlayerCardModels() {
                 return this.playerCardModels.filter(c => c.isSelected);
+            },
+            selectedPlayerCards() {
+                return this.selectedPlayerCardModels().map(c => c.card);
             }
         }
     };

@@ -132,7 +132,6 @@ class PullOutCardsScene extends Scene {
                 this.#playerItemVM.playerCardModels.map(c => c.canSelect = false);
             }
             else {
-                // TODO 出せるカードの制限（Vue）
                 const selectableCards = Rule.findSelectableCards(this.#battleFieldVM.cards, this.#player.cards);
 
                 console.log("選択可能なカード");

@@ -61,6 +61,20 @@ class Rule {
         return selectableCards;
     }
 
+    static findSelectableRemainingCards(battleFieldCards, selectableCards, selectedCards) {
+        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+
+        if (selectedCards.length === 0) {
+            throw new Error(this.findSelectableCards.name + "を利用してください。");
+        }
+        if (selectableCards.length === battleFieldCards.length) {
+            return [];
+        }
+        
+        const power = selectedCards[0].power;
+        return selectableCards.filter(c => c.power === power);
+    }
+
     static findSelectableHands(battleFieldCards, cards) {
         // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
 
