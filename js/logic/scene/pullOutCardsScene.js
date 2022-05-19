@@ -34,7 +34,7 @@ class PullOutCardsScene extends Scene {
 
             this.#flowEndCleanUp();
 
-            console.log("フロー終了");
+            console.log("【フロー終了】");
             
             return new PullOutCardsScene(this.gameManager, this.#player, true);
         }
@@ -45,10 +45,6 @@ class PullOutCardsScene extends Scene {
         this.#setUpVM();
 
         this.#turnStart();
-
-        if (this.#player.isHuman === false) {
-            await Common.sleep();
-        }
 
         const selectedCards = await this.#player.pullOutCards(this.#battleFieldVM.cards);
 
@@ -104,7 +100,7 @@ class PullOutCardsScene extends Scene {
 
             this.#flowEndCleanUp();
 
-            console.log("フロー終了");
+            console.log("【フロー終了】");
             
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }

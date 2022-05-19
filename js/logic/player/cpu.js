@@ -5,7 +5,7 @@ class Cpu extends AbstractPlayer {
     }
 
     async selectExchangeCards() {
-        await Common.sleep();
+        await Common.sleepCpuThink();
 
         // TODO 交換枚数
 
@@ -20,7 +20,7 @@ class Cpu extends AbstractPlayer {
     }
 
     async pullOutCards(battleFieldCards) {
-        await Common.sleep();
+        await Common.sleepCpuThink();
 
         const selectableHands = this.forcePass ? [] : Rule.findSelectableHands(battleFieldCards, this.cards);
 

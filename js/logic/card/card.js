@@ -7,8 +7,8 @@ class Card extends IDAble {
         if (this.#allCards.length > 0) {
             return this.#allCards;
         }
-        const suits = [Suit.Spade, Suit.Heart, Suit.Diamond, Suit.Club];
-        //const suits = [Suit.Spade];
+        //const suits = [Suit.Spade, Suit.Heart, Suit.Diamond, Suit.Club];
+        const suits = [Suit.Spade];
         for (const suit of suits) {
             this.#allCards.push(new Card(suit, "3",  1));
             this.#allCards.push(new Card(suit, "4",  2));

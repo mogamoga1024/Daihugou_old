@@ -8,7 +8,7 @@ class Common {
         return crypto.getRandomValues(new Uint32Array(1))[0] % max;
     }
 
-    static #sleepTime = 400;
+    static #sleepTime = 600;
 
     /**
      * @param {number} time スリープする時間（ミリ秒）
@@ -20,6 +20,10 @@ class Common {
 
     static sleepRate(rate) {
         return this.sleep(this.#sleepTime * rate);
+    }
+
+    static sleepCpuThink() {
+        return this.sleep(1000);
     }
 
     /**
