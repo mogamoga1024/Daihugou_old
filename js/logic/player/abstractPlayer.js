@@ -25,18 +25,6 @@ class AbstractPlayer extends IDAble {
         return count;
     }
 
-    get allPlayerList() {
-        const ary = [];
-        let currentPlayer = this;
-        do {
-            ary.push(currentPlayer);
-            currentPlayer = currentPlayer.nextPlayer;
-        }
-        while (currentPlayer !== this);
-        
-        return ary;
-    }
-
     get rank() {
         const lastRanking = this.allPlayerCount;
         switch (this.ranking) {

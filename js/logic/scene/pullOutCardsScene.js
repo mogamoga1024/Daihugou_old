@@ -1,7 +1,7 @@
 
 class PullOutCardsScene extends Scene {
     #player = null;
-    #allPlayerList = [];
+    #players = [];
     #battleFieldVM = null;
     #playerItemVM = null;
     #cpuListVM = null;
@@ -14,7 +14,7 @@ class PullOutCardsScene extends Scene {
         this.#playerItemVM = gameManager.playerItemVM;
         this.#cpuListVM = gameManager.cpuListVM;
         this.#player = player;
-        this.#allPlayerList = player.allPlayerList;
+        this.#players = gameManager.players;
         this.#isFlowStart = isFlowStart;
         if (player.isHuman === false) {
             this.#cpuModel = this.#cpuListVM.getCpuModel(this.#player.id);
@@ -28,11 +28,11 @@ class PullOutCardsScene extends Scene {
 
         await this.#turnStart();
 
-        if (this.#player.forcePass && this.#allPlayerList.filter(p => p.isActive && p.forcePass === false).length === 0) {
+        if (this.#player.forcePass && this.#players.filter(p => p.isActive && p.forcePass === false).length === 0) {
             // 前のプレイヤーが上がった状態で全員がパスした場合
             // フロー終了
 
-            this.#allPlayerList.forEach(p => p.forcePass = false);
+            this.#players.forEach(p => p.forcePass = false);
 
             this.#flowEndCleanUp();
 
@@ -119,7 +119,7 @@ class PullOutCardsScene extends Scene {
             this.gameManager.ranking(this.#player);
             this.#status(PlayerStatus.GameOver);
 
-            this.#allPlayerList.forEach(p => p.forcePass = false);
+            this.#players.forEach(p => p.forcePass = false);
 
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
@@ -163,7 +163,7 @@ class PullOutCardsScene extends Scene {
 
     #flowEndCleanUp() {
         this.#battleFieldVM.cards = [];
-        this.#allPlayerList.forEach(p => p.forcePass = false);
+        this.#players.forEach(p => p.forcePass = false);
 
         if (this.#playerItemVM.status !== PlayerStatus.GameOver) {
             this.#playerItemVM.status = PlayerStatus.NONE;

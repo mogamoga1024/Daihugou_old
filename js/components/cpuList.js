@@ -22,14 +22,14 @@ const createCpuList = function(gameManager) {
         },
         created() {
             gameManager.cpuListVM = this;
-            this.setCpuModelList(gameManager.player);
+            this.updateCpuModelList();
         },
         methods: {
             getCpuModel(id) {
                 return this.cpuModelList.filter(c => c.id === id)[0];
             },
-            setCpuModelList(player) {
-                [, ...this.cpuList] = player.allPlayerList;
+            updateCpuModelList() {
+                [, ...this.cpuList] = gameManager.players;
                 this.cpuModelList = this.cpuList.map(c => new CpuModel(c));
             }
         }

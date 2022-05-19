@@ -11,7 +11,7 @@ class GameStartScene extends Scene {
         this.#battleFieldVM = gameManager.battleFieldVM;
         this.#playerItemVM = gameManager.playerItemVM;
         this.#cpuListVM = gameManager.cpuListVM;
-        this.#player = gameManager.player;
+        this.#player = gameManager.players[0];
         this.#isFirstGame = isFirstGame;
     }
 
@@ -30,11 +30,11 @@ class GameStartScene extends Scene {
             // カードを配る。
             PlayerFactory.dealCards(this.#player);
             this.#playerItemVM.setPlayerCardModels(this.#player.cards);
-            this.#cpuListVM.setCpuModelList(this.#player);
+            this.#cpuListVM.updateCpuModelList();
         }
 
         // 1位と最下位でカードの交換を行う。
-        const players = this.#player.allPlayerList;
+        const players = this.gameManager.players;
         const firstPlacePlayer = players.filter(p => p.ranking === 1)[0];
         const lastPlacePlayer = players.filter(p => p.ranking === players.length)[0];
 

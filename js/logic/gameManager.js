@@ -1,16 +1,17 @@
 
 class GameManager {
-    #player = null;
-    get player() {
-        return this.#player;
-    }
     playerItemVM = null;
     cpuListVM = null;
     battleFieldVM = null;
     #ranking = 1;
+
+    #players = [];
+    get players() {
+        return this.#players;
+    }
     
     constructor(cpuNum) {
-        this.#player = PlayerFactory.createPlayerChain(cpuNum);
+        this.#players = PlayerFactory.createPlayers(cpuNum);
     }
 
     setStart() {
@@ -26,7 +27,7 @@ class GameManager {
             scene = await scene.start();
         }
 
-        this.#nextRanking = 0;
+        this.#ranking = 0;
     }
 
     async nextGameStart() {

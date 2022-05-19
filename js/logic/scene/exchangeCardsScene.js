@@ -10,7 +10,7 @@ class ExchangeCardsScene extends Scene {
         this.#playerItemVM = gameManager.playerItemVM;
         this.#firstPlacePlayer = firstPlacePlayer;
         this.#lastPlacePlayer = lastPlacePlayer;
-        this.#player = gameManager.player;
+        this.#player = gameManager.players[0];
     }
 
     #setUpVM() {

@@ -33,7 +33,7 @@ const createPlayerItem = function(gameManager) {
         },
         created() {
             gameManager.playerItemVM = this;
-            this.player = gameManager.player;
+            this.player = gameManager.players[0];
             this.name = this.player.name;
             this.status = PlayerStatus.NONE;
             this.setPlayerCardModels(this.player.cards);
