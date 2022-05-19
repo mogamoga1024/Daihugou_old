@@ -22,7 +22,7 @@ class ExchangeCardsScene extends Scene {
                 const cardsCount = this.#playerItemVM.playerCardModels.length;
                 this.#playerItemVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
                 this.#playerItemVM.playerCardModels[cardsCount - 1].isSelected = true;
-                this.#playerItemVM.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
+                this.#playerItemVM.playerCardModels.filter(c => c.isSelected === false).forEach(c => c.canSelect = false);
                 this.#playerItemVM.canOutputCards = true;
             }
         }

@@ -77,7 +77,7 @@ const createPlayerItem = function(gameManager) {
     
             resetCardsStatus() {
                 this.canOutputCards = false;
-                this.playerCardModels.map(c => {
+                this.playerCardModels.forEach(c => {
                     c.canSelect = true;
                     c.isSelected = false;
                 });
@@ -90,10 +90,10 @@ const createPlayerItem = function(gameManager) {
                 const selectedCardsCount = this.selectedPlayerCardModels().length;
                 this.canOutputCards = selectedCardsCount === 2; // TODO 2 Magic Number
                 if (this.canOutputCards) {
-                    this.playerCardModels.filter(c => c.isSelected === false).map(c => c.canSelect = false);
+                    this.playerCardModels.filter(c => c.isSelected === false).forEach(c => c.canSelect = false);
                 }
                 else {
-                    this.playerCardModels.map(c => c.canSelect = true);
+                    this.playerCardModels.forEach(c => c.canSelect = true);
                 }
             },
             exchangeCards() {
