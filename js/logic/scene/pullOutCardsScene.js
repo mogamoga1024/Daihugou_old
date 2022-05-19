@@ -26,8 +26,6 @@ class PullOutCardsScene extends Scene {
             console.log("【フロー開始】");
         }
 
-        await this.#turnStart();
-
         if (this.#player.forcePass && this.#players.filter(p => p.isActive && p.forcePass === false).length === 0) {
             // 前のプレイヤーが上がった状態で全員がパスした場合
             // フロー終了
@@ -35,13 +33,6 @@ class PullOutCardsScene extends Scene {
             this.#players.forEach(p => p.forcePass = false);
 
             this.#flowEndCleanUp();
-
-            if (this.#player.isHuman) {
-                this.#playerItemVM.isPlayerTurn = false;
-            }
-            else {
-                this.#cpuModel.isTurn = false;
-            }
 
             console.log("フロー終了");
             
@@ -52,6 +43,12 @@ class PullOutCardsScene extends Scene {
         console.log("name: " + this.#player.name);
 
         this.#setUpVM();
+
+        this.#turnStart();
+
+        if (this.#player.isHuman === false) {
+            await Common.sleepRate(0.5);
+        }
 
         const selectedCards = await this.#player.pullOutCards(this.#battleFieldVM.cards);
 
@@ -141,15 +138,13 @@ class PullOutCardsScene extends Scene {
         }
     }
 
-    async #turnStart() {
+    #turnStart() {
         if (this.#player.isHuman) {
             this.#playerItemVM.isPlayerTurn = true;
         }
         else {
             this.#cpuModel.isTurn = true;
         }
-
-        await Common.sleepRate(0.5);
     }
 
     #status(status) {
