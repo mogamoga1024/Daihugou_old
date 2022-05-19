@@ -109,6 +109,7 @@ const createPlayerItem = function(gameManager) {
 
                 if (selectedCards.length === 0) {
                     this.playerCardModels.forEach(c => c.canSelect = true);
+                    this.findSelectableCards();
                     return;
                 }
 
@@ -146,6 +147,18 @@ const createPlayerItem = function(gameManager) {
             },
             selectedPlayerCards() {
                 return this.selectedPlayerCardModels().map(c => c.card);
+            },
+            findSelectableCards() {
+                const selectableCards = Rule.findSelectableCards(gameManager.battleFieldVM.cards, this.playerCardModels.map(c => c.card));
+
+                console.log("選択可能なカード");
+                console.log(Common.cardListToString(selectableCards));
+
+                this.playerCardModels.forEach(c => {
+                    if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
+                        c.canSelect = false;
+                    }
+                });
             }
         }
     };

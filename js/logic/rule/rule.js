@@ -67,7 +67,10 @@ class Rule {
         if (selectedCards.length === 0) {
             throw new Error(this.findSelectableCards.name + "を利用してください。");
         }
-        if (selectableCards.length === battleFieldCards.length) {
+        if (
+            selectableCards.length === battleFieldCards.length ||
+            selectedCards.length === battleFieldCards.length
+        ) {
             return [];
         }
         

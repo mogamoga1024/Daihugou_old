@@ -132,16 +132,7 @@ class PullOutCardsScene extends Scene {
                 this.#playerItemVM.playerCardModels.map(c => c.canSelect = false);
             }
             else {
-                const selectableCards = Rule.findSelectableCards(this.#battleFieldVM.cards, this.#player.cards);
-
-                console.log("選択可能なカード");
-                console.log(Common.cardListToString(selectableCards));
-
-                this.#playerItemVM.playerCardModels.forEach(c => {
-                    if (selectableCards.filter(d => c.card.id === d.id).length === 0) {
-                        c.canSelect = false;
-                    }
-                });
+                this.#playerItemVM.findSelectableCards();
             }
         }
     }

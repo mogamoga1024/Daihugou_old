@@ -12,7 +12,7 @@ class Common {
      * @param {number} time スリープする時間（ミリ秒）
      * @returns {Promise}
      */
-    static sleep(time = 1000) {
+    static sleep(time = 500) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
