@@ -16,6 +16,10 @@ class Common {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
+    static sleepRate(rate) {
+        return Common.sleep() * rate;
+    }
+
     /**
      * @param {Array<Card>} cards 
      * @returns {Array<Card>} ソートされたカード
