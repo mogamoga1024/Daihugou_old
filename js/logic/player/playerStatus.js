@@ -2,5 +2,6 @@
 const PlayerStatus = {
     NONE: "",
     GameOver: "あがり",
-    Pass: "パス"
+    Pass: "パス",
+    ExchangeCards: "交換",
 };

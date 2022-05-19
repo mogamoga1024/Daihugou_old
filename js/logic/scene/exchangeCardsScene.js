@@ -1,6 +1,7 @@
 
 class ExchangeCardsScene extends Scene {
     #playerItemVM = null;
+    #cpuListVM = null;
     #firstPlacePlayer = null;
     #lastPlacePlayer = null;
     #player = null;
@@ -8,30 +9,19 @@ class ExchangeCardsScene extends Scene {
     constructor(gameManager, firstPlacePlayer, lastPlacePlayer) {
         super(gameManager);
         this.#playerItemVM = gameManager.playerItemVM;
+        this.#cpuListVM = gameManager.cpuListVM;
         this.#firstPlacePlayer = firstPlacePlayer;
         this.#lastPlacePlayer = lastPlacePlayer;
         this.#player = gameManager.players[0];
-    }
-
-    #setUpVM() {
-        this.#playerItemVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
-        
-        if (this.#lastPlacePlayer.isHuman) {
-            this.#playerItemVM.isExchangeCardsScene = true;
-            if (this.#player.rank === Rank.Hinmin || this.#player.rank === Rank.Daihinmin) {
-                const cardsCount = this.#playerItemVM.playerCardModels.length;
-                this.#playerItemVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
-                this.#playerItemVM.playerCardModels[cardsCount - 1].isSelected = true;
-                this.#playerItemVM.playerCardModels.filter(c => c.isSelected === false).forEach(c => c.canSelect = false);
-                this.#playerItemVM.canOutputCards = true;
-            }
-        }
     }
 
     async start() {
         console.log("【カードの交換】");
 
         this.#setUpVM();
+
+        this.#status(this.#firstPlacePlayer, PlayerStatus.ExchangeCards);
+        this.#status(this.#lastPlacePlayer, PlayerStatus.ExchangeCards);
 
         const [firstPlacePlayerCard, lastPlacePlayerCard] = await Promise.all([
             this.#firstPlacePlayer.selectExchangeCards(),
@@ -51,10 +41,28 @@ class ExchangeCardsScene extends Scene {
         console.log("name: " + this.#firstPlacePlayer.name + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
         console.log("name: " + this.#lastPlacePlayer.name + ", cards: " + Common.cardListToString(this.#lastPlacePlayer.cards));
 
+        this.#status(this.#firstPlacePlayer, PlayerStatus.NONE);
+        this.#status(this.#lastPlacePlayer, PlayerStatus.NONE);
+
         this.#cleanUpVM(this.#firstPlacePlayer, this.#lastPlacePlayer);
 
         // 最下位からスタート
         return new PullOutCardsScene(this.gameManager, this.#lastPlacePlayer, true);
+    }
+
+    #setUpVM() {
+        this.#playerItemVM.isPlayerTurn = this.#firstPlacePlayer.isHuman || this.#lastPlacePlayer.isHuman;
+        
+        if (this.#lastPlacePlayer.isHuman) {
+            this.#playerItemVM.isExchangeCardsScene = true;
+            if (this.#player.rank === Rank.Hinmin || this.#player.rank === Rank.Daihinmin) {
+                const cardsCount = this.#playerItemVM.playerCardModels.length;
+                this.#playerItemVM.playerCardModels[cardsCount - 2].isSelected = true; // TODO 交換枚数
+                this.#playerItemVM.playerCardModels[cardsCount - 1].isSelected = true;
+                this.#playerItemVM.playerCardModels.filter(c => c.isSelected === false).forEach(c => c.canSelect = false);
+                this.#playerItemVM.canOutputCards = true;
+            }
+        }
     }
 
     #cleanUpVM() {
@@ -85,5 +93,14 @@ class ExchangeCardsScene extends Scene {
 
         Common.sortCards(player1.cards);
         Common.sortCards(player2.cards);
+    }
+
+    #status(player, status) {
+        if (player.isHuman) {
+            this.#playerItemVM.status = status;
+        }
+        else {
+            this.#cpuListVM.getCpuModel(player.id).status = status;
+        }
     }
 }
