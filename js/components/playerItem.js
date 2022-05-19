@@ -29,6 +29,7 @@ const createPlayerItem = function(gameManager) {
                 playerCardModels: [],
                 canOutputCards: false,
                 canPass: false,
+                eventDisabled: false,
             }
         },
         created() {
@@ -47,6 +48,7 @@ const createPlayerItem = function(gameManager) {
             // ↓ 画面に紐づいているメソッド
     
             onCardClick(card) {
+                if (this.eventDisabled) return;
                 if (this.isPlayerTurn === false || card.canSelect === false) return;
     
                 if (this.isExchangeCardsScene) {
@@ -57,6 +59,7 @@ const createPlayerItem = function(gameManager) {
                 }
             },
             outputCards() {
+                if (this.eventDisabled) return;
                 if (this.isPlayerTurn === false) return;
     
                 if (this.isExchangeCardsScene) { // TODO SceneStatus
@@ -67,6 +70,7 @@ const createPlayerItem = function(gameManager) {
                 }
             },
             pass() {
+                if (this.eventDisabled) return;
                 if (this.isPlayerTurn === false) return;
     
                 this.player.passInScreen();

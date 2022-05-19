@@ -35,10 +35,11 @@ class PullOutCardsScene extends Scene {
             this.#allPlayerList.map(p => p.forcePass = false);
 
             // 場のカードがなくなる前に最後に出したカードを数秒見せる。
-            await Common.sleep();
+            //await Common.sleep();
 
             this.#flowEndCleanUp();
-            this.#turnEnd();
+            this.#playerItemVM.isPlayerTurn = false;
+            this.#cpuModel.isTurn = false;
 
             console.log("フロー終了");
             
@@ -71,11 +72,19 @@ class PullOutCardsScene extends Scene {
             }
         }
 
-        // 次のターンに行く前に場のカードを数秒見せる。
-        await Common.sleep();
+        if (this.#player.isHuman) {
+            this.#playerItemVM.canPass = false;
+            this.#playerItemVM.isPlayerTurn = false;
+            // 次のターンに行く前に場のカードを数秒見せる。
+            await Common.sleep();
+        }
 
-        this.#cleanUpVM();
-        
+        if (this.#player.isHuman === false) {
+            // 次のターンに行く前に場のカードを数秒見せる。
+            await Common.sleep();
+            this.#cpuModel.isTurn = false;
+        }
+
         const nextActivePlayer = this.#player.nextActivePlayer;
 
         console.log("nextActivePlayer.ranking: " + nextActivePlayer.ranking);
@@ -90,7 +99,6 @@ class PullOutCardsScene extends Scene {
             this.#status(PlayerStatus.GameOver);
 
             this.#flowEndCleanUp();
-            this.#turnEnd();
 
             return new GameEndScene(this.gameManager);
         }
@@ -99,7 +107,6 @@ class PullOutCardsScene extends Scene {
             // フロー終了
 
             this.#flowEndCleanUp();
-            this.#turnEnd();
 
             console.log("フロー終了");
             
@@ -113,14 +120,11 @@ class PullOutCardsScene extends Scene {
             this.#status(PlayerStatus.GameOver);
 
             this.#allPlayerList.map(p => p.forcePass = false);
-            this.#turnEnd();
 
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
         else {
             // 次のプレイヤーのターンへ
-
-            this.#turnEnd();
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, false);
         }
     }
@@ -157,15 +161,6 @@ class PullOutCardsScene extends Scene {
         this.#status(PlayerStatus.NONE);
     }
 
-    #turnEnd() {
-        if (this.#player.isHuman) {
-            this.#playerItemVM.isPlayerTurn = false;
-        }
-        else {
-            this.#cpuModel.isTurn = false;
-        }
-    }
-
     #status(status) {
         if (this.#player.isHuman) {
             this.#playerItemVM.status = status;
@@ -173,10 +168,6 @@ class PullOutCardsScene extends Scene {
         else {
             this.#cpuModel.status = status;
         }
-    }
-
-    #cleanUpVM() {
-        this.#playerItemVM.canPass = false;
     }
 
     #flowEndCleanUp() {
