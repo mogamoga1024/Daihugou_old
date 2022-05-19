@@ -21,6 +21,11 @@ button {
     justify-content: center;
 }
 
+.cpu-status-container {
+    width: 100px;
+    text-align: center;
+}
+
 .name {
     padding: 0 5px;
     box-sizing: border-box;

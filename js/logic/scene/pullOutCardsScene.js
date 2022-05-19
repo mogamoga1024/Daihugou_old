@@ -55,6 +55,7 @@ class PullOutCardsScene extends Scene {
         if (selectedCards.length === 0) {
             this.#player.forcePass = true;
             console.log("パス");
+            this.#status("パス");
         }
         else {
             console.log("出したカード");
@@ -106,6 +107,7 @@ class PullOutCardsScene extends Scene {
             // あがり
 
             console.log("あがり");
+            this.#status("あがり");
 
             this.#allPlayerList.map(p => p.forcePass = false);
             this.#turnEnd();
@@ -149,6 +151,7 @@ class PullOutCardsScene extends Scene {
         else {
             this.#cpuModel.isTurn = true;
         }
+        this.#status("");
     }
 
     #turnEnd() {
@@ -157,6 +160,15 @@ class PullOutCardsScene extends Scene {
         }
         else {
             this.#cpuModel.isTurn = false;
+        }
+    }
+
+    #status(text) {
+        if (this.#player.isHuman) {
+            this.#playerItemVM.status = text;
+        }
+        else {
+            this.#cpuModel.status = text;
         }
     }
 
