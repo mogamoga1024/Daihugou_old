@@ -4,7 +4,9 @@ class Cpu extends AbstractPlayer {
         return false;
     }
 
-    selectExchangeCards() {
+    async selectExchangeCards() {
+        await Common.sleep();
+
         // TODO 交換枚数
 
         if (this.rank === Rank.Daihugou) {

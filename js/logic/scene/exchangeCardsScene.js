@@ -33,8 +33,10 @@ class ExchangeCardsScene extends Scene {
 
         this.#setUpVM();
 
-        const firstPlacePlayerCard = await this.#firstPlacePlayer.selectExchangeCards();
-        const lastPlacePlayerCard = await this.#lastPlacePlayer.selectExchangeCards();
+        const [firstPlacePlayerCard, lastPlacePlayerCard] = await Promise.all([
+            this.#firstPlacePlayer.selectExchangeCards(),
+            this.#lastPlacePlayer.selectExchangeCards()
+        ]);
         
         console.log("交換前");
         console.log("name: " + this.#firstPlacePlayer.name + ", cards: " + Common.cardListToString(this.#firstPlacePlayer.cards));
