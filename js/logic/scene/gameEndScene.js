@@ -15,6 +15,11 @@ class GameEndScene extends Scene {
             p.nextRanking = 0;
         });
 
+        console.log("順位");
+        this.gameManager.players.forEach(p => {
+            console.log("name: " + p.name + ", ranking: " + p.ranking);
+        });
+
         this.#battleFieldVM.inGame = false;
         this.#battleFieldVM.isFirstGame = false;
 
