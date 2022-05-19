@@ -17,7 +17,7 @@ class GameManager {
     setStart() {
         console.log("【セット開始】");
 
-        this.#gameStart();    
+        this.#gameStart();
     }
 
     async #gameStart(isFirstGame = true) {

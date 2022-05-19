@@ -13,6 +13,8 @@ class GameEndScene extends Scene {
         this.gameManager.players.forEach(p => {
             p.ranking = p.nextRanking;
             p.nextRanking = 0;
+            p.forcePass = false;
+            p.latestPullOutCard = Card.Null;
         });
 
         console.log("順位");
