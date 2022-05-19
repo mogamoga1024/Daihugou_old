@@ -19,13 +19,14 @@ class PlayerFactory {
 
         const players = [];
 
-        const firstPlayer = new Player();
+        const playersCount = cpuNum + 1;
+        const firstPlayer = new Player(playersCount);
         let player = firstPlayer;
         player.ranking = cpuNum + 1;
         players.push(player);
         
         for (let i = 0; i < cpuNum; i++) {
-            let nextPlayer = new Cpu();
+            let nextPlayer = new Cpu(playersCount);
             nextPlayer.name = "CPU" + (i + 1);
             player.nextPlayer = nextPlayer;
             nextPlayer.prevPlayer = player;

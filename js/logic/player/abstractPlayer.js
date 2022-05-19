@@ -7,6 +7,7 @@ class AbstractPlayer extends IDAble {
     ranking = 0; // 1位なら1、2位なら2、…
     nextRanking = 0; // あがったときの順位
     forcePass = false;
+    #playersCount = 0;
 
     /**
      * 最後に出した1枚目のカード
@@ -14,19 +15,8 @@ class AbstractPlayer extends IDAble {
      */
     latestPullOutCard = Card.Null;
     
-    get allPlayerCount() {
-        let currentPlayer = this;
-        let count = 0;
-        do {
-            count++;
-            currentPlayer = currentPlayer.nextPlayer;
-        }
-        while (currentPlayer !== this);
-        return count;
-    }
-
     get rank() {
-        const lastRanking = this.allPlayerCount;
+        const lastRanking = this.#playersCount;
         switch (this.ranking) {
             case 1:
                 return Rank.Daihugou;
@@ -64,6 +54,11 @@ class AbstractPlayer extends IDAble {
 
     get isHuman() {
         return true;
+    }
+
+    constructor(playersCount) {
+        super();
+        this.#playersCount = playersCount;
     }
 
     /**
