@@ -26,7 +26,7 @@ class GameManager {
             scene = await scene.start();
         }
 
-        this.#ranking = 0;
+        this.#nextRanking = 0;
     }
 
     async nextGameStart() {
@@ -34,6 +34,6 @@ class GameManager {
     }
 
     ranking(player) {
-        player.ranking = this.#ranking++;
+        player.nextRanking = this.#ranking++;
     }
 }

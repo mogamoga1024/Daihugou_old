@@ -10,6 +10,8 @@ class GameEndScene extends Scene {
     start() {
         console.log("【ゲーム終了】");
 
+        // TODO nextRanking -> ranking
+
         this.#battleFieldVM.inGame = false;
         this.#battleFieldVM.isFirstGame = false;
 
