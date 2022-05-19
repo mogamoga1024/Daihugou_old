@@ -42,7 +42,7 @@ class PullOutCardsScene extends Scene {
             else {
                 this.#cpuModel.isTurn = false;
             }
-            
+
             console.log("フロー終了");
             
             return new PullOutCardsScene(this.gameManager, this.#player, true);
@@ -87,10 +87,6 @@ class PullOutCardsScene extends Scene {
         }
 
         const nextActivePlayer = this.#player.nextActivePlayer;
-
-        console.log("nextActivePlayer.name: " + nextActivePlayer.name);
-        console.log("nextActivePlayer.latestPullOutCard: " + nextActivePlayer.latestPullOutCard.name);
-        console.log("this.#battleFieldVM.cards[0].name: " + this.#battleFieldVM.cards[0].name);
 
         if (nextActivePlayer === nextActivePlayer.nextActivePlayer) {
             // 次のプレイヤーが最後の一人の場合
