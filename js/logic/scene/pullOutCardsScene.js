@@ -55,7 +55,7 @@ class PullOutCardsScene extends Scene {
         if (selectedCards.length === 0) {
             this.#player.forcePass = true;
             console.log("パス");
-            this.#status("パス");
+            this.#status(PlayerStatus.Pass);
         }
         else {
             console.log("出したカード");
@@ -102,12 +102,12 @@ class PullOutCardsScene extends Scene {
             
             return new PullOutCardsScene(this.gameManager, nextActivePlayer, true);
         }
-        else if (this.#player.isActive === false) {
+        else if (this.#player.isGameOver) {
             // 手札がなくなった場合
             // あがり
 
             console.log("あがり");
-            this.#status("あがり");
+            this.#status(PlayerStatus.GameOver);
 
             this.#allPlayerList.map(p => p.forcePass = false);
             this.#turnEnd();
@@ -151,7 +151,7 @@ class PullOutCardsScene extends Scene {
         else {
             this.#cpuModel.isTurn = true;
         }
-        this.#status("");
+        this.#status(PlayerStatus.NONE);
     }
 
     #turnEnd() {
@@ -163,12 +163,12 @@ class PullOutCardsScene extends Scene {
         }
     }
 
-    #status(text) {
+    #status(status) {
         if (this.#player.isHuman) {
-            this.#playerItemVM.status = text;
+            this.#playerItemVM.status = status;
         }
         else {
-            this.#cpuModel.status = text;
+            this.#cpuModel.status = status;
         }
     }
 
@@ -179,5 +179,14 @@ class PullOutCardsScene extends Scene {
     #flowEndCleanUp() {
         this.#battleFieldVM.cards = [];
         this.#allPlayerList.map(p => p.forcePass = false);
+
+        if (this.#playerItemVM.status !== PlayerStatus.GameOver) {
+            this.#playerItemVM.status = PlayerStatus.NONE;
+        }
+        this.#cpuListVM.cpuModelList.forEach(c => {
+            if (c.status !== PlayerStatus.GameOver) {
+                c.status = PlayerStatus.NONE;
+            }
+        });
     }
 }

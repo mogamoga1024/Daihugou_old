@@ -2,7 +2,7 @@
 class CpuModel {
     id = 0;
     name = "";
-    status = "";
+    status = PlayerStatus.NONE;
     cardsCount = 0;
     ranking = 0;
     isTurn = false;
@@ -10,7 +10,6 @@ class CpuModel {
     constructor(cpu) {
         this.id = cpu.id;
         this.name = cpu.name;
-        this.status = "";
         this.cardsCount = cpu.cards.length;
         this.ranking = cpu.ranking;
     }

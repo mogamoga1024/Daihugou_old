@@ -35,7 +35,7 @@ const createPlayerItem = function(gameManager) {
             gameManager.playerItemVM = this;
             this.player = gameManager.player;
             this.name = this.player.name;
-            this.status = "";
+            this.status = PlayerStatus.NONE;
             this.setPlayerCardModels(this.player.cards);
         },
         computed: {

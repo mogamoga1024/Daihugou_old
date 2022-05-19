@@ -56,6 +56,10 @@ class AbstractPlayer extends IDAble {
         return this.cards.length !== 0;
     }
 
+    get isGameOver() {
+        return !this.isActive;
+    }
+
     get nextActivePlayer() {
         let player = this;
         do {
