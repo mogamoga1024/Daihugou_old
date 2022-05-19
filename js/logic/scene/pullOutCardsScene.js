@@ -35,9 +35,14 @@ class PullOutCardsScene extends Scene {
             this.#allPlayerList.forEach(p => p.forcePass = false);
 
             this.#flowEndCleanUp();
-            this.#playerItemVM.isPlayerTurn = false;
-            this.#cpuModel.isTurn = false;
 
+            if (this.#player.isHuman) {
+                this.#playerItemVM.isPlayerTurn = false;
+            }
+            else {
+                this.#cpuModel.isTurn = false;
+            }
+            
             console.log("フロー終了");
             
             return new PullOutCardsScene(this.gameManager, this.#player, true);
