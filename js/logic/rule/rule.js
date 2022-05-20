@@ -7,7 +7,7 @@ class Rule {
      * @returns 
      */
     static canPullOutCards(battleFieldCards, selectedCards) {
-        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+        // TODO 「階段、縛り、革命、禁止あがり、Joker」は一旦考えない。
 
         if (selectedCards.length !== battleFieldCards.length) {
             // 場に出ているカードの枚数と異なれば出せない。
@@ -30,7 +30,7 @@ class Rule {
      * @returns {Array<Card>} 場に出せるカード
      */
     static findSelectableCards(battleFieldCards, cards) {
-        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+        // TODO 「縛り、革命、禁止あがり、Joker」は一旦考えない。
 
         if (battleFieldCards.length === 0) {
             return [...cards];
@@ -70,7 +70,24 @@ class Rule {
             }
         }
         else if (bfHand === Hand.Kaidan) {
-            
+            const cardsMap = new Map();
+            cardsMap.set(Suit.Spade, []);
+            cardsMap.set(Suit.Heart, []);
+            cardsMap.set(Suit.Diamond, []);
+            cardsMap.set(Suit.Club, []);
+
+            for (const card of strongCards) {
+                const suitCards = cardsMap.get(card.suit);
+                if (suitCards.length === 0 || card.power - suitCards[suitCards.length - 1].card.power === 1) {
+                    suitCards.push(card);
+                }
+            }
+
+            for (const suitCards of cardsMap.values()) {
+                if (suitCards.length >= battleFieldCards.length) {
+                    selectableCards = selectableCards.concat(suitCards);
+                }
+            }
         }
 
         return selectableCards;
@@ -85,7 +102,7 @@ class Rule {
      * @returns 
      */
     static findSelectableRemainingCards(battleFieldCards, selectableCards, selectedCards) {
-        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+        // TODO 「階段、縛り、革命、禁止あがり、Joker」は一旦考えない。
 
         if (selectedCards.length === 0) {
             throw new Error(this.findSelectableCards.name + "を利用してください。");
@@ -109,7 +126,7 @@ class Rule {
      * @returns 
      */
     static findSelectableHands(battleFieldCards, cards) {
-        // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
+        // TODO 「階段、縛り、革命、禁止あがり、Joker」は一旦考えない。
 
         if (battleFieldCards.length === 0) {
             // TODO 仮
