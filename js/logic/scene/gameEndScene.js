@@ -1,10 +1,14 @@
 
 class GameEndScene extends Scene {
     #battleFieldVM = null;
+    #playerItemVM = null;
+    #cpuListVM = null;
 
     constructor(gameManager) {
         super(gameManager);
         this.#battleFieldVM = gameManager.battleFieldVM;
+        this.#playerItemVM = gameManager.playerItemVM;
+        this.#cpuListVM = gameManager.cpuListVM;
     }
 
     start() {
@@ -21,6 +25,9 @@ class GameEndScene extends Scene {
         this.gameManager.players.forEach(p => {
             console.log("name: " + p.name + ", ranking: " + p.ranking);
         });
+
+        this.#playerItemVM.rank = this.gameManager.players[0].rank;
+        this.#cpuListVM.updateCpuModelList();
 
         this.#battleFieldVM.inGame = false;
         this.#battleFieldVM.isFirstGame = false;

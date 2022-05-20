@@ -14,10 +14,15 @@ button {
     color: red;
 }
 
+.spacer {
+    width: 100%;
+}
+
 #player-status-container {
     display: flex;
     margin: 0 auto;
     max-width: 920px;
+    flex-wrap: wrap;
     justify-content: center;
 }
 

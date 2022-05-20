@@ -3,8 +3,12 @@ const createPlayerItem = function(gameManager) {
     return {
         template: `
             <div id="player-status-container">
-                <span class="name" :class="{'current-turn': isPlayerTurn}">{{ name }}</span><!--
-                --><span :class="{'status': status !== ''}">{{ status }}</span>
+                <div>{{ rank }}</div>
+                <div class="spacer"></div>
+                <div>
+                    <span class="name" :class="{'current-turn': isPlayerTurn}">{{ name }}</span><!--
+                    --><span :class="{'status': status !== ''}">{{ status }}</span>
+                </div>
             </div>
             <div id="player-button-container">
                 <button @click="outputCards" :disabled="canOutputCards === false">{{ outputCardsButtonText }}</button>
@@ -36,6 +40,7 @@ const createPlayerItem = function(gameManager) {
             this.player = gameManager.players[0];
             this.name = this.player.name;
             this.status = PlayerStatus.NONE;
+            this.rank = this.player.rank;
             this.setPlayerCardModels(this.player.cards);
         },
         computed: {
