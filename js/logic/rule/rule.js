@@ -114,8 +114,15 @@ class Rule {
             return [...selectedCards];
         }
         
-        const power = selectedCards[0].power;
-        return selectableCards.filter(c => c.power === power);
+        const bfHand = Hand.CardsToHand(battleFieldCards);
+
+        if (bfHand === Hand.Single || bfHand === Hand.Zorome) {
+            const power = selectedCards[0].power;
+            return selectableCards.filter(c => c.power === power);
+        }
+        else if (bfHand === Hand.Kaidan) {
+            // TODO
+        }
     }
 
     /**
