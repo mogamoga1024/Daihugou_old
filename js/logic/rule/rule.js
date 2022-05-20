@@ -18,6 +18,7 @@ class Rule {
     /**
      * ・手札から場に出せるカードを探す。
      * ・手札は昇順でソートされていることが前提
+     * ・Playerが使うことを想定
      * @param {Array<Card>} battleFieldCards 場のカード 
      * @param {Array<Card>} cards 手札
      * @returns {Array<Card>} 場に出せるカード
@@ -61,6 +62,14 @@ class Rule {
         return selectableCards;
     }
 
+    /**
+     * ・選択されているカードと残りのカードから選択可能なカードを探す。
+     * ・Playerが使うことを想定
+     * @param {*} battleFieldCards 
+     * @param {*} selectableCards 
+     * @param {*} selectedCards 
+     * @returns 
+     */
     static findSelectableRemainingCards(battleFieldCards, selectableCards, selectedCards) {
         // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
 
@@ -78,6 +87,13 @@ class Rule {
         return selectableCards.filter(c => c.power === power);
     }
 
+    /**
+     * ・手札から出せる手役一覧
+     * ・CPUが使うことを想定
+     * @param {*} battleFieldCards 
+     * @param {*} cards 
+     * @returns 
+     */
     static findSelectableHands(battleFieldCards, cards) {
         // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
 
