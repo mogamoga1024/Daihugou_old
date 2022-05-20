@@ -92,6 +92,8 @@ class PullOutCardsScene extends Scene {
 
             this.#flowEndCleanUp();
 
+            await Common.sleep(1000);
+
             return new GameEndScene(this.gameManager);
         }
         else if (this.#battleFieldVM.cards.length > 0 && nextActivePlayer.latestPullOutCard.id === this.#battleFieldVM.cards[0].id) {
