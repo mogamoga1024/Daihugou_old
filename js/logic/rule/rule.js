@@ -1,5 +1,11 @@
 
 class Rule {
+    /**
+     * いるかなあ このメソッド
+     * @param {*} battleFieldCards 
+     * @param {*} selectedCards 
+     * @returns 
+     */
     static canPullOutCards(battleFieldCards, selectedCards) {
         // TODO 「階段、縛り、革命、禁止あがり」は一旦考えない。
 
@@ -34,29 +40,37 @@ class Rule {
         if (strongCards.length === 0) {
             return [];
         }
+
+        const bfHand = Hand.CardsToHand(battleFieldCards);
         
-        let tmpCards = [];
         let selectableCards = [];
-        let currentPower = strongCards[0].power;
-        // ↓ 最後のカードの枚数が1枚の時に選択されない問題を解決するための暫定対応
-        strongCards.push(new Card(Suit.None, "Dummy", Number.MAX_SAFE_INTEGER));
-        for (let i = 0; i < strongCards.length; i++) {
-            const card = strongCards[i];
-            const isSamePower = card.power === currentPower;
-            const isLastCard = i === strongCards.length - 1;
-            if (isSamePower || tmpCards.length === 0) {
-                tmpCards.push(card);
-            }
-            if (isSamePower === false || isLastCard) {
-                if (tmpCards.length >= battleFieldCards.length) {
-                    selectableCards = selectableCards.concat(tmpCards);
+
+        if (bfHand === Hand.Single || bfHand === Hand.Zorome) {
+            let tmpCards = [];
+            let currentPower = strongCards[0].power;
+            // ↓ 最後のカードの枚数が1枚の時に選択されない問題を解決するための暫定対応
+            strongCards.push(new Card(Suit.None, "Dummy", Number.MAX_SAFE_INTEGER));
+            for (let i = 0; i < strongCards.length; i++) {
+                const card = strongCards[i];
+                const isSamePower = card.power === currentPower;
+                const isLastCard = i === strongCards.length - 1;
+                if (isSamePower || tmpCards.length === 0) {
+                    tmpCards.push(card);
                 }
-                currentPower = card.power;
-                tmpCards = [];
+                if (isSamePower === false || isLastCard) {
+                    if (tmpCards.length >= battleFieldCards.length) {
+                        selectableCards = selectableCards.concat(tmpCards);
+                    }
+                    currentPower = card.power;
+                    tmpCards = [];
+                }
+                if (isSamePower === false && isLastCard == false) {
+                    tmpCards.push(card);
+                }
             }
-            if (isSamePower === false && isLastCard == false) {
-                tmpCards.push(card);
-            }
+        }
+        else if (bfHand === Hand.Kaidan) {
+            
         }
 
         return selectableCards;
